@@ -1,0 +1,121 @@
+name: DAST Nightly
+
+on:
+  schedule:
+    - cron: "0 3 * * *"
+  workflow_dispatch:
+    inputs:
+      target_ref:
+        description: Software repository branch or tag to scan
+        required: false
+        default: develop
+        type: string
+
+permissions:
+  actions: read
+  contents: read
+  security-events: write
+
+concurrency:
+  group: dast-nightly
+  cancel-in-progress: false
+
+env:
+  TARGET_REPOSITORY: alof2004/softwate-baseline-ses25_102-mirror
+  TARGET_REPOSITORY_URL: https://github.com/alof2004/softwate-baseline-ses25_102-mirror.git
+  DEFAULT_TARGET_REF: develop
+
+jobs:
+  zap:
+    name: OWASP ZAP
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - name: Check out software repository
+        env:
+          SOFTWARE_REPO_PAT: ${{ secrets.SOFTWARE_REPO_PAT }}
+          TARGET_REF: ${{ inputs.target_ref || env.DEFAULT_TARGET_REF }}
+          TARGET_REPOSITORY_URL: ${{ env.TARGET_REPOSITORY_URL }}
+        run: |
+          if [ -z "${SOFTWARE_REPO_PAT}" ]; then
+            echo "Missing required secret SOFTWARE_REPO_PAT" >&2
+            exit 1
+          fi
+
+          AUTHENTICATED_URL="${TARGET_REPOSITORY_URL/https:\/\//https:\/\/x-access-token:${SOFTWARE_REPO_PAT}@}"
+
+          git clone \
+            --depth 1 \
+            --branch "${TARGET_REF}" \
+            "${AUTHENTICATED_URL}" \
+            software
+
+      - name: Make DAST scripts executable
+        working-directory: software
+        run: chmod +x dast/scripts/*.sh
+
+      - name: Run nightly DAST scan
+        working-directory: software
+        env:
+          COMPOSE_PROJECT_NAME: clinic-dast-nightly-${{ github.run_id }}
+        run: ./dast/scripts/run-dast-scan.sh
+
+      - name: Upload DAST reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: dast-nightly-reports
+          path: |
+            software/dast/reports/zap-report.html
+            software/dast/reports/zap-report.json
+            software/dast/reports/zap-report.sarif
+          if-no-files-found: warn
+
+      - name: Publish DAST findings
+        if: always() && hashFiles('software/dast/reports/zap-report.sarif') != ''
+        continue-on-error: true
+        uses: github/codeql-action/upload-sarif@v4
+        with:
+          sarif_file: software/dast/reports/zap-report.sarif
+          category: dast-zap-nightly
+
+      - name: Summarize DAST findings
+        if: always() && hashFiles('software/dast/reports/zap-report.json') != ''
+        env:
+          TARGET_REF: ${{ inputs.target_ref || env.DEFAULT_TARGET_REF }}
+        run: |
+          python3 - <<'PY'
+          import json
+          import os
+          from pathlib import Path
+
+          report_path = Path("software/dast/reports/zap-report.json")
+          report = json.loads(report_path.read_text())
+          summary_path = Path(os.environ["GITHUB_STEP_SUMMARY"])
+
+          alerts = []
+          for site in report.get("site", []):
+              alerts.extend(site.get("alerts", []))
+
+          counts = {"High": 0, "Medium": 0, "Low": 0, "Informational": 0}
+          for alert in alerts:
+              risk = alert.get("risk", "Informational")
+              counts[risk] = counts.get(risk, 0) + 1
+
+          lines = [
+              "## DAST Scan Summary",
+              "",
+              f"- Target repository: `{os.environ['TARGET_REPOSITORY']}`",
+              f"- Target ref: `{os.environ['TARGET_REF']}`",
+              "",
+              "| Severity | Count |",
+              "| --- | ---: |",
+              f"| High | {counts.get('High', 0)} |",
+              f"| Medium | {counts.get('Medium', 0)} |",
+              f"| Low | {counts.get('Low', 0)} |",
+              f"| Informational | {counts.get('Informational', 0)} |",
+              f"| Total | {sum(counts.values())} |",
+          ]
+
+          summary_path.write_text("\n".join(lines) + "\n")
+          PY
