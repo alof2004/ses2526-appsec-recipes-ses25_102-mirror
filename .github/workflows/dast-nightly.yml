@@ -20,8 +20,8 @@ concurrency:
   cancel-in-progress: false
 
 env:
-  TARGET_REPOSITORY: alof2004/softwate-baseline-ses25_102-mirror
-  TARGET_REPOSITORY_URL: https://github.com/alof2004/softwate-baseline-ses25_102-mirror.git
+  TARGET_REPOSITORY: detiuaveiro/softwate-baseline-ses25_102
+  TARGET_REPOSITORY_URL: https://github.com/detiuaveiro/softwate-baseline-ses25_102
   DEFAULT_TARGET_REF: develop
 
 jobs:
@@ -114,7 +114,6 @@ jobs:
               "",
               f"- Target repository: `{os.environ['TARGET_REPOSITORY']}`",
               f"- Target ref: `{os.environ['TARGET_REF']}`",
-              "- Counts below represent unique alert types, matching the ZAP HTML summary.",
               "",
               "| Severity | Count |",
               "| --- | ---: |",
