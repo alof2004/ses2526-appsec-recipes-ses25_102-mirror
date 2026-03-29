@@ -84,14 +84,25 @@ jobs:
           report = json.loads(report_path.read_text())
           summary_path = Path(os.environ["GITHUB_STEP_SUMMARY"])
 
-          alerts = []
-          for site in report.get("site", []):
-              alerts.extend(site.get("alerts", []))
-
           counts = {"High": 0, "Medium": 0, "Low": 0, "Informational": 0}
-          for alert in alerts:
-              risk = alert.get("risk", "Informational")
-              counts[risk] = counts.get(risk, 0) + 1
+          seen_alerts = set()
+          for site in report.get("site", []):
+              for alert in site.get("alerts", []):
+                  riskdesc = alert.get("riskdesc") or ""
+                  severity = riskdesc.split(" ", 1)[0] if riskdesc else "Informational"
+                  if severity == "Info":
+                      severity = "Informational"
+
+                  key = (
+                      alert.get("pluginid"),
+                      alert.get("name"),
+                      severity,
+                  )
+                  if key in seen_alerts:
+                      continue
+
+                  seen_alerts.add(key)
+                  counts[severity] = counts.get(severity, 0) + 1
 
           lines = [
               "## DAST Scan Summary",
