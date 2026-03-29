@@ -1,0 +1,1363 @@
+{
+	"@programName": "ZAP",
+	"@version": "2.17.0",
+	"@generated": "Sun, 29 Mar 2026 14:56:00",
+	"created": "2026-03-29T14:56:00.677903177Z",
+	"insights":[
+		{
+			"level": "Low",
+			"reason": "Warning",
+			"site": "",
+			"key": "insight.log.error",
+			"description": "ZAP errors logged - see the zap.log file for details",
+			"statistic": "1"
+		},
+		{
+			"level": "Low",
+			"reason": "Warning",
+			"site": "",
+			"key": "insight.log.warn",
+			"description": "ZAP warnings logged - see the zap.log file for details",
+			"statistic": "40"
+		},
+		{
+			"level": "Info",
+			"reason": "Informational",
+			"site": "http://frontend:5173",
+			"key": "insight.code.1xx",
+			"description": "Percentage of responses with status code 1xx",
+			"statistic": "2"
+		},
+		{
+			"level": "Info",
+			"reason": "Informational",
+			"site": "http://frontend:5173",
+			"key": "insight.code.2xx",
+			"description": "Percentage of responses with status code 2xx",
+			"statistic": "42"
+		},
+		{
+			"level": "Info",
+			"reason": "Informational",
+			"site": "http://frontend:5173",
+			"key": "insight.code.3xx",
+			"description": "Percentage of responses with status code 3xx",
+			"statistic": "54"
+		},
+		{
+			"level": "Info",
+			"reason": "Informational",
+			"site": "http://frontend:5173",
+			"key": "insight.endpoint.ctype.application/json",
+			"description": "Percentage of endpoints with content type application/json",
+			"statistic": "16"
+		},
+		{
+			"level": "Info",
+			"reason": "Informational",
+			"site": "http://frontend:5173",
+			"key": "insight.endpoint.ctype.image/svg+xml",
+			"description": "Percentage of endpoints with content type image/svg+xml",
+			"statistic": "2"
+		},
+		{
+			"level": "Info",
+			"reason": "Informational",
+			"site": "http://frontend:5173",
+			"key": "insight.endpoint.ctype.text/html",
+			"description": "Percentage of endpoints with content type text/html",
+			"statistic": "6"
+		},
+		{
+			"level": "Info",
+			"reason": "Informational",
+			"site": "http://frontend:5173",
+			"key": "insight.endpoint.ctype.text/javascript",
+			"description": "Percentage of endpoints with content type text/javascript",
+			"statistic": "70"
+		},
+		{
+			"level": "Info",
+			"reason": "Informational",
+			"site": "http://frontend:5173",
+			"key": "insight.endpoint.method.DELETE",
+			"description": "Percentage of endpoints with method DELETE",
+			"statistic": "4"
+		},
+		{
+			"level": "Info",
+			"reason": "Informational",
+			"site": "http://frontend:5173",
+			"key": "insight.endpoint.method.GET",
+			"description": "Percentage of endpoints with method GET",
+			"statistic": "86"
+		},
+		{
+			"level": "Info",
+			"reason": "Informational",
+			"site": "http://frontend:5173",
+			"key": "insight.endpoint.method.PUT",
+			"description": "Percentage of endpoints with method PUT",
+			"statistic": "10"
+		},
+		{
+			"level": "Info",
+			"reason": "Informational",
+			"site": "http://frontend:5173",
+			"key": "insight.endpoint.total",
+			"description": "Count of total endpoints",
+			"statistic": "50"
+		},
+		{
+			"level": "Info",
+			"reason": "Exceeded Low",
+			"site": "http://frontend:5173",
+			"key": "insight.response.slow",
+			"description": "Percentage of slow responses",
+			"statistic": "10"
+		},
+		{
+			"level": "Info",
+			"reason": "Informational",
+			"site": "https://firefox-settings-attachments.cdn.mozilla.net",
+			"key": "insight.code.2xx",
+			"description": "Percentage of responses with status code 2xx",
+			"statistic": "100"
+		},
+		{
+			"level": "Info",
+			"reason": "Informational",
+			"site": "https://firefox-settings-attachments.cdn.mozilla.net",
+			"key": "insight.endpoint.ctype.text/plain",
+			"description": "Percentage of endpoints with content type text/plain",
+			"statistic": "100"
+		},
+		{
+			"level": "Info",
+			"reason": "Informational",
+			"site": "https://firefox-settings-attachments.cdn.mozilla.net",
+			"key": "insight.endpoint.method.GET",
+			"description": "Percentage of endpoints with method GET",
+			"statistic": "100"
+		},
+		{
+			"level": "Info",
+			"reason": "Informational",
+			"site": "https://firefox-settings-attachments.cdn.mozilla.net",
+			"key": "insight.endpoint.total",
+			"description": "Count of total endpoints",
+			"statistic": "1"
+		}
+	],
+	"site":[ 
+		{
+			"@name": "https://firefox-settings-attachments.cdn.mozilla.net",
+			"@host": "firefox-settings-attachments.cdn.mozilla.net",
+			"@port": "443",
+			"@ssl": "true",
+			"alerts": [ 
+				{
+					"pluginid": "10035",
+					"alertRef": "10035-1",
+					"alert": "Strict-Transport-Security Header Not Set",
+					"name": "Strict-Transport-Security Header Not Set",
+					"riskcode": "1",
+					"confidence": "3",
+					"riskdesc": "Low (High)",
+					"desc": "<p>HTTP Strict Transport Security (HSTS) is a web security policy mechanism whereby a web server declares that complying user agents (such as a web browser) are to interact with it using only secure HTTPS connections (i.e. HTTP layered over TLS/SSL). HSTS is an IETF standards track protocol and is specified in RFC 6797.</p>",
+					"instances":[ 
+						{
+							"id": "160",
+							"uri": "https://firefox-settings-attachments.cdn.mozilla.net/main-workspace/tracking-protection-lists/42520b78-dc12-495f-89bd-ce830a2c26c2",
+							"nodeName": "https:\/\/firefox-settings-attachments.cdn.mozilla.net\/main-workspace\/tracking-protection-lists\/42520b78-dc12-495f-89bd-ce830a2c26c2",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "",
+							"otherinfo": ""
+						}
+					],
+					"count": "1",
+					"systemic": true,
+					"solution": "<p>Ensure that your web server, application server, load balancer, etc. is configured to enforce Strict-Transport-Security.</p>",
+					"otherinfo": "",
+					"reference": "<p>https://cheatsheetseries.owasp.org/cheatsheets/HTTP_Strict_Transport_Security_Cheat_Sheet.html</p><p>https://owasp.org/www-community/Security_Headers</p><p>https://en.wikipedia.org/wiki/HTTP_Strict_Transport_Security</p><p>https://caniuse.com/stricttransportsecurity</p><p>https://datatracker.ietf.org/doc/html/rfc6797</p>",
+					"cweid": "319",
+					"wascid": "15",
+					"sourceid": "1271"
+				},
+				{
+					"pluginid": "10015",
+					"alertRef": "10015",
+					"alert": "Re-examine Cache-control Directives",
+					"name": "Re-examine Cache-control Directives",
+					"riskcode": "0",
+					"confidence": "1",
+					"riskdesc": "Informational (Low)",
+					"desc": "<p>The cache-control header has not been set properly or is missing, allowing the browser and proxies to cache content. For static assets like css, js, or image files this might be intended, however, the resources should be reviewed to ensure that no sensitive content will be cached.</p>",
+					"instances":[ 
+						{
+							"id": "158",
+							"uri": "https://firefox-settings-attachments.cdn.mozilla.net/main-workspace/tracking-protection-lists/42520b78-dc12-495f-89bd-ce830a2c26c2",
+							"nodeName": "https:\/\/firefox-settings-attachments.cdn.mozilla.net\/main-workspace\/tracking-protection-lists\/42520b78-dc12-495f-89bd-ce830a2c26c2",
+							"method": "GET",
+							"param": "cache-control",
+							"attack": "",
+							"evidence": "public, max-age=31536000, immutable",
+							"otherinfo": ""
+						}
+					],
+					"count": "1",
+					"systemic": true,
+					"solution": "<p>For secure content, ensure the cache-control HTTP header is set with \"no-cache, no-store, must-revalidate\". If an asset should be cached consider setting the directives \"public, max-age, immutable\".</p>",
+					"otherinfo": "",
+					"reference": "<p>https://cheatsheetseries.owasp.org/cheatsheets/Session_Management_Cheat_Sheet.html#web-content-caching</p><p>https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Cache-Control</p><p>https://grayduck.mn/2021/09/13/cache-control-recommendations/</p>",
+					"cweid": "525",
+					"wascid": "13",
+					"sourceid": "1271"
+				},
+				{
+					"pluginid": "10050",
+					"alertRef": "10050-1",
+					"alert": "Retrieved from Cache",
+					"name": "Retrieved from Cache",
+					"riskcode": "0",
+					"confidence": "2",
+					"riskdesc": "Informational (Medium)",
+					"desc": "<p>The content was retrieved from a shared cache. If the response data is sensitive, personal or user-specific, this may result in sensitive information being leaked. In some cases, this may even result in a user gaining complete control of the session of another user, depending on the configuration of the caching components in use in their environment. This is primarily an issue where caching servers such as \"proxy\" caches are configured on the local network. This configuration is typically found in corporate or educational environments, for instance.</p>",
+					"instances":[ 
+						{
+							"id": "159",
+							"uri": "https://firefox-settings-attachments.cdn.mozilla.net/main-workspace/tracking-protection-lists/42520b78-dc12-495f-89bd-ce830a2c26c2",
+							"nodeName": "https:\/\/firefox-settings-attachments.cdn.mozilla.net\/main-workspace\/tracking-protection-lists\/42520b78-dc12-495f-89bd-ce830a2c26c2",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "HIT",
+							"otherinfo": ""
+						}
+					],
+					"count": "1",
+					"systemic": true,
+					"solution": "<p>Validate that the response does not contain sensitive, personal or user-specific information. If it does, consider the use of the following HTTP response headers, to limit, or prevent the content being stored and retrieved from the cache by another user:</p><p>Cache-Control: no-cache, no-store, must-revalidate, private</p><p>Pragma: no-cache</p><p>Expires: 0</p><p>This configuration directs both HTTP 1.0 and HTTP 1.1 compliant caching servers to not store the response, and to not retrieve the response (without validation) from the cache, in response to a similar request.</p>",
+					"otherinfo": "",
+					"reference": "<p>https://datatracker.ietf.org/doc/html/rfc7234</p><p>https://datatracker.ietf.org/doc/html/rfc7231</p><p>https://www.rfc-editor.org/rfc/rfc9110.html</p>",
+					"cweid": "525",
+					"wascid": "-1",
+					"sourceid": "1271"
+				}
+			]
+		},
+		{
+			"@name": "http://frontend:5173",
+			"@host": "frontend",
+			"@port": "5173",
+			"@ssl": "false",
+			"alerts": [ 
+				{
+					"pluginid": "10038",
+					"alertRef": "10038-1",
+					"alert": "Content Security Policy (CSP) Header Not Set",
+					"name": "Content Security Policy (CSP) Header Not Set",
+					"riskcode": "2",
+					"confidence": "3",
+					"riskdesc": "Medium (High)",
+					"desc": "<p>Content Security Policy (CSP) is an added layer of security that helps to detect and mitigate certain types of attacks, including Cross Site Scripting (XSS) and data injection attacks. These attacks are used for everything from data theft to site defacement or distribution of malware. CSP provides a set of standard HTTP headers that allow website owners to declare approved sources of content that browsers should be allowed to load on that page \u2014 covered types are JavaScript, CSS, HTML frames, fonts, images and embeddable objects such as Java applets, ActiveX, audio and video files.</p>",
+					"instances":[ 
+						{
+							"id": "17",
+							"uri": "http://frontend:5173",
+							"nodeName": "http:\/\/frontend:5173",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "",
+							"otherinfo": ""
+						},
+						{
+							"id": "1",
+							"uri": "http://frontend:5173/",
+							"nodeName": "http:\/\/frontend:5173\/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "",
+							"otherinfo": ""
+						},
+						{
+							"id": "23",
+							"uri": "http://frontend:5173/robots.txt",
+							"nodeName": "http:\/\/frontend:5173\/robots.txt",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "",
+							"otherinfo": ""
+						},
+						{
+							"id": "19",
+							"uri": "http://frontend:5173/sitemap.xml",
+							"nodeName": "http:\/\/frontend:5173\/sitemap.xml",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "",
+							"otherinfo": ""
+						}
+					],
+					"count": "4",
+					"systemic": true,
+					"solution": "<p>Ensure that your web server, application server, load balancer, etc. is configured to set the Content-Security-Policy header.</p>",
+					"otherinfo": "",
+					"reference": "<p>https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/CSP</p><p>https://cheatsheetseries.owasp.org/cheatsheets/Content_Security_Policy_Cheat_Sheet.html</p><p>https://www.w3.org/TR/CSP/</p><p>https://w3c.github.io/webappsec-csp/</p><p>https://web.dev/articles/csp</p><p>https://caniuse.com/#feat=contentsecuritypolicy</p><p>https://content-security-policy.com/</p>",
+					"cweid": "693",
+					"wascid": "15",
+					"sourceid": "7"
+				},
+				{
+					"pluginid": "10020",
+					"alertRef": "10020-1",
+					"alert": "Missing Anti-clickjacking Header",
+					"name": "Missing Anti-clickjacking Header",
+					"riskcode": "2",
+					"confidence": "2",
+					"riskdesc": "Medium (Medium)",
+					"desc": "<p>The response does not protect against 'ClickJacking' attacks. It should include either Content-Security-Policy with 'frame-ancestors' directive or X-Frame-Options.</p>",
+					"instances":[ 
+						{
+							"id": "13",
+							"uri": "http://frontend:5173",
+							"nodeName": "http:\/\/frontend:5173",
+							"method": "GET",
+							"param": "x-frame-options",
+							"attack": "",
+							"evidence": "",
+							"otherinfo": ""
+						},
+						{
+							"id": "0",
+							"uri": "http://frontend:5173/",
+							"nodeName": "http:\/\/frontend:5173\/",
+							"method": "GET",
+							"param": "x-frame-options",
+							"attack": "",
+							"evidence": "",
+							"otherinfo": ""
+						},
+						{
+							"id": "16",
+							"uri": "http://frontend:5173/robots.txt",
+							"nodeName": "http:\/\/frontend:5173\/robots.txt",
+							"method": "GET",
+							"param": "x-frame-options",
+							"attack": "",
+							"evidence": "",
+							"otherinfo": ""
+						},
+						{
+							"id": "15",
+							"uri": "http://frontend:5173/sitemap.xml",
+							"nodeName": "http:\/\/frontend:5173\/sitemap.xml",
+							"method": "GET",
+							"param": "x-frame-options",
+							"attack": "",
+							"evidence": "",
+							"otherinfo": ""
+						}
+					],
+					"count": "4",
+					"systemic": true,
+					"solution": "<p>Modern Web browsers support the Content-Security-Policy and X-Frame-Options HTTP headers. Ensure one of them is set on all web pages returned by your site/app.</p><p>If you expect the page to be framed only by pages on your server (e.g. it's part of a FRAMESET) then you'll want to use SAMEORIGIN, otherwise if you never expect the page to be framed, you should use DENY. Alternatively consider implementing Content Security Policy's \"frame-ancestors\" directive.</p>",
+					"otherinfo": "",
+					"reference": "<p>https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/X-Frame-Options</p>",
+					"cweid": "1021",
+					"wascid": "15",
+					"sourceid": "7"
+				},
+				{
+					"pluginid": "90022",
+					"alertRef": "90022",
+					"alert": "Application Error Disclosure",
+					"name": "Application Error Disclosure",
+					"riskcode": "1",
+					"confidence": "2",
+					"riskdesc": "Low (Medium)",
+					"desc": "<p>This page contains an error/warning message that may disclose sensitive information like the location of the file that produced the unhandled exception. This information can be used to launch further attacks against the web application. The alert could be a false positive if the error message is found inside a documentation page.</p>",
+					"instances":[ 
+						{
+							"id": "156",
+							"uri": "http://frontend:5173/api/patients",
+							"nodeName": "http:\/\/frontend:5173\/api\/patients",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "HTTP/1.1 500 Internal Server Error",
+							"otherinfo": ""
+						}
+					],
+					"count": "1",
+					"systemic": false,
+					"solution": "<p>Review the source code of this page. Implement custom error pages. Consider implementing a mechanism to provide a unique error reference/identifier to the client (browser) while logging the details on the server side and not exposing them to the user.</p>",
+					"otherinfo": "",
+					"reference": "",
+					"cweid": "550",
+					"wascid": "13",
+					"sourceid": "888"
+				},
+				{
+					"pluginid": "90004",
+					"alertRef": "90004-2",
+					"alert": "Cross-Origin-Embedder-Policy Header Missing or Invalid",
+					"name": "Cross-Origin-Embedder-Policy Header Missing or Invalid",
+					"riskcode": "1",
+					"confidence": "2",
+					"riskdesc": "Low (Medium)",
+					"desc": "<p>Cross-Origin-Embedder-Policy header is a response header that prevents a document from loading any cross-origin resources that don't explicitly grant the document permission (using CORP or CORS).</p>",
+					"instances":[ 
+						{
+							"id": "40",
+							"uri": "http://frontend:5173",
+							"nodeName": "http:\/\/frontend:5173",
+							"method": "GET",
+							"param": "Cross-Origin-Embedder-Policy",
+							"attack": "",
+							"evidence": "",
+							"otherinfo": ""
+						},
+						{
+							"id": "7",
+							"uri": "http://frontend:5173/",
+							"nodeName": "http:\/\/frontend:5173\/",
+							"method": "GET",
+							"param": "Cross-Origin-Embedder-Policy",
+							"attack": "",
+							"evidence": "",
+							"otherinfo": ""
+						},
+						{
+							"id": "57",
+							"uri": "http://frontend:5173/robots.txt",
+							"nodeName": "http:\/\/frontend:5173\/robots.txt",
+							"method": "GET",
+							"param": "Cross-Origin-Embedder-Policy",
+							"attack": "",
+							"evidence": "",
+							"otherinfo": ""
+						},
+						{
+							"id": "53",
+							"uri": "http://frontend:5173/sitemap.xml",
+							"nodeName": "http:\/\/frontend:5173\/sitemap.xml",
+							"method": "GET",
+							"param": "Cross-Origin-Embedder-Policy",
+							"attack": "",
+							"evidence": "",
+							"otherinfo": ""
+						}
+					],
+					"count": "4",
+					"systemic": true,
+					"solution": "<p>Ensure that the application/web server sets the Cross-Origin-Embedder-Policy header appropriately, and that it sets the Cross-Origin-Embedder-Policy header to 'require-corp' for documents.</p><p>If possible, ensure that the end user uses a standards-compliant and modern web browser that supports the Cross-Origin-Embedder-Policy header (https://caniuse.com/mdn-http_headers_cross-origin-embedder-policy).</p>",
+					"otherinfo": "",
+					"reference": "<p>https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Cross-Origin-Embedder-Policy</p>",
+					"cweid": "693",
+					"wascid": "14",
+					"sourceid": "7"
+				},
+				{
+					"pluginid": "90004",
+					"alertRef": "90004-3",
+					"alert": "Cross-Origin-Opener-Policy Header Missing or Invalid",
+					"name": "Cross-Origin-Opener-Policy Header Missing or Invalid",
+					"riskcode": "1",
+					"confidence": "2",
+					"riskdesc": "Low (Medium)",
+					"desc": "<p>Cross-Origin-Opener-Policy header is a response header that allows a site to control if others included documents share the same browsing context. Sharing the same browsing context with untrusted documents might lead to data leak.</p>",
+					"instances":[ 
+						{
+							"id": "41",
+							"uri": "http://frontend:5173",
+							"nodeName": "http:\/\/frontend:5173",
+							"method": "GET",
+							"param": "Cross-Origin-Opener-Policy",
+							"attack": "",
+							"evidence": "",
+							"otherinfo": ""
+						},
+						{
+							"id": "8",
+							"uri": "http://frontend:5173/",
+							"nodeName": "http:\/\/frontend:5173\/",
+							"method": "GET",
+							"param": "Cross-Origin-Opener-Policy",
+							"attack": "",
+							"evidence": "",
+							"otherinfo": ""
+						},
+						{
+							"id": "59",
+							"uri": "http://frontend:5173/robots.txt",
+							"nodeName": "http:\/\/frontend:5173\/robots.txt",
+							"method": "GET",
+							"param": "Cross-Origin-Opener-Policy",
+							"attack": "",
+							"evidence": "",
+							"otherinfo": ""
+						},
+						{
+							"id": "55",
+							"uri": "http://frontend:5173/sitemap.xml",
+							"nodeName": "http:\/\/frontend:5173\/sitemap.xml",
+							"method": "GET",
+							"param": "Cross-Origin-Opener-Policy",
+							"attack": "",
+							"evidence": "",
+							"otherinfo": ""
+						}
+					],
+					"count": "4",
+					"systemic": true,
+					"solution": "<p>Ensure that the application/web server sets the Cross-Origin-Opener-Policy header appropriately, and that it sets the Cross-Origin-Opener-Policy header to 'same-origin' for documents.</p><p>'same-origin-allow-popups' is considered as less secured and should be avoided.</p><p>If possible, ensure that the end user uses a standards-compliant and modern web browser that supports the Cross-Origin-Opener-Policy header (https://caniuse.com/mdn-http_headers_cross-origin-opener-policy).</p>",
+					"otherinfo": "",
+					"reference": "<p>https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Cross-Origin-Opener-Policy</p>",
+					"cweid": "693",
+					"wascid": "14",
+					"sourceid": "7"
+				},
+				{
+					"pluginid": "90004",
+					"alertRef": "90004-1",
+					"alert": "Cross-Origin-Resource-Policy Header Missing or Invalid",
+					"name": "Cross-Origin-Resource-Policy Header Missing or Invalid",
+					"riskcode": "1",
+					"confidence": "2",
+					"riskdesc": "Low (Medium)",
+					"desc": "<p>Cross-Origin-Resource-Policy header is an opt-in header designed to counter side-channels attacks like Spectre. Resource should be specifically set as shareable amongst different origins.</p>",
+					"instances":[ 
+						{
+							"id": "36",
+							"uri": "http://frontend:5173",
+							"nodeName": "http:\/\/frontend:5173",
+							"method": "GET",
+							"param": "Cross-Origin-Resource-Policy",
+							"attack": "",
+							"evidence": "",
+							"otherinfo": ""
+						},
+						{
+							"id": "6",
+							"uri": "http://frontend:5173/",
+							"nodeName": "http:\/\/frontend:5173\/",
+							"method": "GET",
+							"param": "Cross-Origin-Resource-Policy",
+							"attack": "",
+							"evidence": "",
+							"otherinfo": ""
+						},
+						{
+							"id": "54",
+							"uri": "http://frontend:5173/robots.txt",
+							"nodeName": "http:\/\/frontend:5173\/robots.txt",
+							"method": "GET",
+							"param": "Cross-Origin-Resource-Policy",
+							"attack": "",
+							"evidence": "",
+							"otherinfo": ""
+						},
+						{
+							"id": "47",
+							"uri": "http://frontend:5173/sitemap.xml",
+							"nodeName": "http:\/\/frontend:5173\/sitemap.xml",
+							"method": "GET",
+							"param": "Cross-Origin-Resource-Policy",
+							"attack": "",
+							"evidence": "",
+							"otherinfo": ""
+						},
+						{
+							"id": "27",
+							"uri": "http://frontend:5173/vite.svg",
+							"nodeName": "http:\/\/frontend:5173\/vite.svg",
+							"method": "GET",
+							"param": "Cross-Origin-Resource-Policy",
+							"attack": "",
+							"evidence": "",
+							"otherinfo": ""
+						}
+					],
+					"count": "5",
+					"systemic": true,
+					"solution": "<p>Ensure that the application/web server sets the Cross-Origin-Resource-Policy header appropriately, and that it sets the Cross-Origin-Resource-Policy header to 'same-origin' for all web pages.</p><p>'same-site' is considered as less secured and should be avoided.</p><p>If resources must be shared, set the header to 'cross-origin'.</p><p>If possible, ensure that the end user uses a standards-compliant and modern web browser that supports the Cross-Origin-Resource-Policy header (https://caniuse.com/mdn-http_headers_cross-origin-resource-policy).</p>",
+					"otherinfo": "",
+					"reference": "<p>https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Cross-Origin-Embedder-Policy</p>",
+					"cweid": "693",
+					"wascid": "14",
+					"sourceid": "7"
+				},
+				{
+					"pluginid": "10063",
+					"alertRef": "10063-1",
+					"alert": "Permissions Policy Header Not Set",
+					"name": "Permissions Policy Header Not Set",
+					"riskcode": "1",
+					"confidence": "2",
+					"riskdesc": "Low (Medium)",
+					"desc": "<p>Permissions Policy Header is an added layer of security that helps to restrict from unauthorized access or usage of browser/client features by web resources. This policy ensures the user privacy by limiting or specifying the features of the browsers can be used by the web resources. Permissions Policy provides a set of standard HTTP headers that allow website owners to limit which features of browsers can be used by the page such as camera, microphone, location, full screen etc.</p>",
+					"instances":[ 
+						{
+							"id": "31",
+							"uri": "http://frontend:5173",
+							"nodeName": "http:\/\/frontend:5173",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "",
+							"otherinfo": ""
+						},
+						{
+							"id": "5",
+							"uri": "http://frontend:5173/",
+							"nodeName": "http:\/\/frontend:5173\/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "",
+							"otherinfo": ""
+						},
+						{
+							"id": "51",
+							"uri": "http://frontend:5173/robots.txt",
+							"nodeName": "http:\/\/frontend:5173\/robots.txt",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "",
+							"otherinfo": ""
+						},
+						{
+							"id": "43",
+							"uri": "http://frontend:5173/sitemap.xml",
+							"nodeName": "http:\/\/frontend:5173\/sitemap.xml",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "",
+							"otherinfo": ""
+						},
+						{
+							"id": "62",
+							"uri": "http://frontend:5173/src/main.jsx",
+							"nodeName": "http:\/\/frontend:5173\/src\/main.jsx",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "",
+							"otherinfo": ""
+						}
+					],
+					"count": "5",
+					"systemic": true,
+					"solution": "<p>Ensure that your web server, application server, load balancer, etc. is configured to set the Permissions-Policy header.</p>",
+					"otherinfo": "",
+					"reference": "<p>https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Permissions-Policy</p><p>https://developer.chrome.com/blog/feature-policy/</p><p>https://scotthelme.co.uk/a-new-security-header-feature-policy/</p><p>https://w3c.github.io/webappsec-feature-policy/</p><p>https://www.smashingmagazine.com/2018/12/feature-policy/</p>",
+					"cweid": "693",
+					"wascid": "15",
+					"sourceid": "7"
+				},
+				{
+					"pluginid": "10096",
+					"alertRef": "10096",
+					"alert": "Timestamp Disclosure - Unix",
+					"name": "Timestamp Disclosure - Unix",
+					"riskcode": "1",
+					"confidence": "1",
+					"riskdesc": "Low (Low)",
+					"desc": "<p>A timestamp was disclosed by the application/web server. - Unix</p>",
+					"instances":[ 
+						{
+							"id": "127",
+							"uri": "http://frontend:5173/node_modules/.vite/deps/react-dom_client.js?v=9de6a5f9",
+							"nodeName": "http:\/\/frontend:5173\/node_modules\/.vite\/deps\/react-dom_client.js (v)",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "2080374784",
+							"otherinfo": "2080374784, which evaluates to: 2035-12-04 09:53:04."
+						}
+					],
+					"count": "1",
+					"systemic": true,
+					"solution": "<p>Manually confirm that the timestamp data is not sensitive, and that the data cannot be aggregated to disclose exploitable patterns.</p>",
+					"otherinfo": "<p>2080374784, which evaluates to: 2035-12-04 09:53:04.</p>",
+					"reference": "<p>https://cwe.mitre.org/data/definitions/200.html</p>",
+					"cweid": "497",
+					"wascid": "13",
+					"sourceid": "296"
+				},
+				{
+					"pluginid": "10021",
+					"alertRef": "10021",
+					"alert": "X-Content-Type-Options Header Missing",
+					"name": "X-Content-Type-Options Header Missing",
+					"riskcode": "1",
+					"confidence": "2",
+					"riskdesc": "Low (Medium)",
+					"desc": "<p>The Anti-MIME-Sniffing header X-Content-Type-Options was not set to 'nosniff'. This allows older versions of Internet Explorer and Chrome to perform MIME-sniffing on the response body, potentially causing the response body to be interpreted and displayed as a content type other than the declared content type. Current (early 2014) and legacy versions of Firefox will use the declared content type (if one is set), rather than performing MIME-sniffing.</p>",
+					"instances":[ 
+						{
+							"id": "24",
+							"uri": "http://frontend:5173",
+							"nodeName": "http:\/\/frontend:5173",
+							"method": "GET",
+							"param": "x-content-type-options",
+							"attack": "",
+							"evidence": "",
+							"otherinfo": "This issue still applies to error type pages (401, 403, 500, etc.) as those pages are often still affected by injection issues, in which case there is still concern for browsers sniffing pages away from their actual content type.\nAt \"High\" threshold this scan rule will not alert on client or server error responses."
+						},
+						{
+							"id": "3",
+							"uri": "http://frontend:5173/",
+							"nodeName": "http:\/\/frontend:5173\/",
+							"method": "GET",
+							"param": "x-content-type-options",
+							"attack": "",
+							"evidence": "",
+							"otherinfo": "This issue still applies to error type pages (401, 403, 500, etc.) as those pages are often still affected by injection issues, in which case there is still concern for browsers sniffing pages away from their actual content type.\nAt \"High\" threshold this scan rule will not alert on client or server error responses."
+						},
+						{
+							"id": "35",
+							"uri": "http://frontend:5173/robots.txt",
+							"nodeName": "http:\/\/frontend:5173\/robots.txt",
+							"method": "GET",
+							"param": "x-content-type-options",
+							"attack": "",
+							"evidence": "",
+							"otherinfo": "This issue still applies to error type pages (401, 403, 500, etc.) as those pages are often still affected by injection issues, in which case there is still concern for browsers sniffing pages away from their actual content type.\nAt \"High\" threshold this scan rule will not alert on client or server error responses."
+						},
+						{
+							"id": "32",
+							"uri": "http://frontend:5173/sitemap.xml",
+							"nodeName": "http:\/\/frontend:5173\/sitemap.xml",
+							"method": "GET",
+							"param": "x-content-type-options",
+							"attack": "",
+							"evidence": "",
+							"otherinfo": "This issue still applies to error type pages (401, 403, 500, etc.) as those pages are often still affected by injection issues, in which case there is still concern for browsers sniffing pages away from their actual content type.\nAt \"High\" threshold this scan rule will not alert on client or server error responses."
+						},
+						{
+							"id": "21",
+							"uri": "http://frontend:5173/vite.svg",
+							"nodeName": "http:\/\/frontend:5173\/vite.svg",
+							"method": "GET",
+							"param": "x-content-type-options",
+							"attack": "",
+							"evidence": "",
+							"otherinfo": "This issue still applies to error type pages (401, 403, 500, etc.) as those pages are often still affected by injection issues, in which case there is still concern for browsers sniffing pages away from their actual content type.\nAt \"High\" threshold this scan rule will not alert on client or server error responses."
+						}
+					],
+					"count": "5",
+					"systemic": true,
+					"solution": "<p>Ensure that the application/web server sets the Content-Type header appropriately, and that it sets the X-Content-Type-Options header to 'nosniff' for all web pages.</p><p>If possible, ensure that the end user uses a standards-compliant and modern web browser that does not perform MIME-sniffing at all, or that can be directed by the web application/web server to not perform MIME-sniffing.</p>",
+					"otherinfo": "<p>This issue still applies to error type pages (401, 403, 500, etc.) as those pages are often still affected by injection issues, in which case there is still concern for browsers sniffing pages away from their actual content type.</p><p>At \"High\" threshold this scan rule will not alert on client or server error responses.</p>",
+					"reference": "<p>https://learn.microsoft.com/en-us/previous-versions/windows/internet-explorer/ie-developer/compatibility/gg622941(v=vs.85)</p><p>https://owasp.org/www-community/Security_Headers</p>",
+					"cweid": "693",
+					"wascid": "15",
+					"sourceid": "7"
+				},
+				{
+					"pluginid": "10094",
+					"alertRef": "10094-3",
+					"alert": "Base64 Disclosure",
+					"name": "Base64 Disclosure",
+					"riskcode": "0",
+					"confidence": "2",
+					"riskdesc": "Informational (Medium)",
+					"desc": "<p>Base64 encoded data was disclosed by the application/web server. Note: in the interests of performance not all base64 strings in the response were analyzed individually, the entire response should be looked at by the analyst/security team/developer(s).</p>",
+					"instances":[ 
+						{
+							"id": "67",
+							"uri": "http://frontend:5173/@vite/client",
+							"nodeName": "http:\/\/frontend:5173\/@vite\/client",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "useandom-26T198340PX75pxJACKVERYMINDBUSHWOLF_GQZbfghjklqvwyzrict",
+							"otherinfo": "\uFFFD\u01DA\uFFFD\uFFFD&\uFFFDn\uFFFD\uFFFD\uFFFD7\uFFFDC\uFFFD\uFFFDq$\\x0000\uFFFDTDX0\uFFFDC\\x0005D\uFFFDX\uFFFD\uFFFD\uFFFDd\\x0019m\uFFFD!\uFFFDIj\uFFFD\\x000c\uFFFD\uFFFD'-"
+						},
+						{
+							"id": "78",
+							"uri": "http://frontend:5173/node_modules/.vite/deps/react.js?v=962d8540",
+							"nodeName": "http:\/\/frontend:5173\/node_modules\/.vite\/deps\/react.js (v)",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInJlYWN0LmpzP3Y9OTYyZDg1NDAiXSwic291cmNlc0NvbnRlbnQiOlsiaW1wb3J0IHtcbiAgcmVxdWlyZV9yZWFjdFxufSBmcm9tIFwiL25vZGVfbW9kdWxlcy8udml0ZS9kZXBzL2NodW5rLVlTQ0s3SlI3LmpzP3Y9MTZiYWNhZWVcIjtcbmV4cG9ydCBkZWZhdWx0IHJlcXVpcmVfcmVhY3QoKTtcbiJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQSxNQUFNLENBQUM7QUFDUCxDQUFDLENBQUM7QUFDRixDQUFDLENBQUMsSUFBSSxDQUFDLENBQUMsQ0FBQyxZQUFZLENBQUMsQ0FBQyxJQUFJLENBQUMsSUFBSSxDQUFDLEtBQUssQ0FBQyxRQUFRLENBQUMsRUFBRSxDQUFDLENBQUMsQ0FBQyxRQUFRLENBQUM7QUFDOUQsTUFBTSxDQUFDLE9BQU8sQ0FBQyxhQUFhLENBQUMsQ0FBQzsifQ==",
+							"otherinfo": "{\"version\":3,\"sources\":[\"react.js?v=962d8540\"],\"sourcesContent\":[\"import {\\n  require_react\\n} from \\\"/node_modules/.vite/deps/chunk-YSCK7JR7.js?v=16bacaee\\\";\\nexport default require_react();\\n\"],\"names\":[],\"mappings\":\"AAAA,MAAM,CAAC;AACP,CAAC,CAAC;AACF,CAAC,CAAC,IAAI,CAAC,CAAC,CAAC,YAAY,CAAC,CAAC,IAAI,CAAC,IAAI,CAAC,KAAK,CAAC,QAAQ,CAAC,EAAE,CAAC,CAAC,CAAC,QAAQ,CAAC;AAC9D,MAAM,CAAC,OAAO,CAAC,aAAa,CAAC,CAAC;\"}"
+						},
+						{
+							"id": "86",
+							"uri": "http://frontend:5173/node_modules/vite/dist/client/env.mjs",
+							"nodeName": "http:\/\/frontend:5173\/node_modules\/vite\/dist\/client\/env.mjs",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImVudi5tanMiXSwic291cmNlc0NvbnRlbnQiOlsiLy8jcmVnaW9uIHNyYy9jbGllbnQvZW52LnRzXG5jb25zdCBjb250ZXh0ID0gKCgpID0+IHtcblx0aWYgKHR5cGVvZiBnbG9iYWxUaGlzICE9PSBcInVuZGVmaW5lZFwiKSByZXR1cm4gZ2xvYmFsVGhpcztcblx0ZWxzZSBpZiAodHlwZW9mIHNlbGYgIT09IFwidW5kZWZpbmVkXCIpIHJldHVybiBzZWxmO1xuXHRlbHNlIGlmICh0eXBlb2Ygd2luZG93ICE9PSBcInVuZGVmaW5lZFwiKSByZXR1cm4gd2luZG93O1xuXHRlbHNlIHJldHVybiBGdW5jdGlvbihcInJldHVybiB0aGlzXCIpKCk7XG59KSgpO1xuY29uc3QgZGVmaW5lcyA9IHt9O1xuT2JqZWN0LmtleXMoZGVmaW5lcykuZm9yRWFjaCgoa2V5KSA9PiB7XG5cdGNvbnN0IHNlZ21lbnRzID0ga2V5LnNwbGl0KFwiLlwiKTtcblx0bGV0IHRhcmdldCA9IGNvbnRleHQ7XG5cdGZvciAobGV0IGkgPSAwOyBpIDwgc2VnbWVudHMubGVuZ3RoOyBpKyspIHtcblx0XHRjb25zdCBzZWdtZW50ID0gc2VnbWVudHNbaV07XG5cdFx0aWYgKGkgPT09IHNlZ21lbnRzLmxlbmd0aCAtIDEpIHRhcmdldFtzZWdtZW50XSA9IGRlZmluZXNba2V5XTtcblx0XHRlbHNlIHRhcmdldCA9IHRhcmdldFtzZWdtZW50XSB8fCAodGFyZ2V0W3NlZ21lbnRdID0ge30pO1xuXHR9XG59KTtcblxuLy8jZW5kcmVnaW9uIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBLENBQUMsQ0FBQyxDQUFDLE1BQU0sQ0FBQyxHQUFHLENBQUMsTUFBTSxDQUFDLEdBQUcsQ0FBQztBQUN6QixLQUFLLENBQUMsT0FBTyxDQUFDLENBQUMsQ0FBQyxDQUFDLENBQUMsQ0FBQyxDQUFDLENBQUMsQ0FBQyxDQUFDO0FBQ3ZCLENBQUMsRUFBRSxDQUFDLENBQUMsTUFBTSxDQUFDLFVBQVUsQ0FBQyxDQUFDLENBQUMsQ0FBQyxDQUFDLENBQUMsU0FBUyxDQUFDLENBQUMsQ0FBQyxNQUFNLENBQUMsVUFBVTtBQUN6RCxDQUFDLElBQUksQ0FBQyxFQUFFLENBQUMsQ0FBQyxNQUFNLENBQUMsSUFBSSxDQUFDLENBQUMsQ0FBQyxDQUFDLENBQUMsQ0FBQyxTQUFTLENBQUMsQ0FBQyxDQUFDLE1BQU0sQ0FBQyxJQUFJO0FBQ2xELENBQUMsSUFBSSxDQUFDLEVBQUUsQ0FBQyxDQUFDLE1BQU0sQ0FBQyxNQUFNLENBQUMsQ0FBQyxDQUFDLENBQUMsQ0FBQyxDQUFDLFNBQVMsQ0FBQyxDQUFDLENBQUMsTUFBTSxDQUFDLE1BQU07QUFDdEQsQ0FBQyxJQUFJLENBQUMsTUFBTSxDQUFDLFFBQVEsQ0FBQyxDQUFDLE1BQU0sQ0FBQyxJQUFJLENBQUMsQ0FBQyxDQUFDLENBQUM7QUFDdEMsQ0FBQyxDQUFDLENBQUMsQ0FBQztBQUNKLEtBQUssQ0FBQyxPQUFPLENBQUMsQ0FBQyxDQUFDLENBQUMsQ0FBQztBQUNsQixNQUFNLENBQUMsSUFBSSxDQUFDLE9BQU8sQ0FBQyxDQUFDLE9BQU8sQ0FBQyxDQUFDLEdBQUcsQ0FBQyxDQUFDLENBQUMsQ0FBQyxDQUFDO0FBQ3RDLENBQUMsS0FBSyxDQUFDLFFBQVEsQ0FBQyxDQUFDLENBQUMsR0FBRyxDQUFDLEtBQUssQ0FBQyxDQUFDLENBQUMsQ0FBQyxDQUFDO0FBQ2hDLENBQUMsR0FBRyxDQUFDLE1BQU0sQ0FBQyxDQUFDLENBQUMsT0FBTztBQUNyQixDQUFDLEdBQUcsQ0FBQyxDQUFDLEdBQUcsQ0FBQyxDQUFDLENBQUMsQ0FBQyxDQUFDLENBQUMsQ0FBQyxDQUFDLENBQUMsQ0FBQyxDQUFDLENBQUMsUUFBUSxDQUFDLE1BQU0sQ0FBQyxDQUFDLENBQUMsQ0FBQyxDQUFDLENBQUMsQ0FBQztBQUMzQyxDQUFDLENBQUMsS0FBSyxDQUFDLE9BQU8sQ0FBQyxDQUFDLENBQUMsUUFBUSxDQUFDLENBQUMsQ0FBQztBQUM3QixDQUFDLENBQUMsRUFBRSxDQUFDLENBQUMsQ0FBQyxDQUFDLENBQUMsQ0FBQyxDQUFDLENBQUMsUUFBUSxDQUFDLE1BQU0sQ0FBQyxDQUFDLENBQUMsQ0FBQyxDQUFDLENBQUMsTUFBTSxDQUFDLE9BQU8sQ0FBQyxDQUFDLENBQUMsQ0FBQyxPQUFPLENBQUMsR0FBRyxDQUFDO0FBQy9ELENBQUMsQ0FBQyxJQUFJLENBQUMsTUFBTSxDQUFDLENBQUMsQ0FBQyxNQUFNLENBQUMsT0FBTyxDQUFDLENBQUMsQ0FBQyxDQUFDLENBQUMsQ0FBQyxNQUFNLENBQUMsT0FBTyxDQUFDLENBQUMsQ0FBQyxDQUFDLENBQUMsQ0FBQyxDQUFDO0FBQ3pELENBQUM7QUFDRCxDQUFDLENBQUM7O0FBRUYsQ0FBQyxDQUFDLENBQUMifQ==",
+							"otherinfo": "{\"version\":3,\"sources\":[\"env.mjs\"],\"sourcesContent\":[\"//#region src/client/env.ts\\nconst context = (() => {\\n\\tif (typeof globalThis !== \\\"undefined\\\") return globalThis;\\n\\telse if (typeof self !== \\\"undefined\\\") return self;\\n\\telse if (typeof window !== \\\"undefined\\\") return window;\\n\\telse return Function(\\\"return this\\\")();\\n})();\\nconst defines = {};\\nObject.keys(defines).forEach((key) => {\\n\\tconst segments = key.split(\\\".\\\");\\n\\tlet target = context;\\n\\tfor (let i = 0; i < segments.length; i++) {\\n\\t\\tconst segment = segments[i];\\n\\t\\tif (i === segments.length - 1) target[segment] = defines[key];\\n\\t\\telse target = target[segment] || (target[segment] = {});\\n\\t}\\n});\\n\\n//#endregion\"],\"names\":[],\"mappings\":\"AAAA,CAAC,CAAC,CAAC,MAAM,CAAC,GAAG,CAAC,MAAM,CAAC,GAAG,CAAC;AACzB,KAAK,CAAC,OAAO,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC;AACvB,CAAC,EAAE,CAAC,CAAC,MAAM,CAAC,UAAU,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,SAAS,CAAC,CAAC,CAAC,MAAM,CAAC,UAAU;AACzD,CAAC,IAAI,CAAC,EAAE,CAAC,CAAC,MAAM,CAAC,IAAI,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,SAAS,CAAC,CAAC,CAAC,MAAM,CAAC,IAAI;AAClD,CAAC,IAAI,CAAC,EAAE,CAAC,CAAC,MAAM,CAAC,MAAM,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,SAAS,CAAC,CAAC,CAAC,MAAM,CAAC,MAAM;AACtD,CAAC,IAAI,CAAC,MAAM,CAAC,QAAQ,CAAC,CAAC,MAAM,CAAC,IAAI,CAAC,CAAC,CAAC,CAAC;AACtC,CAAC,CAAC,CAAC,CAAC;AACJ,KAAK,CAAC,OAAO,CAAC,CAAC,CAAC,CAAC,CAAC;AAClB,MAAM,CAAC,IAAI,CAAC,OAAO,CAAC,CAAC,OAAO,CAAC,CAAC,GAAG,CAAC,CAAC,CAAC,CAAC,CAAC;AACtC,CAAC,KAAK,CAAC,QAAQ,CAAC,CAAC,CAAC,GAAG,CAAC,KAAK,CAAC,CAAC,CAAC,CAAC,CAAC;AAChC,CAAC,GAAG,CAAC,MAAM,CAAC,CAAC,CAAC,OAAO;AACrB,CAAC,GAAG,CAAC,CAAC,GAAG,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,QAAQ,CAAC,MAAM,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC;AAC3C,CAAC,CAAC,KAAK,CAAC,OAAO,CAAC,CAAC,CAAC,QAAQ,CAAC,CAAC,CAAC;AAC7B,CAAC,CAAC,EAAE,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,QAAQ,CAAC,MAAM,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,MAAM,CAAC,OAAO,CAAC,CAAC,CAAC,CAAC,OAAO,CAAC,GAAG,CAAC;AAC/D,CAAC,CAAC,IAAI,CAAC,MAAM,CAAC,CAAC,CAAC,MAAM,CAAC,OAAO,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,MAAM,CAAC,OAAO,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC;AACzD,CAAC;AACD,CAAC,CAAC;;AAEF,CAAC,CAAC,CAAC\"}"
+						},
+						{
+							"id": "88",
+							"uri": "http://frontend:5173/src/App.jsx",
+							"nodeName": "http:\/\/frontend:5173\/src\/App.jsx",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "__vite__cjsImport0_react_jsxDevRuntime",
+							"otherinfo": "\uFFFD\uFFFD\uFFFD\uFFFD\uFFFDr;\\x0008\uFFFD\uFFFD+\uFFFDO\uFFFDy\uFFFD-\uFFFD;1\r\uFFFD\u047A{b\uFFFD"
+						},
+						{
+							"id": "91",
+							"uri": "http://frontend:5173/src/components/AppointmentFormModal.jsx",
+							"nodeName": "http:\/\/frontend:5173\/src\/components\/AppointmentFormModal.jsx",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "__vite__cjsImport0_react_jsxDevRuntime",
+							"otherinfo": "\uFFFD\uFFFD\uFFFD\uFFFD\uFFFDr;\\x0008\uFFFD\uFFFD+\uFFFDO\uFFFDy\uFFFD-\uFFFD;1\r\uFFFD\u047A{b\uFFFD"
+						},
+						{
+							"id": "92",
+							"uri": "http://frontend:5173/src/components/ConfirmActionModal.jsx",
+							"nodeName": "http:\/\/frontend:5173\/src\/components\/ConfirmActionModal.jsx",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "__vite__cjsImport0_react_jsxDevRuntime",
+							"otherinfo": "\uFFFD\uFFFD\uFFFD\uFFFD\uFFFDr;\\x0008\uFFFD\uFFFD+\uFFFDO\uFFFDy\uFFFD-\uFFFD;1\r\uFFFD\u047A{b\uFFFD"
+						},
+						{
+							"id": "90",
+							"uri": "http://frontend:5173/src/components/FeedbackBanner.jsx",
+							"nodeName": "http:\/\/frontend:5173\/src\/components\/FeedbackBanner.jsx",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "__vite__cjsImport0_react_jsxDevRuntime",
+							"otherinfo": "\uFFFD\uFFFD\uFFFD\uFFFD\uFFFDr;\\x0008\uFFFD\uFFFD+\uFFFDO\uFFFDy\uFFFD-\uFFFD;1\r\uFFFD\u047A{b\uFFFD"
+						},
+						{
+							"id": "89",
+							"uri": "http://frontend:5173/src/layouts/SidebarLayout.jsx",
+							"nodeName": "http:\/\/frontend:5173\/src\/layouts\/SidebarLayout.jsx",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "__vite__cjsImport0_react_jsxDevRuntime",
+							"otherinfo": "\uFFFD\uFFFD\uFFFD\uFFFD\uFFFDr;\\x0008\uFFFD\uFFFD+\uFFFDO\uFFFDy\uFFFD-\uFFFD;1\r\uFFFD\u047A{b\uFFFD"
+						},
+						{
+							"id": "63",
+							"uri": "http://frontend:5173/src/main.jsx",
+							"nodeName": "http:\/\/frontend:5173\/src\/main.jsx",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "__vite__cjsImport0_react_jsxDevRuntime",
+							"otherinfo": "\uFFFD\uFFFD\uFFFD\uFFFD\uFFFDr;\\x0008\uFFFD\uFFFD+\uFFFDO\uFFFDy\uFFFD-\uFFFD;1\r\uFFFD\u047A{b\uFFFD"
+						},
+						{
+							"id": "94",
+							"uri": "http://frontend:5173/src/pages/PatientsPage.jsx",
+							"nodeName": "http:\/\/frontend:5173\/src\/pages\/PatientsPage.jsx",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "__vite__cjsImport0_react_jsxDevRuntime",
+							"otherinfo": "\uFFFD\uFFFD\uFFFD\uFFFD\uFFFDr;\\x0008\uFFFD\uFFFD+\uFFFDO\uFFFDy\uFFFD-\uFFFD;1\r\uFFFD\u047A{b\uFFFD"
+						},
+						{
+							"id": "93",
+							"uri": "http://frontend:5173/src/utils/locale.js",
+							"nodeName": "http:\/\/frontend:5173\/src\/utils\/locale.js",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImxvY2FsZS5qcyJdLCJzb3VyY2VzQ29udGVudCI6WyJjb25zdCBpbnRlZ2VyRm9ybWF0dGVyUHQgPSBuZXcgSW50bC5OdW1iZXJGb3JtYXQoJ3B0LVBUJylcblxuY29uc3QgZGF0ZUZvcm1hdHRlclB0ID0gbmV3IEludGwuRGF0ZVRpbWVGb3JtYXQoJ3B0LVBUJywge1xuICBkYXk6ICcyLWRpZ2l0JyxcbiAgbW9udGg6ICcyLWRpZ2l0JyxcbiAgeWVhcjogJ251bWVyaWMnLFxufSlcblxuZXhwb3J0IGZ1bmN0aW9uIGZvcm1hdEludGVnZXJQdCh2YWx1ZSkge1xuICBjb25zdCBudW1lcmljVmFsdWUgPSBOdW1iZXIodmFsdWUpXG4gIGlmIChOdW1iZXIuaXNOYU4obnVtZXJpY1ZhbHVlKSkge1xuICAgIHJldHVybiAnMCdcbiAgfVxuICByZXR1cm4gaW50ZWdlckZvcm1hdHRlclB0LmZvcm1hdChudW1lcmljVmFsdWUpXG59XG5cbmV4cG9ydCBmdW5jdGlvbiBmb3JtYXREYXRlUHQodmFsdWUpIHtcbiAgaWYgKCF2YWx1ZSkge1xuICAgIHJldHVybiAnTi9BJ1xuICB9XG5cbiAgY29uc3QgZGF0ZSA9IG5ldyBEYXRlKGAke3ZhbHVlfVQwMDowMDowMGApXG4gIGlmIChOdW1iZXIuaXNOYU4oZGF0ZS5nZXRUaW1lKCkpKSB7XG4gICAgcmV0dXJuIHZhbHVlXG4gIH1cbiAgcmV0dXJuIGRhdGVGb3JtYXR0ZXJQdC5mb3JtYXQoZGF0ZSlcbn1cblxuZXhwb3J0IGZ1bmN0aW9uIGZvcm1hdFBob25lUHQodmFsdWUpIHtcbiAgaWYgKCF2YWx1ZSkge1xuICAgIHJldHVybiAnTi9BJ1xuICB9XG5cbiAgY29uc3QgZGlnaXRzID0gU3RyaW5nKHZhbHVlKS5yZXBsYWNlKC9cXEQvZywgJycpXG5cbiAgaWYgKGRpZ2l0cy5zdGFydHNXaXRoKCczNTEnKSAmJiBkaWdpdHMubGVuZ3RoID49IDEyKSB7XG4gICAgY29uc3QgbG9jYWwgPSBkaWdpdHMuc2xpY2UoLTkpXG4gICAgcmV0dXJuIGArMzUxICR7bG9jYWwuc2xpY2UoMCwgMyl9ICR7bG9jYWwuc2xpY2UoMywgNil9ICR7bG9jYWwuc2xpY2UoNil9YFxuICB9XG5cbiAgaWYgKGRpZ2l0cy5sZW5ndGggPT09IDkgJiYgZGlnaXRzLnN0YXJ0c1dpdGgoJzknKSkge1xuICAgIHJldHVybiBgKzM1MSAke2RpZ2l0cy5zbGljZSgwLCAzKX0gJHtkaWdpdHMuc2xpY2UoMywgNil9ICR7ZGlnaXRzLnNsaWNlKDYpfWBcbiAgfVxuXG4gIHJldHVybiB2YWx1ZVxufVxuIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBLEtBQUssQ0FBQyxrQkFBa0IsQ0FBQyxDQUFDLENBQUMsR0FBRyxDQUFDLElBQUksQ0FBQyxZQUFZLENBQUMsQ0FBQyxFQUFFLENBQUMsRUFBRSxDQUFDOztBQUV4RCxLQUFLLENBQUMsZUFBZSxDQUFDLENBQUMsQ0FBQyxHQUFHLENBQUMsSUFBSSxDQUFDLGNBQWMsQ0FBQyxDQUFDLEVBQUUsQ0FBQyxFQUFFLENBQUMsQ0FBQyxDQUFDO0FBQ3pELENBQUMsQ0FBQyxHQUFHLENBQUMsQ0FBQyxDQUFDLENBQUMsQ0FBQyxLQUFLLENBQUM7QUFDaEIsQ0FBQyxDQUFDLEtBQUssQ0FBQyxDQUFDLENBQUMsQ0FBQyxDQUFDLEtBQUssQ0FBQztBQUNsQixDQUFDLENBQUMsSUFBSSxDQUFDLENBQUMsQ0FBQyxPQUFPLENBQUM7QUFDakIsQ0FBQzs7QUFFRCxNQUFNLENBQUMsUUFBUSxDQUFDLGVBQWUsQ0FBQyxLQUFLLENBQUMsQ0FBQztBQUN2QyxDQUFDLENBQUMsS0FBSyxDQUFDLFlBQVksQ0FBQyxDQUFDLENBQUMsTUFBTSxDQUFDLEtBQUs7QUFDbkMsQ0FBQyxDQUFDLEVBQUUsQ0FBQyxDQUFDLE1BQU0sQ0FBQyxLQUFLLENBQUMsWUFBWSxDQUFDLENBQUMsQ0FBQztBQUNsQyxDQUFDLENBQUMsQ0FBQyxDQUFDLE1BQU0sQ0FBQyxDQUFDLENBQUM7QUFDYixDQUFDLENBQUM7QUFDRixDQUFDLENBQUMsTUFBTSxDQUFDLGtCQUFrQixDQUFDLE1BQU0sQ0FBQyxZQUFZO0FBQy9DOztBQUVBLE1BQU0sQ0FBQyxRQUFRLENBQUMsWUFBWSxDQUFDLEtBQUssQ0FBQyxDQUFDO0FBQ3BDLENBQUMsQ0FBQyxFQUFFLENBQUMsQ0FBQyxDQUFDLEtBQUssQ0FBQyxDQUFDO0FBQ2QsQ0FBQyxDQUFDLENBQUMsQ0FBQyxNQUFNLENBQUMsQ0FBQyxDQUFDLENBQUMsQ0FBQztBQUNmLENBQUMsQ0FBQzs7QUFFRixDQUFDLENBQUMsS0FBSyxDQUFDLElBQUksQ0FBQyxDQUFDLENBQUMsR0FBRyxDQUFDLElBQUksQ0FBQyxDQUFDLENBQUMsQ0FBQyxLQUFLLENBQUMsR0FBRyxDQUFDLEVBQUUsQ0FBQyxFQUFFLENBQUM7QUFDM0MsQ0FBQyxDQUFDLEVBQUUsQ0FBQyxDQUFDLE1BQU0sQ0FBQyxLQUFLLENBQUMsSUFBSSxDQUFDLE9BQU8sQ0FBQyxDQUFDLENBQUMsQ0FBQyxDQUFDO0FBQ3BDLENBQUMsQ0FBQyxDQUFDLENBQUMsTUFBTSxDQUFDO0FBQ1gsQ0FBQyxDQUFDO0FBQ0YsQ0FBQyxDQUFDLE1BQU0sQ0FBQyxlQUFlLENBQUMsTUFBTSxDQUFDLElBQUk7QUFDcEM7O0FBRUEsTUFBTSxDQUFDLFFBQVEsQ0FBQyxhQUFhLENBQUMsS0FBSyxDQUFDLENBQUM7QUFDckMsQ0FBQyxDQUFDLEVBQUUsQ0FBQyxDQUFDLENBQUMsS0FBSyxDQUFDLENBQUM7QUFDZCxDQUFDLENBQUMsQ0FBQyxDQUFDLE1BQU0sQ0FBQyxDQUFDLENBQUMsQ0FBQyxDQUFDO0FBQ2YsQ0FBQyxDQUFDOztBQUVGLENBQUMsQ0FBQyxLQUFLLENBQUMsTUFBTSxDQUFDLENBQUMsQ0FBQyxNQUFNLENBQUMsS0FBSyxDQUFDLENBQUMsT0FBTyxDQUFDLENBQUMsQ0FBQyxDQUFDLENBQUMsQ0FBQyxDQUFDLENBQUMsQ0FBQyxDQUFDOztBQUVoRCxDQUFDLENBQUMsRUFBRSxDQUFDLENBQUMsTUFBTSxDQUFDLFVBQVUsQ0FBQyxDQUFDLEdBQUcsQ0FBQyxDQUFDLENBQUMsQ0FBQyxDQUFDLENBQUMsTUFBTSxDQUFDLE1BQU0sQ0FBQyxDQUFDLENBQUMsQ0FBQyxFQUFFLENBQUMsQ0FBQztBQUN2RCxDQUFDLENBQUMsQ0FBQyxDQUFDLEtBQUssQ0FBQyxLQUFLLENBQUMsQ0FBQyxDQUFDLE1BQU0sQ0FBQyxLQUFLLENBQUMsQ0FBQyxDQUFDO0FBQ2pDLENBQUMsQ0FBQyxDQUFDLENBQUMsTUFBTSxDQUFDLENBQUMsQ0FBQyxHQUFHLENBQUMsQ0FBQyxDQUFDLEtBQUssQ0FBQyxLQUFLLENBQUMsQ0FBQyxDQUFDLENBQUMsQ0FBQyxDQUFDLENBQUMsQ0FBQyxDQUFDLENBQUMsS0FBSyxDQUFDLEtBQUssQ0FBQyxDQUFDLENBQUMsQ0FBQyxDQUFDLENBQUMsQ0FBQyxDQUFDLENBQUMsQ0FBQyxLQUFLLENBQUMsS0FBSyxDQUFDLENBQUMsQ0FBQyxDQUFDO0FBQzVFLENBQUMsQ0FBQzs7QUFFRixDQUFDLENBQUMsRUFBRSxDQUFDLENBQUMsTUFBTSxDQUFDLE1BQU0sQ0FBQyxDQUFDLENBQUMsQ0FBQyxDQUFDLENBQUMsQ0FBQyxDQUFDLENBQUMsQ0FBQyxNQUFNLENBQUMsVUFBVSxDQUFDLENBQUMsQ0FBQyxDQUFDLENBQUMsQ0FBQyxDQUFDO0FBQ3JELENBQUMsQ0FBQyxDQUFDLENBQUMsTUFBTSxDQUFDLENBQUMsQ0FBQyxHQUFHLENBQUMsQ0FBQyxDQUFDLE1BQU0sQ0FBQyxLQUFLLENBQUMsQ0FBQyxDQUFDLENBQUMsQ0FBQyxDQUFDLENBQUMsQ0FBQyxDQUFDLENBQUMsTUFBTSxDQUFDLEtBQUssQ0FBQyxDQUFDLENBQUMsQ0FBQyxDQUFDLENBQUMsQ0FBQyxDQUFDLENBQUMsQ0FBQyxNQUFNLENBQUMsS0FBSyxDQUFDLENBQUMsQ0FBQyxDQUFDO0FBQy9FLENBQUMsQ0FBQzs7QUFFRixDQUFDLENBQUMsTUFBTSxDQUFDO0FBQ1Q7In0=",
+							"otherinfo": "{\"version\":3,\"sources\":[\"locale.js\"],\"sourcesContent\":[\"const integerFormatterPt = new Intl.NumberFormat('pt-PT')\\n\\nconst dateFormatterPt = new Intl.DateTimeFormat('pt-PT', {\\n  day: '2-digit',\\n  month: '2-digit',\\n  year: 'numeric',\\n})\\n\\nexport function formatIntegerPt(value) {\\n  const numericValue = Number(value)\\n  if (Number.isNaN(numericValue)) {\\n    return '0'\\n  }\\n  return integerFormatterPt.format(numericValue)\\n}\\n\\nexport function formatDatePt(value) {\\n  if (!value) {\\n    return 'N/A'\\n  }\\n\\n  const date = new Date(`${value}T00:00:00`)\\n  if (Number.isNaN(date.getTime())) {\\n    return value\\n  }\\n  return dateFormatterPt.format(date)\\n}\\n\\nexport function formatPhonePt(value) {\\n  if (!value) {\\n    return 'N/A'\\n  }\\n\\n  const digits = String(value).replace(/\\\\D/g, '')\\n\\n  if (digits.startsWith('351') && digits.length >= 12) {\\n    const local = digits.slice(-9)\\n    return `+351 ${local.slice(0, 3)} ${local.slice(3, 6)} ${local.slice(6)}`\\n  }\\n\\n  if (digits.length === 9 && digits.startsWith('9')) {\\n    return `+351 ${digits.slice(0, 3)} ${digits.slice(3, 6)} ${digits.slice(6)}`\\n  }\\n\\n  return value\\n}\\n\"],\"names\":[],\"mappings\":\"AAAA,KAAK,CAAC,kBAAkB,CAAC,CAAC,CAAC,GAAG,CAAC,IAAI,CAAC,YAAY,CAAC,CAAC,EAAE,CAAC,EAAE,CAAC;;AAExD,KAAK,CAAC,eAAe,CAAC,CAAC,CAAC,GAAG,CAAC,IAAI,CAAC,cAAc,CAAC,CAAC,EAAE,CAAC,EAAE,CAAC,CAAC,CAAC;AACzD,CAAC,CAAC,GAAG,CAAC,CAAC,CAAC,CAAC,CAAC,KAAK,CAAC;AAChB,CAAC,CAAC,KAAK,CAAC,CAAC,CAAC,CAAC,CAAC,KAAK,CAAC;AAClB,CAAC,CAAC,IAAI,CAAC,CAAC,CAAC,OAAO,CAAC;AACjB,CAAC;;AAED,MAAM,CAAC,QAAQ,CAAC,eAAe,CAAC,KAAK,CAAC,CAAC;AACvC,CAAC,CAAC,KAAK,CAAC,YAAY,CAAC,CAAC,CAAC,MAAM,CAAC,KAAK;AACnC,CAAC,CAAC,EAAE,CAAC,CAAC,MAAM,CAAC,KAAK,CAAC,YAAY,CAAC,CAAC,CAAC;AAClC,CAAC,CAAC,CAAC,CAAC,MAAM,CAAC,CAAC,CAAC;AACb,CAAC,CAAC;AACF,CAAC,CAAC,MAAM,CAAC,kBAAkB,CAAC,MAAM,CAAC,YAAY;AAC/C;;AAEA,MAAM,CAAC,QAAQ,CAAC,YAAY,CAAC,KAAK,CAAC,CAAC;AACpC,CAAC,CAAC,EAAE,CAAC,CAAC,CAAC,KAAK,CAAC,CAAC;AACd,CAAC,CAAC,CAAC,CAAC,MAAM,CAAC,CAAC,CAAC,CAAC,CAAC;AACf,CAAC,CAAC;;AAEF,CAAC,CAAC,KAAK,CAAC,IAAI,CAAC,CAAC,CAAC,GAAG,CAAC,IAAI,CAAC,CAAC,CAAC,CAAC,KAAK,CAAC,GAAG,CAAC,EAAE,CAAC,EAAE,CAAC;AAC3C,CAAC,CAAC,EAAE,CAAC,CAAC,MAAM,CAAC,KAAK,CAAC,IAAI,CAAC,OAAO,CAAC,CAAC,CAAC,CAAC,CAAC;AACpC,CAAC,CAAC,CAAC,CAAC,MAAM,CAAC;AACX,CAAC,CAAC;AACF,CAAC,CAAC,MAAM,CAAC,eAAe,CAAC,MAAM,CAAC,IAAI;AACpC;;AAEA,MAAM,CAAC,QAAQ,CAAC,aAAa,CAAC,KAAK,CAAC,CAAC;AACrC,CAAC,CAAC,EAAE,CAAC,CAAC,CAAC,KAAK,CAAC,CAAC;AACd,CAAC,CAAC,CAAC,CAAC,MAAM,CAAC,CAAC,CAAC,CAAC,CAAC;AACf,CAAC,CAAC;;AAEF,CAAC,CAAC,KAAK,CAAC,MAAM,CAAC,CAAC,CAAC,MAAM,CAAC,KAAK,CAAC,CAAC,OAAO,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC;;AAEhD,CAAC,CAAC,EAAE,CAAC,CAAC,MAAM,CAAC,UAAU,CAAC,CAAC,GAAG,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,MAAM,CAAC,MAAM,CAAC,CAAC,CAAC,CAAC,EAAE,CAAC,CAAC;AACvD,CAAC,CAAC,CAAC,CAAC,KAAK,CAAC,KAAK,CAAC,CAAC,CAAC,MAAM,CAAC,KAAK,CAAC,CAAC,CAAC;AACjC,CAAC,CAAC,CAAC,CAAC,MAAM,CAAC,CAAC,CAAC,GAAG,CAAC,CAAC,CAAC,KAAK,CAAC,KAAK,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,KAAK,CAAC,KAAK,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,KAAK,CAAC,KAAK,CAAC,CAAC,CAAC,CAAC;AAC5E,CAAC,CAAC;;AAEF,CAAC,CAAC,EAAE,CAAC,CAAC,MAAM,CAAC,MAAM,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,MAAM,CAAC,UAAU,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC;AACrD,CAAC,CAAC,CAAC,CAAC,MAAM,CAAC,CAAC,CAAC,GAAG,CAAC,CAAC,CAAC,MAAM,CAAC,KAAK,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,MAAM,CAAC,KAAK,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,MAAM,CAAC,KAAK,CAAC,CAAC,CAAC,CAAC;AAC/E,CAAC,CAAC;;AAEF,CAAC,CAAC,MAAM,CAAC;AACT;\"}"
+						}
+					],
+					"count": "11",
+					"systemic": false,
+					"solution": "<p>Manually confirm that the Base64 data does not leak sensitive information, and that the data cannot be aggregated/used to exploit other vulnerabilities.</p>",
+					"otherinfo": "<p>\uFFFD\u01DA\uFFFD\uFFFD&\uFFFDn\uFFFD\uFFFD\uFFFD7\uFFFDC\uFFFD\uFFFDq$\\x0000\uFFFDTDX0\uFFFDC\\x0005D\uFFFDX\uFFFD\uFFFD\uFFFDd\\x0019m\uFFFD!\uFFFDIj\uFFFD\\x000c\uFFFD\uFFFD'-</p>",
+					"reference": "<p>https://projects.webappsec.org/w/page/13246936/Information%20Leakage</p>",
+					"cweid": "319",
+					"wascid": "13",
+					"sourceid": "17"
+				},
+				{
+					"pluginid": "10024",
+					"alertRef": "10024",
+					"alert": "Information Disclosure - Sensitive Information in URL",
+					"name": "Information Disclosure - Sensitive Information in URL",
+					"riskcode": "0",
+					"confidence": "2",
+					"riskdesc": "Informational (Medium)",
+					"desc": "<p>The request appeared to contain sensitive information leaked in the URL. This can violate PCI and most organizational compliance policies. You can configure the list of strings for this check to add or remove values specific to your environment.</p>",
+					"instances":[ 
+						{
+							"id": "87",
+							"uri": "http://frontend:5173/?token=4vx0hyOXiEyX",
+							"nodeName": "http:\/\/frontend:5173\/ (token)",
+							"method": "GET",
+							"param": "token",
+							"attack": "",
+							"evidence": "token",
+							"otherinfo": "The URL contains potentially sensitive information. The following string was found via the pattern: token\ntoken"
+						}
+					],
+					"count": "1",
+					"systemic": true,
+					"solution": "<p>Do not pass sensitive information in URIs.</p>",
+					"otherinfo": "<p>The URL contains potentially sensitive information. The following string was found via the pattern: token</p><p>token</p>",
+					"reference": "",
+					"cweid": "598",
+					"wascid": "13",
+					"sourceid": "52"
+				},
+				{
+					"pluginid": "10027",
+					"alertRef": "10027",
+					"alert": "Information Disclosure - Suspicious Comments",
+					"name": "Information Disclosure - Suspicious Comments",
+					"riskcode": "0",
+					"confidence": "2",
+					"riskdesc": "Informational (Medium)",
+					"desc": "<p>The response appears to contain suspicious comments which may help an attacker.</p>",
+					"instances":[ 
+						{
+							"id": "96",
+							"uri": "http://frontend:5173/@react-refresh",
+							"nodeName": "http:\/\/frontend:5173\/@react-refresh",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "// TODO: rename these field",
+							"otherinfo": "The following pattern was used: \\bTODO\\b and was detected in likely comment: \"// TODO: rename these fields to something more meaningful.\", see evidence field for the suspicious comment/snippet."
+						},
+						{
+							"id": "95",
+							"uri": "http://frontend:5173/@react-refresh",
+							"nodeName": "http:\/\/frontend:5173\/@react-refresh",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "ogic is copy-pasted from similar logic in th",
+							"otherinfo": "The following pattern was used: \\bFROM\\b and was detected 2 times, the first in likely comment: \"// This logic is copy-pasted from similar logic in the DevTools backend.\", see evidence field for the suspicious comment/snippet."
+						},
+						{
+							"id": "110",
+							"uri": "http://frontend:5173/node_modules/.vite/deps/react-router-dom.js?v=cfea7d81",
+							"nodeName": "http:\/\/frontend:5173\/node_modules\/.vite\/deps\/react-router-dom.js (v)",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "   * Access a value from the context. If no ",
+							"otherinfo": "The following pattern was used: \\bFROM\\b and was detected 5 times, the first in likely comment: \"/**\n   * Access a value from the context. If no value has been set for the context,\n   * it will return the context's `defaultVa\", see evidence field for the suspicious comment/snippet."
+						},
+						{
+							"id": "111",
+							"uri": "http://frontend:5173/node_modules/.vite/deps/react-router-dom.js?v=cfea7d81",
+							"nodeName": "http:\/\/frontend:5173\/node_modules\/.vite\/deps\/react-router-dom.js (v)",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "// TODO: This could be clea",
+							"otherinfo": "The following pattern was used: \\bTODO\\b and was detected 10 times, the first in likely comment: \"// TODO: This could be cleaned up.  push/replace should probably just take\", see evidence field for the suspicious comment/snippet."
+						},
+						{
+							"id": "112",
+							"uri": "http://frontend:5173/node_modules/.vite/deps/react-router-dom.js?v=cfea7d81",
+							"nodeName": "http:\/\/frontend:5173\/node_modules\/.vite\/deps\/react-router-dom.js (v)",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "// where to stop which is al",
+							"otherinfo": "The following pattern was used: \\bWHERE\\b and was detected in likely comment: \"// where to stop which is always at the root route in SPA mode\", see evidence field for the suspicious comment/snippet."
+						}
+					],
+					"count": "5",
+					"systemic": false,
+					"solution": "<p>Remove all comments that return information that may help an attacker and fix any underlying problems they refer to.</p>",
+					"otherinfo": "<p>The following pattern was used: \\bTODO\\b and was detected in likely comment: \"// TODO: rename these fields to something more meaningful.\", see evidence field for the suspicious comment/snippet.</p>",
+					"reference": "",
+					"cweid": "615",
+					"wascid": "13",
+					"sourceid": "26"
+				},
+				{
+					"pluginid": "10109",
+					"alertRef": "10109",
+					"alert": "Modern Web Application",
+					"name": "Modern Web Application",
+					"riskcode": "0",
+					"confidence": "2",
+					"riskdesc": "Informational (Medium)",
+					"desc": "<p>The application appears to be a modern web application. If you need to explore it automatically then the Ajax Spider may well be more effective than the standard one.</p>",
+					"instances":[ 
+						{
+							"id": "20",
+							"uri": "http://frontend:5173",
+							"nodeName": "http:\/\/frontend:5173",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "<script type=\"module\">import { injectIntoGlobalHook } from \"/@react-refresh\";\ninjectIntoGlobalHook(window);\nwindow.$RefreshReg$ = () => {};\nwindow.$RefreshSig$ = () => (type) => type;</script>",
+							"otherinfo": "No links have been found while there are scripts, which is an indication that this is a modern web application."
+						},
+						{
+							"id": "2",
+							"uri": "http://frontend:5173/",
+							"nodeName": "http:\/\/frontend:5173\/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "<script type=\"module\">import { injectIntoGlobalHook } from \"/@react-refresh\";\ninjectIntoGlobalHook(window);\nwindow.$RefreshReg$ = () => {};\nwindow.$RefreshSig$ = () => (type) => type;</script>",
+							"otherinfo": "No links have been found while there are scripts, which is an indication that this is a modern web application."
+						},
+						{
+							"id": "28",
+							"uri": "http://frontend:5173/robots.txt",
+							"nodeName": "http:\/\/frontend:5173\/robots.txt",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "<script type=\"module\">import { injectIntoGlobalHook } from \"/@react-refresh\";\ninjectIntoGlobalHook(window);\nwindow.$RefreshReg$ = () => {};\nwindow.$RefreshSig$ = () => (type) => type;</script>",
+							"otherinfo": "No links have been found while there are scripts, which is an indication that this is a modern web application."
+						},
+						{
+							"id": "26",
+							"uri": "http://frontend:5173/sitemap.xml",
+							"nodeName": "http:\/\/frontend:5173\/sitemap.xml",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "<script type=\"module\">import { injectIntoGlobalHook } from \"/@react-refresh\";\ninjectIntoGlobalHook(window);\nwindow.$RefreshReg$ = () => {};\nwindow.$RefreshSig$ = () => (type) => type;</script>",
+							"otherinfo": "No links have been found while there are scripts, which is an indication that this is a modern web application."
+						}
+					],
+					"count": "4",
+					"systemic": true,
+					"solution": "<p>This is an informational alert and so no changes are required.</p>",
+					"otherinfo": "<p>No links have been found while there are scripts, which is an indication that this is a modern web application.</p>",
+					"reference": "",
+					"cweid": "-1",
+					"wascid": "-1",
+					"sourceid": "7"
+				},
+				{
+					"pluginid": "90005",
+					"alertRef": "90005-3",
+					"alert": "Sec-Fetch-Dest Header is Missing",
+					"name": "Sec-Fetch-Dest Header is Missing",
+					"riskcode": "0",
+					"confidence": "3",
+					"riskdesc": "Informational (High)",
+					"desc": "<p>Specifies how and where the data would be used. For instance, if the value is audio, then the requested resource must be audio data and not any other type of resource.</p>",
+					"instances":[ 
+						{
+							"id": "56",
+							"uri": "http://frontend:5173",
+							"nodeName": "http:\/\/frontend:5173",
+							"method": "GET",
+							"param": "Sec-Fetch-Dest",
+							"attack": "",
+							"evidence": "",
+							"otherinfo": ""
+						},
+						{
+							"id": "11",
+							"uri": "http://frontend:5173/",
+							"nodeName": "http:\/\/frontend:5173\/",
+							"method": "GET",
+							"param": "Sec-Fetch-Dest",
+							"attack": "",
+							"evidence": "",
+							"otherinfo": ""
+						},
+						{
+							"id": "42",
+							"uri": "http://frontend:5173/vite.svg",
+							"nodeName": "http:\/\/frontend:5173\/vite.svg",
+							"method": "GET",
+							"param": "Sec-Fetch-Dest",
+							"attack": "",
+							"evidence": "",
+							"otherinfo": ""
+						}
+					],
+					"count": "3",
+					"systemic": true,
+					"solution": "<p>Ensure that Sec-Fetch-Dest header is included in request headers.</p>",
+					"otherinfo": "",
+					"reference": "<p>https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Sec-Fetch-Dest</p>",
+					"cweid": "352",
+					"wascid": "9",
+					"sourceid": "7"
+				},
+				{
+					"pluginid": "90005",
+					"alertRef": "90005-2",
+					"alert": "Sec-Fetch-Mode Header is Missing",
+					"name": "Sec-Fetch-Mode Header is Missing",
+					"riskcode": "0",
+					"confidence": "3",
+					"riskdesc": "Informational (High)",
+					"desc": "<p>Allows to differentiate between requests for navigating between HTML pages and requests for loading resources like images, audio etc.</p>",
+					"instances":[ 
+						{
+							"id": "52",
+							"uri": "http://frontend:5173",
+							"nodeName": "http:\/\/frontend:5173",
+							"method": "GET",
+							"param": "Sec-Fetch-Mode",
+							"attack": "",
+							"evidence": "",
+							"otherinfo": ""
+						},
+						{
+							"id": "10",
+							"uri": "http://frontend:5173/",
+							"nodeName": "http:\/\/frontend:5173\/",
+							"method": "GET",
+							"param": "Sec-Fetch-Mode",
+							"attack": "",
+							"evidence": "",
+							"otherinfo": ""
+						},
+						{
+							"id": "39",
+							"uri": "http://frontend:5173/vite.svg",
+							"nodeName": "http:\/\/frontend:5173\/vite.svg",
+							"method": "GET",
+							"param": "Sec-Fetch-Mode",
+							"attack": "",
+							"evidence": "",
+							"otherinfo": ""
+						}
+					],
+					"count": "3",
+					"systemic": true,
+					"solution": "<p>Ensure that Sec-Fetch-Mode header is included in request headers.</p>",
+					"otherinfo": "",
+					"reference": "<p>https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Sec-Fetch-Mode</p>",
+					"cweid": "352",
+					"wascid": "9",
+					"sourceid": "7"
+				},
+				{
+					"pluginid": "90005",
+					"alertRef": "90005-1",
+					"alert": "Sec-Fetch-Site Header is Missing",
+					"name": "Sec-Fetch-Site Header is Missing",
+					"riskcode": "0",
+					"confidence": "3",
+					"riskdesc": "Informational (High)",
+					"desc": "<p>Specifies the relationship between request initiator's origin and target's origin.</p>",
+					"instances":[ 
+						{
+							"id": "48",
+							"uri": "http://frontend:5173",
+							"nodeName": "http:\/\/frontend:5173",
+							"method": "GET",
+							"param": "Sec-Fetch-Site",
+							"attack": "",
+							"evidence": "",
+							"otherinfo": ""
+						},
+						{
+							"id": "9",
+							"uri": "http://frontend:5173/",
+							"nodeName": "http:\/\/frontend:5173\/",
+							"method": "GET",
+							"param": "Sec-Fetch-Site",
+							"attack": "",
+							"evidence": "",
+							"otherinfo": ""
+						},
+						{
+							"id": "33",
+							"uri": "http://frontend:5173/vite.svg",
+							"nodeName": "http:\/\/frontend:5173\/vite.svg",
+							"method": "GET",
+							"param": "Sec-Fetch-Site",
+							"attack": "",
+							"evidence": "",
+							"otherinfo": ""
+						}
+					],
+					"count": "3",
+					"systemic": true,
+					"solution": "<p>Ensure that Sec-Fetch-Site header is included in request headers.</p>",
+					"otherinfo": "",
+					"reference": "<p>https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Sec-Fetch-Site</p>",
+					"cweid": "352",
+					"wascid": "9",
+					"sourceid": "7"
+				},
+				{
+					"pluginid": "90005",
+					"alertRef": "90005-4",
+					"alert": "Sec-Fetch-User Header is Missing",
+					"name": "Sec-Fetch-User Header is Missing",
+					"riskcode": "0",
+					"confidence": "3",
+					"riskdesc": "Informational (High)",
+					"desc": "<p>Specifies if a navigation request was initiated by a user.</p>",
+					"instances":[ 
+						{
+							"id": "58",
+							"uri": "http://frontend:5173",
+							"nodeName": "http:\/\/frontend:5173",
+							"method": "GET",
+							"param": "Sec-Fetch-User",
+							"attack": "",
+							"evidence": "",
+							"otherinfo": ""
+						},
+						{
+							"id": "12",
+							"uri": "http://frontend:5173/",
+							"nodeName": "http:\/\/frontend:5173\/",
+							"method": "GET",
+							"param": "Sec-Fetch-User",
+							"attack": "",
+							"evidence": "",
+							"otherinfo": ""
+						},
+						{
+							"id": "49",
+							"uri": "http://frontend:5173/vite.svg",
+							"nodeName": "http:\/\/frontend:5173\/vite.svg",
+							"method": "GET",
+							"param": "Sec-Fetch-User",
+							"attack": "",
+							"evidence": "",
+							"otherinfo": ""
+						}
+					],
+					"count": "3",
+					"systemic": true,
+					"solution": "<p>Ensure that Sec-Fetch-User header is included in user initiated requests.</p>",
+					"otherinfo": "",
+					"reference": "<p>https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Sec-Fetch-User</p>",
+					"cweid": "352",
+					"wascid": "9",
+					"sourceid": "7"
+				},
+				{
+					"pluginid": "10049",
+					"alertRef": "10049-3",
+					"alert": "Storable and Cacheable Content",
+					"name": "Storable and Cacheable Content",
+					"riskcode": "0",
+					"confidence": "2",
+					"riskdesc": "Informational (Medium)",
+					"desc": "<p>The response contents are storable by caching components such as proxy servers, and may be retrieved directly from the cache, rather than from the origin server by the caching servers, in response to similar requests from other users. If the response data is sensitive, personal or user-specific, this may result in sensitive information being leaked. In some cases, this may even result in a user gaining complete control of the session of another user, depending on the configuration of the caching components in use in their environment. This is primarily an issue where \"shared\" caching servers such as \"proxy\" caches are configured on the local network. This configuration is typically found in corporate or educational environments, for instance.</p>",
+					"instances":[ 
+						{
+							"id": "75",
+							"uri": "http://frontend:5173/node_modules/.vite/deps/react.js?v=962d8540",
+							"nodeName": "http:\/\/frontend:5173\/node_modules\/.vite\/deps\/react.js (v)",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "max-age=31536000",
+							"otherinfo": ""
+						}
+					],
+					"count": "1",
+					"systemic": true,
+					"solution": "<p>Validate that the response does not contain sensitive, personal or user-specific information. If it does, consider the use of the following HTTP response headers, to limit, or prevent the content being stored and retrieved from the cache by another user:</p><p>Cache-Control: no-cache, no-store, must-revalidate, private</p><p>Pragma: no-cache</p><p>Expires: 0</p><p>This configuration directs both HTTP 1.0 and HTTP 1.1 compliant caching servers to not store the response, and to not retrieve the response (without validation) from the cache, in response to a similar request.</p>",
+					"otherinfo": "",
+					"reference": "<p>https://datatracker.ietf.org/doc/html/rfc7234</p><p>https://datatracker.ietf.org/doc/html/rfc7231</p><p>https://www.w3.org/Protocols/rfc2616/rfc2616-sec13.html</p>",
+					"cweid": "524",
+					"wascid": "13",
+					"sourceid": "28"
+				},
+				{
+					"pluginid": "10049",
+					"alertRef": "10049-2",
+					"alert": "Storable but Non-Cacheable Content",
+					"name": "Storable but Non-Cacheable Content",
+					"riskcode": "0",
+					"confidence": "2",
+					"riskdesc": "Informational (Medium)",
+					"desc": "<p>The response contents are storable by caching components such as proxy servers, but will not be retrieved directly from the cache, without validating the request upstream, in response to similar requests from other users.</p>",
+					"instances":[ 
+						{
+							"id": "29",
+							"uri": "http://frontend:5173",
+							"nodeName": "http:\/\/frontend:5173",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "no-cache",
+							"otherinfo": ""
+						},
+						{
+							"id": "4",
+							"uri": "http://frontend:5173/",
+							"nodeName": "http:\/\/frontend:5173\/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "no-cache",
+							"otherinfo": ""
+						},
+						{
+							"id": "45",
+							"uri": "http://frontend:5173/robots.txt",
+							"nodeName": "http:\/\/frontend:5173\/robots.txt",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "no-cache",
+							"otherinfo": ""
+						},
+						{
+							"id": "37",
+							"uri": "http://frontend:5173/sitemap.xml",
+							"nodeName": "http:\/\/frontend:5173\/sitemap.xml",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "no-cache",
+							"otherinfo": ""
+						},
+						{
+							"id": "25",
+							"uri": "http://frontend:5173/vite.svg",
+							"nodeName": "http:\/\/frontend:5173\/vite.svg",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "no-cache",
+							"otherinfo": ""
+						}
+					],
+					"count": "5",
+					"systemic": true,
+					"solution": "",
+					"otherinfo": "",
+					"reference": "<p>https://datatracker.ietf.org/doc/html/rfc7234</p><p>https://datatracker.ietf.org/doc/html/rfc7231</p><p>https://www.w3.org/Protocols/rfc2616/rfc2616-sec13.html</p>",
+					"cweid": "524",
+					"wascid": "13",
+					"sourceid": "7"
+				}
+			]
+		}
+	],
+	"sequences":[
+	]
+
+}

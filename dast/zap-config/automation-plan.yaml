@@ -1,0 +1,123 @@
+env:
+  contexts:
+    - name: Clinic Management App
+      urls:
+        - http://frontend:5173/patients
+        - http://frontend:5173/appointments
+        - http://backend:8080/api/patients
+        - http://backend:8080/api/appointments
+      includePaths:
+        - http://frontend:5173/patients.*
+        - http://frontend:5173/appointments.*
+        - http://backend:8080/api/.*
+      excludePaths:
+        - http://frontend:5173/@vite/.*
+        - http://frontend:5173/src/.*
+        - http://frontend:5173/node_modules/.*
+  parameters:
+    failOnError: true
+    failOnWarning: false
+    progressToStdout: true
+
+jobs:
+  - type: passiveScan-config
+    parameters:
+      scanOnlyInScope: true
+      maxAlertsPerRule: 10
+      enableTags: false
+
+  - type: spider
+    parameters:
+      context: Clinic Management App
+      url: http://frontend:5173/patients
+      maxDuration: 2
+      maxDepth: 5
+      maxChildren: 20
+
+  - type: spider
+    parameters:
+      context: Clinic Management App
+      url: http://frontend:5173/appointments
+      maxDuration: 2
+      maxDepth: 5
+      maxChildren: 20
+
+  - type: spider
+    parameters:
+      context: Clinic Management App
+      url: http://backend:8080/api/patients
+      maxDuration: 2
+      maxDepth: 5
+      maxChildren: 20
+
+  - type: spider
+    parameters:
+      context: Clinic Management App
+      url: http://backend:8080/api/appointments
+      maxDuration: 2
+      maxDepth: 5
+      maxChildren: 20
+
+  - type: passiveScan-wait
+    parameters:
+      maxDuration: 5
+
+  - type: activeScan
+    parameters:
+      context: Clinic Management App
+      url: http://backend:8080/api/patients
+      maxRuleDurationInMins: 3
+      maxScanDurationInMins: 15
+      threadPerHost: 2
+      addQueryParam: false
+    policyDefinition:
+      defaultStrength: MEDIUM
+      defaultThreshold: MEDIUM
+      rules:
+        - id: 40018
+          strength: HIGH
+          threshold: LOW
+        - id: 40019
+          strength: HIGH
+          threshold: LOW
+        - id: 40012
+          strength: HIGH
+          threshold: LOW
+        - id: 90019
+          strength: HIGH
+          threshold: MEDIUM
+        - id: 7
+          strength: HIGH
+          threshold: LOW
+        - id: 42
+          strength: MEDIUM
+          threshold: MEDIUM
+        - id: 43
+          strength: MEDIUM
+          threshold: MEDIUM
+
+  - type: report
+    parameters:
+      template: traditional-html
+      reportDir: /zap/reports
+      reportFile: zap-report.html
+      reportTitle: DAST Scan - Clinic Management App
+      reportDescription: Local OWASP ZAP scan for the clinic management application
+      displayReport: false
+
+  - type: report
+    parameters:
+      template: sarif-json
+      reportDir: /zap/reports
+      reportFile: zap-report.sarif
+      reportTitle: DAST Scan - Clinic Management App
+      reportDescription: SARIF report for code scanning ingestion
+      displayReport: false
+
+  - type: report
+    parameters:
+      template: traditional-json
+      reportDir: /zap/reports
+      reportFile: zap-report.json
+      reportTitle: DAST Scan - Clinic Management App
+      displayReport: false

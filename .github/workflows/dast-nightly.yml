@@ -30,7 +30,12 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 45
     steps:
-      - name: Check out software repository
+      - name: Check out AppSec repository (DAST scripts/config)
+        uses: actions/checkout@v4
+        with:
+          path: appsec
+
+      - name: Check out software repository (application code)
         env:
           SOFTWARE_REPO_PAT: ${{ secrets.SOFTWARE_REPO_PAT }}
           TARGET_REF: ${{ inputs.target_ref || env.DEFAULT_TARGET_REF }}
@@ -49,15 +54,109 @@ jobs:
             "${AUTHENTICATED_URL}" \
             software
 
-      - name: Make DAST scripts executable
-        working-directory: software
-        run: chmod +x dast/scripts/*.sh
+      - name: Create Docker network
+        run: docker network create dast-network
 
-      - name: Run nightly DAST scan
+      - name: Start PostgreSQL database
+        run: |
+          docker run -d \
+            --name postgres \
+            --network dast-network \
+            -e POSTGRES_DB=clinic_db \
+            -e POSTGRES_USER=clinic_user \
+            -e POSTGRES_PASSWORD=clinic_pass \
+            postgres:16-alpine
+
+          echo "Waiting for PostgreSQL to be ready..."
+          for i in {1..30}; do
+            if docker exec postgres pg_isready -U clinic_user -d clinic_db >/dev/null 2>&1; then
+              echo "PostgreSQL is ready!"
+              break
+            fi
+            echo "Attempt $i: PostgreSQL not ready yet, waiting..."
+            sleep 2
+          done
+
+      - name: Build and start backend
         working-directory: software
-        env:
-          COMPOSE_PROJECT_NAME: clinic-dast-nightly-${{ github.run_id }}
-        run: ./dast/scripts/run-dast-scan.sh
+        run: |
+          docker build -t clinic-backend:dast ./src/backend
+          docker run -d \
+            --name backend \
+            --network dast-network \
+            -p 18080:8080 \
+            -e SERVER_PORT=8080 \
+            -e SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/clinic_db \
+            -e SPRING_DATASOURCE_USERNAME=clinic_user \
+            -e SPRING_DATASOURCE_PASSWORD=clinic_pass \
+            -e SPRING_JPA_HIBERNATE_DDL_AUTO=update \
+            clinic-backend:dast
+
+      - name: Build and start frontend
+        working-directory: software
+        run: |
+          docker build -t clinic-frontend:dast ./src/frontend
+          docker run -d \
+            --name frontend \
+            --network dast-network \
+            -p 15173:5173 \
+            -e VITE_API_BASE_URL=/api \
+            -e VITE_PROXY_TARGET=http://backend:8080 \
+            clinic-frontend:dast
+
+      - name: Wait for application to be ready
+        run: |
+          BACKEND_URL="http://localhost:18080/api/patients"
+          FRONTEND_URL="http://localhost:15173/patients"
+          TIMEOUT_SECONDS=240
+          START_TIME="$(date +%s)"
+
+          echo "Waiting for backend at ${BACKEND_URL}"
+          echo "Waiting for frontend at ${FRONTEND_URL}"
+
+          while true; do
+            if curl -fsS "${BACKEND_URL}" >/dev/null 2>&1 && curl -fsS "${FRONTEND_URL}" >/dev/null 2>&1; then
+              echo "Application is reachable."
+              break
+            fi
+
+            NOW="$(date +%s)"
+            if [ $((NOW - START_TIME)) -ge "${TIMEOUT_SECONDS}" ]; then
+              echo "Timed out waiting for the application to become ready." >&2
+              docker logs backend || true
+              docker logs frontend || true
+              exit 1
+            fi
+
+            sleep 5
+          done
+
+      - name: Run OWASP ZAP baseline scan
+        run: |
+          mkdir -p appsec/dast/reports
+          chmod 0777 appsec/dast/reports
+
+          docker run --rm \
+            --network dast-network \
+            -v "$PWD/appsec/dast/reports:/zap/wrk:rw" \
+            ghcr.io/zaproxy/zaproxy:stable \
+            zap-baseline.py \
+            -t "http://frontend:5173" \
+            -a \
+            -j \
+            -I \
+            -m 2 \
+            -D 5 \
+            -r zap-report.html \
+            -J zap-report.json \
+            --autooff
+
+      - name: Clean up Docker containers
+        if: always()
+        run: |
+          docker stop frontend backend postgres || true
+          docker rm frontend backend postgres || true
+          docker network rm dast-network || true
 
       - name: Upload DAST reports
         if: always()
@@ -65,13 +164,12 @@ jobs:
         with:
           name: dast-nightly-reports
           path: |
-            software/dast/reports/zap-report.html
-            software/dast/reports/zap-report.json
-            software/dast/reports/zap-report.sarif
+            appsec/dast/reports/zap-report.html
+            appsec/dast/reports/zap-report.json
           if-no-files-found: warn
 
       - name: Summarize DAST findings
-        if: always() && hashFiles('software/dast/reports/zap-report.json') != ''
+        if: always() && hashFiles('appsec/dast/reports/zap-report.json') != ''
         env:
           TARGET_REF: ${{ inputs.target_ref || env.DEFAULT_TARGET_REF }}
         run: |
@@ -80,7 +178,7 @@ jobs:
           import os
           from pathlib import Path
 
-          report_path = Path("software/dast/reports/zap-report.json")
+          report_path = Path("appsec/dast/reports/zap-report.json")
           report = json.loads(report_path.read_text())
           summary_path = Path(os.environ["GITHUB_STEP_SUMMARY"])
 
