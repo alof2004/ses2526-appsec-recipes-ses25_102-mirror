@@ -84,31 +84,37 @@ jobs:
           report = json.loads(report_path.read_text())
           summary_path = Path(os.environ["GITHUB_STEP_SUMMARY"])
 
+          def parse_severity(alert):
+              riskdesc = alert.get("riskdesc") or ""
+              severity = riskdesc.split(" ", 1)[0] if riskdesc else "Informational"
+              if severity == "Info":
+                  return "Informational"
+              if severity in {"High", "Medium", "Low", "Informational"}:
+                  return severity
+              return "Informational"
+
           counts = {"High": 0, "Medium": 0, "Low": 0, "Informational": 0}
-          seen_alerts = set()
+          alert_types = {}
           for site in report.get("site", []):
               for alert in site.get("alerts", []):
-                  riskdesc = alert.get("riskdesc") or ""
-                  severity = riskdesc.split(" ", 1)[0] if riskdesc else "Informational"
-                  if severity == "Info":
-                      severity = "Informational"
+                  severity = parse_severity(alert)
+                  key = (alert.get("pluginid"), alert.get("name"), severity)
+                  if key not in alert_types:
+                      alert_types[key] = {
+                          "name": alert.get("name", "Unknown alert"),
+                          "severity": severity,
+                          "instances": 0,
+                      }
+                      counts[severity] = counts.get(severity, 0) + 1
 
-                  key = (
-                      alert.get("pluginid"),
-                      alert.get("name"),
-                      severity,
-                  )
-                  if key in seen_alerts:
-                      continue
-
-                  seen_alerts.add(key)
-                  counts[severity] = counts.get(severity, 0) + 1
+                  alert_types[key]["instances"] += len(alert.get("instances", []))
 
           lines = [
               "## DAST Scan Summary",
               "",
               f"- Target repository: `{os.environ['TARGET_REPOSITORY']}`",
               f"- Target ref: `{os.environ['TARGET_REF']}`",
+              "- Counts below represent unique alert types, matching the ZAP HTML summary.",
               "",
               "| Severity | Count |",
               "| --- | ---: |",
@@ -118,6 +124,30 @@ jobs:
               f"| Informational | {counts.get('Informational', 0)} |",
               f"| Total | {sum(counts.values())} |",
           ]
+
+          top_alerts = sorted(
+              alert_types.values(),
+              key=lambda item: (
+                  {"High": 0, "Medium": 1, "Low": 2, "Informational": 3}.get(item["severity"], 4),
+                  -item["instances"],
+                  item["name"],
+              ),
+          )
+
+          if top_alerts:
+              lines.extend(
+                  [
+                      "",
+                      "### Alert Types",
+                      "",
+                      "| Alert | Severity | Instances |",
+                      "| --- | --- | ---: |",
+                  ]
+              )
+              for alert in top_alerts:
+                  lines.append(
+                      f"| {alert['name']} | {alert['severity']} | {alert['instances']} |"
+                  )
 
           summary_path.write_text("\n".join(lines) + "\n")
           PY
