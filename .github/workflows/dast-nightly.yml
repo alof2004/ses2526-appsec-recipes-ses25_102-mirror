@@ -36,23 +36,12 @@ jobs:
           path: appsec
 
       - name: Check out software repository (application code)
-        env:
-          SOFTWARE_REPO_PAT: ${{ secrets.SOFTWARE_REPO_PAT }}
-          TARGET_REF: ${{ inputs.target_ref || env.DEFAULT_TARGET_REF }}
-          TARGET_REPOSITORY_URL: ${{ env.TARGET_REPOSITORY_URL }}
-        run: |
-          if [ -z "${SOFTWARE_REPO_PAT}" ]; then
-            echo "Missing required secret SOFTWARE_REPO_PAT" >&2
-            exit 1
-          fi
-
-          AUTHENTICATED_URL="${TARGET_REPOSITORY_URL/https:\/\//https:\/\/x-access-token:${SOFTWARE_REPO_PAT}@}"
-
-          git clone \
-            --depth 1 \
-            --branch "${TARGET_REF}" \
-            "${AUTHENTICATED_URL}" \
-            software
+        uses: actions/checkout@v4
+        with:
+          repository: detiuaveiro/softwate-baseline-ses25_102
+          ref: ${{ inputs.target_ref || env.DEFAULT_TARGET_REF }}
+          token: ${{ secrets.SOFTWARE_REPO_PAT }}
+          path: software
 
       - name: Create Docker network
         run: docker network create dast-network
