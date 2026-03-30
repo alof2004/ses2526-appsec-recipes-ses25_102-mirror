@@ -125,6 +125,7 @@ jobs:
           mkdir -p appsec/dast/reports
           chmod 0777 appsec/dast/reports
 
+          set +e
           docker run --rm \
             --network dast-network \
             -v "$PWD/appsec/dast/reports:/zap/wrk:rw" \
@@ -138,6 +139,14 @@ jobs:
             -D 5 \
             -J zap-report.json \
             --autooff
+          scan_exit_code=$?
+          set -e
+
+          echo "ZAP exited with code ${scan_exit_code}."
+          if [ ! -f "appsec/dast/reports/zap-report.json" ]; then
+            echo "ZAP did not produce appsec/dast/reports/zap-report.json" >&2
+            exit 1
+          fi
 
       - name: Clean up Docker containers
         if: always()
