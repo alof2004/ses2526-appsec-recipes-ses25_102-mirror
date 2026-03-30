@@ -136,7 +136,6 @@ jobs:
             -I \
             -m 2 \
             -D 5 \
-            -r zap-report.html \
             -J zap-report.json \
             --autooff
 
@@ -153,7 +152,6 @@ jobs:
         with:
           name: dast-nightly-reports
           path: |
-            appsec/dast/reports/zap-report.html
             appsec/dast/reports/zap-report.json
           if-no-files-found: warn
 
