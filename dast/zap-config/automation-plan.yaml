@@ -11,10 +11,10 @@ env:
         - http://backend:8080/api/appointments
         - http://backend:8080/api/appointments/1
         - http://backend:8080/api/appointments/2
-        - http://backend:8080/api/appointments?patientName=Nightly
-        - http://backend:8080/api/appointments?status=SCHEDULED
+        - http://backend:8080/api/appointments?patientName=Afonso
+        - http://backend:8080/api/appointments?status=Scheduled
         - http://backend:8080/api/appointments?specialty=Cardiology
-        - http://backend:8080/api/appointments?date=2026-04-01
+        - http://backend:8080/api/appointments?patientName=Afonso&status=Scheduled&specialty=Cardiology
       includePaths:
         - http://frontend:5173/.*
         - http://frontend:5173/patients.*
@@ -167,7 +167,7 @@ jobs:
   - type: activeScan
     parameters:
       context: Clinic Management App
-      url: http://backend:8080/api/appointments?patientName=Nightly&status=SCHEDULED&specialty=Cardiology&date=2026-04-01
+      url: http://backend:8080/api/appointments?patientName=Afonso&status=Scheduled&specialty=Cardiology
       maxRuleDurationInMins: 3
       maxScanDurationInMins: 10
       threadPerHost: 2
