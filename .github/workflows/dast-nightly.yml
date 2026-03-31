@@ -120,7 +120,7 @@ jobs:
             sleep 5
           done
 
-      - name: Run OWASP ZAP baseline scan
+      - name: Run OWASP ZAP automation scan
         run: |
           mkdir -p appsec/dast/reports
           chmod 0777 appsec/dast/reports
@@ -128,17 +128,10 @@ jobs:
           set +e
           docker run --rm \
             --network dast-network \
-            -v "$PWD/appsec/dast/reports:/zap/wrk:rw" \
+            -v "$PWD/appsec/dast/zap-config:/zap/config:ro" \
+            -v "$PWD/appsec/dast/reports:/zap/reports:rw" \
             ghcr.io/zaproxy/zaproxy:stable \
-            zap-baseline.py \
-            -t "http://frontend:5173" \
-            -a \
-            -j \
-            -I \
-            -m 2 \
-            -D 5 \
-            -J zap-report.json \
-            --autooff
+            zap.sh -cmd -autorun /zap/config/automation-plan.yaml
           scan_exit_code=$?
           set -e
 
@@ -147,6 +140,12 @@ jobs:
             echo "ZAP did not produce appsec/dast/reports/zap-report.json" >&2
             exit 1
           fi
+
+          if [ -f "appsec/dast/reports/zap-report.sarif.json" ] && [ ! -f "appsec/dast/reports/zap-report.sarif" ]; then
+            mv "appsec/dast/reports/zap-report.sarif.json" "appsec/dast/reports/zap-report.sarif"
+          fi
+
+          exit "${scan_exit_code}"
 
       - name: Clean up Docker containers
         if: always()
@@ -161,7 +160,9 @@ jobs:
         with:
           name: dast-nightly-reports
           path: |
+            appsec/dast/reports/zap-report.html
             appsec/dast/reports/zap-report.json
+            appsec/dast/reports/zap-report.sarif
           if-no-files-found: warn
 
       - name: Summarize DAST findings
