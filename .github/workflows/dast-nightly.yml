@@ -129,7 +129,7 @@ jobs:
           docker run --rm \
             --network dast-network \
             -v "$PWD/appsec/dast/zap-config:/zap/config:ro" \
-            -v "$PWD/appsec/dast/reports:/zap/reports:rw" \
+            -v "$PWD/appsec/dast/reports:/zap/wrk:rw" \
             ghcr.io/zaproxy/zaproxy:stable \
             zap.sh -cmd -autorun /zap/config/automation-plan.yaml
           scan_exit_code=$?

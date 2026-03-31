@@ -89,17 +89,11 @@ jobs:
         - id: 7
           strength: HIGH
           threshold: LOW
-        - id: 42
-          strength: MEDIUM
-          threshold: MEDIUM
-        - id: 43
-          strength: MEDIUM
-          threshold: MEDIUM
 
   - type: report
     parameters:
       template: traditional-html
-      reportDir: /zap/reports
+      reportDir: /zap/wrk
       reportFile: zap-report.html
       reportTitle: DAST Scan - Clinic Management App
       reportDescription: Local OWASP ZAP scan for the clinic management application
@@ -108,7 +102,7 @@ jobs:
   - type: report
     parameters:
       template: sarif-json
-      reportDir: /zap/reports
+      reportDir: /zap/wrk
       reportFile: zap-report.sarif
       reportTitle: DAST Scan - Clinic Management App
       reportDescription: SARIF report for code scanning ingestion
@@ -117,7 +111,7 @@ jobs:
   - type: report
     parameters:
       template: traditional-json
-      reportDir: /zap/reports
+      reportDir: /zap/wrk
       reportFile: zap-report.json
       reportTitle: DAST Scan - Clinic Management App
       displayReport: false
