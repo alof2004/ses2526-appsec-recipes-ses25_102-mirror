@@ -1,0 +1,57 @@
+services:
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-clinic_db}
+      POSTGRES_USER: ${POSTGRES_USER:-clinic_user}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-clinic_pass}
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-clinic_user} -d ${POSTGRES_DB:-clinic_db}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  backend:
+    build:
+      context: ../softwate-baseline-ses25_102/src/backend
+      dockerfile: Dockerfile
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      SERVER_PORT: 8080
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/${POSTGRES_DB:-clinic_db}
+      SPRING_DATASOURCE_USERNAME: ${POSTGRES_USER:-clinic_user}
+      SPRING_DATASOURCE_PASSWORD: ${POSTGRES_PASSWORD:-clinic_pass}
+      SPRING_JPA_HIBERNATE_DDL_AUTO: ${SPRING_JPA_HIBERNATE_DDL_AUTO:-update}
+    ports:
+      - "${DAST_BACKEND_PORT:-18080}:8080"
+
+  frontend:
+    build:
+      context: ../softwate-baseline-ses25_102/src/frontend
+      dockerfile: Dockerfile
+    depends_on:
+      backend:
+        condition: service_started
+    environment:
+      VITE_API_BASE_URL: ${VITE_API_BASE_URL:-/api}
+      VITE_PROXY_TARGET: ${VITE_PROXY_TARGET:-http://backend:8080}
+    ports:
+      - "${DAST_FRONTEND_PORT:-15173}:5173"
+
+  zap:
+    profiles: ["scanner"]
+    image: ghcr.io/zaproxy/zaproxy:stable
+    user: zap
+    depends_on:
+      backend:
+        condition: service_started
+      frontend:
+        condition: service_started
+    environment:
+      HOME: /home/zap
+    volumes:
+      - ./dast/zap-config:/zap/config:ro
+      - ./dast/reports:/zap/wrk:rw
+    command: ["zap.sh", "-cmd", "-autorun", "/zap/config/automation-plan.yaml"]

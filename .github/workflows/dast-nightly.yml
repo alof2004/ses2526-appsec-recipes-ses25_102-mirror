@@ -184,8 +184,9 @@ jobs:
 
           set +e
           docker run --rm \
-            --user root \
+            --user zap \
             --network dast-network \
+            -e HOME=/home/zap \
             -v "$PWD/appsec/dast/zap-config:/zap/config:ro" \
             -v "$PWD/appsec/dast/reports:/zap/wrk:rw" \
             ghcr.io/zaproxy/zaproxy:stable \

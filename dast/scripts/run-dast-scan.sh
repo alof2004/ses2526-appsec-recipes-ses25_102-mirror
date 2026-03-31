@@ -21,7 +21,7 @@ trap cleanup EXIT
 
 echo "Starting local DAST scan for Clinic Management Application"
 mkdir -p "${REPORTS_DIR}"
-rm -f "${REPORTS_DIR}/zap-report.html" "${REPORTS_DIR}/zap-report.json" "${REPORTS_DIR}/zap-report.sarif" "${REPORTS_DIR}/zap-report.sarif.json"
+rm -f "${REPORTS_DIR}/zap-report.html" "${REPORTS_DIR}/zap-report.json" "${REPORTS_DIR}/zap-report.sarif" "${REPORTS_DIR}/zap-report.sarif.json" "${REPORTS_DIR}/zap.out"
 # ZAP writes reports from inside a container as the non-root `zap` user. On CI
 # bind mounts, the host directory ownership often does not match that UID, so
 # make the report directory world-writable before starting the scanner.
@@ -32,7 +32,7 @@ docker compose -p "${PROJECT_NAME}" -f "${COMPOSE_FILE}" up -d --build db backen
 
 echo "Running OWASP ZAP automation plan"
 set +e
-docker compose --profile scanner -p "${PROJECT_NAME}" -f "${COMPOSE_FILE}" run --rm zap
+docker compose --profile scanner -p "${PROJECT_NAME}" -f "${COMPOSE_FILE}" run --rm zap 2>&1 | tee "${REPORTS_DIR}/zap.out"
 ZAP_EXIT_CODE=$?
 set -e
 
@@ -77,6 +77,7 @@ echo "Artifacts:"
 echo "  ${REPORTS_DIR}/zap-report.html"
 echo "  ${REPORTS_DIR}/zap-report.json"
 echo "  ${REPORTS_DIR}/zap-report.sarif"
+echo "  ${REPORTS_DIR}/zap.out"
 
 if [ "${KEEP_STACK}" -eq 1 ]; then
   trap - EXIT

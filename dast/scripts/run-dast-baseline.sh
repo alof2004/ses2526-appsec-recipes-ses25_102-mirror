@@ -22,7 +22,7 @@ trap cleanup EXIT
 
 echo "Starting lightweight DAST baseline scan for Clinic Management Application"
 mkdir -p "${REPORTS_DIR}"
-rm -f "${REPORTS_DIR}/zap-report.html" "${REPORTS_DIR}/zap-report.json" "${REPORTS_DIR}/zap-report.sarif" "${REPORTS_DIR}/zap-report.sarif.json"
+rm -f "${REPORTS_DIR}/zap-report.html" "${REPORTS_DIR}/zap-report.json" "${REPORTS_DIR}/zap-report.sarif" "${REPORTS_DIR}/zap-report.sarif.json" "${REPORTS_DIR}/zap.out"
 chmod 0777 "${REPORTS_DIR}"
 
 docker compose -p "${PROJECT_NAME}" -f "${COMPOSE_FILE}" up -d --build db backend frontend
@@ -30,7 +30,9 @@ docker compose -p "${PROJECT_NAME}" -f "${COMPOSE_FILE}" up -d --build db backen
 
 echo "Running OWASP ZAP baseline scan against ${TARGET_URL}"
 docker run --rm \
+  --user zap \
   --network "${PROJECT_NAME}_default" \
+  -e HOME=/home/zap \
   -v "${REPORTS_DIR}:/zap/wrk:rw" \
   ghcr.io/zaproxy/zaproxy:stable \
   zap-baseline.py \
@@ -42,7 +44,7 @@ docker run --rm \
   -D 5 \
   -r zap-report.html \
   -J zap-report.json \
-  --autooff
+  --autooff 2>&1 | tee "${REPORTS_DIR}/zap.out"
 
 echo
 echo "DAST report summary"
@@ -80,6 +82,7 @@ echo
 echo "Artifacts:"
 echo "  ${REPORTS_DIR}/zap-report.html"
 echo "  ${REPORTS_DIR}/zap-report.json"
+echo "  ${REPORTS_DIR}/zap.out"
 
 if [ "${KEEP_STACK}" -eq 1 ]; then
   trap - EXIT
