@@ -120,6 +120,63 @@ jobs:
             sleep 5
           done
 
+      - name: Seed application data for DAST coverage
+        run: |
+          python3 - <<'PY'
+          import json
+          import urllib.request
+
+          def request(method, url, payload=None):
+              headers = {}
+              data = None
+              if payload is not None:
+                  data = json.dumps(payload).encode("utf-8")
+                  headers["Content-Type"] = "application/json"
+              req = urllib.request.Request(url, data=data, headers=headers, method=method)
+              with urllib.request.urlopen(req, timeout=30) as response:
+                  return json.loads(response.read().decode("utf-8"))
+
+          patient_one = request(
+              "POST",
+              "http://localhost:18080/api/patients",
+              {
+                  "name": "Nightly DAST Alice",
+                  "dateOfBirth": "1990-05-10",
+                  "phoneNumber": "+351910000001",
+                  "email": "nightly-alice@example.com",
+              },
+          )
+          patient_two = request(
+              "POST",
+              "http://localhost:18080/api/patients",
+              {
+                  "name": "Nightly DAST Bruno",
+                  "dateOfBirth": "1985-08-22",
+                  "phoneNumber": "+351910000002",
+                  "email": "nightly-bruno@example.com",
+              },
+          )
+
+          request(
+              "POST",
+              f"http://localhost:18080/api/appointments?patientId={patient_one['id']}",
+              {
+                  "dateTime": "2026-04-01T09:00:00",
+                  "specialty": "Cardiology",
+                  "status": "SCHEDULED",
+              },
+          )
+          request(
+              "POST",
+              f"http://localhost:18080/api/appointments?patientId={patient_two['id']}",
+              {
+                  "dateTime": "2026-04-02T14:30:00",
+                  "specialty": "Dermatology",
+                  "status": "COMPLETED",
+              },
+          )
+          PY
+
       - name: Run OWASP ZAP automation scan
         run: |
           mkdir -p appsec/dast/reports

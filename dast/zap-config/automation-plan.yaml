@@ -2,11 +2,21 @@ env:
   contexts:
     - name: Clinic Management App
       urls:
+        - http://frontend:5173/
         - http://frontend:5173/patients
         - http://frontend:5173/appointments
         - http://backend:8080/api/patients
+        - http://backend:8080/api/patients/1
+        - http://backend:8080/api/patients/2
         - http://backend:8080/api/appointments
+        - http://backend:8080/api/appointments/1
+        - http://backend:8080/api/appointments/2
+        - http://backend:8080/api/appointments?patientName=Nightly
+        - http://backend:8080/api/appointments?status=SCHEDULED
+        - http://backend:8080/api/appointments?specialty=Cardiology
+        - http://backend:8080/api/appointments?date=2026-04-01
       includePaths:
+        - http://frontend:5173/.*
         - http://frontend:5173/patients.*
         - http://frontend:5173/appointments.*
         - http://backend:8080/api/.*
@@ -25,6 +35,14 @@ jobs:
       scanOnlyInScope: true
       maxAlertsPerRule: 10
       enableTags: false
+
+  - type: spider
+    parameters:
+      context: Clinic Management App
+      url: http://frontend:5173/
+      maxDuration: 2
+      maxDepth: 5
+      maxChildren: 20
 
   - type: spider
     parameters:
@@ -70,6 +88,90 @@ jobs:
       maxScanDurationInMins: 15
       threadPerHost: 2
       addQueryParam: false
+    policyDefinition:
+      defaultStrength: MEDIUM
+      defaultThreshold: MEDIUM
+      rules:
+        - id: 40018
+          strength: HIGH
+          threshold: LOW
+        - id: 40019
+          strength: HIGH
+          threshold: LOW
+        - id: 40012
+          strength: HIGH
+          threshold: LOW
+        - id: 90019
+          strength: HIGH
+          threshold: MEDIUM
+        - id: 7
+          strength: HIGH
+          threshold: LOW
+
+  - type: activeScan
+    parameters:
+      context: Clinic Management App
+      url: http://backend:8080/api/patients
+      maxRuleDurationInMins: 3
+      maxScanDurationInMins: 10
+      threadPerHost: 2
+      addQueryParam: true
+    policyDefinition:
+      defaultStrength: MEDIUM
+      defaultThreshold: MEDIUM
+      rules:
+        - id: 40018
+          strength: HIGH
+          threshold: LOW
+        - id: 40019
+          strength: HIGH
+          threshold: LOW
+        - id: 40012
+          strength: HIGH
+          threshold: LOW
+        - id: 90019
+          strength: HIGH
+          threshold: MEDIUM
+        - id: 7
+          strength: HIGH
+          threshold: LOW
+
+  - type: activeScan
+    parameters:
+      context: Clinic Management App
+      url: http://backend:8080/api/appointments
+      maxRuleDurationInMins: 3
+      maxScanDurationInMins: 15
+      threadPerHost: 2
+      addQueryParam: false
+    policyDefinition:
+      defaultStrength: MEDIUM
+      defaultThreshold: MEDIUM
+      rules:
+        - id: 40018
+          strength: HIGH
+          threshold: LOW
+        - id: 40019
+          strength: HIGH
+          threshold: LOW
+        - id: 40012
+          strength: HIGH
+          threshold: LOW
+        - id: 90019
+          strength: HIGH
+          threshold: MEDIUM
+        - id: 7
+          strength: HIGH
+          threshold: LOW
+
+  - type: activeScan
+    parameters:
+      context: Clinic Management App
+      url: http://backend:8080/api/appointments?patientName=Nightly&status=SCHEDULED&specialty=Cardiology&date=2026-04-01
+      maxRuleDurationInMins: 3
+      maxScanDurationInMins: 10
+      threadPerHost: 2
+      addQueryParam: true
     policyDefinition:
       defaultStrength: MEDIUM
       defaultThreshold: MEDIUM
