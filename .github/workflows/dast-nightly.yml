@@ -127,6 +127,7 @@ jobs:
 
           set +e
           docker run --rm \
+            --user root \
             --network dast-network \
             -v "$PWD/appsec/dast/zap-config:/zap/config:ro" \
             -v "$PWD/appsec/dast/reports:/zap/wrk:rw" \
