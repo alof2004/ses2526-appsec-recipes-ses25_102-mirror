@@ -54,21 +54,22 @@
 \contentsline {subsubsection}{Logout Flow}{41}{Item.12}%
 \contentsline {subsubsection}{Token Refresh Flow}{41}{Item.16}%
 \contentsline {subsubsection}{Token Revocation}{41}{Item.19}%
-\contentsline {subsection}{\numberline {4.1.4}Roles and Realm Configuration}{41}{subsection.4.1.4}%
+\contentsline {subsubsection}{Token Rotation and Lifespans}{41}{Item.19}%
+\contentsline {subsection}{\numberline {4.1.4}Roles and Realm Configuration}{42}{subsection.4.1.4}%
 \contentsline {section}{\numberline {4.2}Explicit Authorization Layer (RBAC)}{42}{section.4.2}%
 \contentsline {subsection}{\numberline {4.2.1}Design}{42}{subsection.4.2.1}%
 \contentsline {subsection}{\numberline {4.2.2}Permissions as Data}{42}{subsection.4.2.2}%
 \contentsline {subsection}{\numberline {4.2.3}Object-Level Authorization (BOLA)}{43}{subsection.4.2.3}%
 \contentsline {subsection}{\numberline {4.2.4}Role-Based UI}{43}{subsection.4.2.4}%
 \contentsline {subsection}{\numberline {4.2.5}Unit Tests}{43}{subsection.4.2.5}%
-\contentsline {section}{\numberline {4.3}API Hardening -- OWASP API Top 10 (2023)}{43}{section.4.3}%
+\contentsline {section}{\numberline {4.3}API Hardening -- OWASP API Top 10 (2023)}{44}{section.4.3}%
 \contentsline {section}{\numberline {4.4}Perimeter Defense}{45}{section.4.4}%
 \contentsline {subsection}{\numberline {4.4.1}Nginx + ModSecurity CRS}{45}{subsection.4.4.1}%
-\contentsline {subsection}{\numberline {4.4.2}CRS Tuning and False Positives}{45}{subsection.4.4.2}%
+\contentsline {subsection}{\numberline {4.4.2}CRS Tuning and False Positives}{46}{subsection.4.4.2}%
 \contentsline {section}{\numberline {4.5}Zero Trust Architecture Framing}{46}{section.4.5}%
 \contentsline {subsection}{\numberline {4.5.1}NIST SP 800-207 Components}{46}{subsection.4.5.1}%
-\contentsline {subsection}{\numberline {4.5.2}NIST SP 800-207 \S 2.1 -- Seven Tenets Mapping}{46}{subsection.4.5.2}%
-\contentsline {section}{\numberline {4.6}Abuse Story Regression}{48}{section.4.6}%
+\contentsline {subsection}{\numberline {4.5.2}NIST SP 800-207 \S 2.1 -- Seven Tenets Mapping}{47}{subsection.4.5.2}%
+\contentsline {section}{\numberline {4.6}Abuse Story Regression}{49}{section.4.6}%
 \contentsline {subsection}{\numberline {4.6.1}Regression Evidence}{50}{subsection.4.6.1}%
 \contentsline {subsection}{\numberline {4.6.2}Regression Summary}{57}{subsection.4.6.2}%
 \contentsline {section}{\numberline {4.7}Future Work}{57}{section.4.7}%

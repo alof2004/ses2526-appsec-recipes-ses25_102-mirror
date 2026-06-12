@@ -1161,6 +1161,34 @@ associated with it) is invalidated. If an administrator disables or deletes a us
 Keycloak, existing tokens will fail issuer/audience validation on the next backend call
 (or on the next refresh attempt, whichever comes first).
 
+\subsubsection{Token Rotation and Lifespans}
+
+Refresh token rotation is enabled in the realm configuration
+(\texttt{revokeRefreshToken: true}, \texttt{refreshTokenMaxReuse: 0}). Each refresh token
+is single-use: after it is exchanged for a new access token, it is immediately invalidated
+by Keycloak. Any attempt to reuse a consumed refresh token is detected and triggers
+revocation of the entire session, mitigating refresh token theft and replay attacks.
+
+Token lifespans are configured as follows:
+
+\begin{table}[H]
+\centering
+\caption{Keycloak token lifespan configuration}
+\begin{tabular}{ll}
+\toprule
+\textbf{Parameter} & \textbf{Value} \\
+\midrule
+Access token lifespan       & 300\,s (5 minutes) \\
+SSO session idle timeout    & 1\,800\,s (30 minutes) \\
+SSO session max lifespan    & 36\,000\,s (10 hours) \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Short-lived access tokens limit the window of exploitation if a token is intercepted.
+The refresh token is rotated on every use, so a stolen refresh token that has already
+been exchanged is immediately detected.
+
 \subsection{Roles and Realm Configuration}
 
 Three roles are defined in the Keycloak realm (\texttt{clinic}):
@@ -1232,11 +1260,20 @@ the map, returning \texttt{true} if any role grants the requested action.
 
 \subsection{Object-Level Authorization (BOLA)}
 
-Each service method returns \texttt{Optional.empty()} when a resource ID does not exist.
-Controllers map this to HTTP 404. Because all endpoints require a valid JWT and
-role-based permission, an authenticated caller with the correct role who requests a
-non-existent resource receives 404 rather than 403, preventing ID enumeration by
-response differentiation.
+Object-level access control operates at two layers.
+
+\textbf{Route-level:} every endpoint requires a valid JWT and the matching role via
+\texttt{@PreAuthorize}. An unauthenticated or insufficiently privileged request is
+rejected with 401 or 403 before reaching the service.
+
+\textbf{Record-level:} the \texttt{Appointment} entity carries a \texttt{doctorSub}
+field -- the JWT \texttt{sub} of the assigned doctor. When the caller holds the
+\texttt{DOCTOR} role, the service layer applies an additional filter: only appointments
+where \texttt{doctorSub} equals the caller's own \texttt{sub} are returned or accepted
+for update. Patients are similarly restricted to those linked via at least one such
+appointment. A \texttt{DOCTOR} who requests a resource not assigned to them receives
+HTTP 404 (same as a non-existent resource), avoiding information leakage about other
+records. \texttt{ADMIN} and \texttt{RECEPTIONIST} roles are not subject to this filter.
 
 \subsection{Role-Based UI}
 
@@ -1265,7 +1302,7 @@ Spring Boot's \texttt{MockMvc} with the \texttt{jwt()} security post-processor f
   \item Authenticated requests with the correct role but a missing resource → HTTP 404.
 \end{itemize}
 
-21 tests in total; all pass without a running Keycloak instance because the JWKS decoder
+25 tests in total (20 role $\times$ action $\times$ resource, 4 covering \texttt{GET /api/audit-logs} by role, 1 application context load); all pass without a running Keycloak instance because the JWKS decoder
 is lazy and the \texttt{jwt()} post-processor bypasses token validation.
 
 % ─────────────────────────────────────────────────────────────────────────────
@@ -1290,7 +1327,10 @@ commit on the \texttt{develop} branch.
 \endfoot
 
 API1 & BOLA & No per-object ownership check; any caller can read or modify any record by ID. &
-\texttt{@PreAuthorize} on every endpoint; service returns 404 for non-existent resources, preventing ID oracle. \\[6pt]
+\texttt{@PreAuthorize} on every endpoint enforces route-level access. Object-level ownership
+is enforced in the service layer: a \texttt{DOCTOR} sees only appointments where
+\texttt{doctorSub} matches their JWT \texttt{sub}, and only patients linked through those
+appointments. Attempting to access another user's record returns 404. \\[6pt]
 
 API3 & BOPLA & Controllers bound JPA entities directly; any JSON field was writable. &
 \texttt{PatientRequestDTO} and \texttt{AppointmentRequestDTO} constrain the accepted surface. \texttt{@Valid} with Bean Validation (\texttt{@NotBlank}, \texttt{@NotNull}, \texttt{@Past}, \texttt{@Email}, \texttt{@Pattern}) rejects malformed input before the service layer. \\[6pt]
@@ -1454,8 +1494,12 @@ The resulting architecture is framed below using the Zero Trust terminology from
   Every \texttt{/api/**} request is authenticated. Every controller method checks the caller's role before the service layer is reached. Deny-by-default (\texttt{anyRequest().denyAll()}) ensures no route is reachable without a valid JWT and sufficient role. \\[6pt]
 
 7 & The enterprise collects as much information as possible about the current state of assets, network infrastructure, and communications. &
-  \textbf{Not met} &
-  No structured audit log, access log, or security event stream is implemented. Actor identity is now available in the JWT (addresses R-02), but CRUD operations are not persisted to an audit trail. Flagged as \textbf{future work}. \\
+  \textbf{Partial} &
+  A structured \texttt{audit\_logs} table persists every CREATE, UPDATE, and DELETE
+  operation with actor identity (JWT \texttt{sub}), resource type, resource ID, and
+  timestamp. ADMIN users can query the full trail via \texttt{GET /api/audit-logs}.
+  Network-level telemetry (flow logs, SIEM integration) and asset posture data are not
+  yet collected. \\
 \end{longtable}
 
 % ─────────────────────────────────────────────────────────────────────────────
@@ -1616,7 +1660,7 @@ project, addressing the vulnerabilities and privacy threats identified in Part 1
 
 The baseline application had no authentication, no authorisation, and no perimeter controls,
 leaving all patient and appointment data fully exposed. Part 2 introduced a layered defence
-that closes all five high-severity attack paths identified in Part 1. Authentication is
+that addresses all eight abuse stories identified in Part 1. Authentication is
 enforced via Keycloak 26.2.5 with JWT RS256 tokens; a fine-grained RBAC model controls access
 at the method level using \texttt{@PreAuthorize} annotations and a role-permission matrix
 loaded from configuration. A perimeter WAF (Nginx + ModSecurity CRS in blocking mode, Paranoia
