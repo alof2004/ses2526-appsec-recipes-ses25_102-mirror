@@ -303,7 +303,7 @@ jobs:
             -v "$PWD/appsec/dast/reports/dast-waf-reports:/zap/wrk:rw" \
             ghcr.io/zaproxy/zaproxy:stable \
             zap-baseline.py \
-            -t "http://frontend:8080" \
+            -t "http://waf:8080" \
             -a -j -I -m 2 -D 5 \
             -r zap-waf-report.html \
             -J zap-waf-report.json \
