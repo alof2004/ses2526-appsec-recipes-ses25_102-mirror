@@ -1535,7 +1535,7 @@ AS-02 & Link Patient Identity to Appointment History &
 
 AS-03 & Direct Patient Identification via IDOR &
   \textbf{\textcolor{sevlow}{Prevented}} &
-  Authentication blocks unauthenticated enumeration. \texttt{RateLimitFilter} limits authenticated callers to 60 requests/min per IP, making brute-force enumeration impractical. Sequential IDs remain (future work: UUIDs). \\[8pt]
+  Authentication blocks unauthenticated enumeration. \texttt{RateLimitFilter} limits authenticated callers to 60 requests/min per IP. UUID primary keys (\texttt{GenerationType.UUID}) replace sequential integers, eliminating the IDOR enumeration oracle entirely. \\[8pt]
 
 AS-04 & Infer Health Condition from Appointment Metadata &
   \textbf{\textcolor{sevlow}{Prevented}} &
@@ -1643,13 +1643,13 @@ audit log, making post-incident investigation possible. No abuse story remains a
 % ─────────────────────────────────────────────────────────────────────────────
 
 Two security improvements remain identified but not yet implemented.
-Replacing sequential integer primary keys with \textbf{UUID primary keys} would eliminate the
-ID enumeration vector exploited in AS-03, making brute-force IDOR significantly harder even
-for authenticated callers. On the transport side, \textbf{mTLS for inter-service communication}
-should extend TLS from the current WAF perimeter to internal container-to-container channels
-(WAF $\to$ backend, backend $\to$ Keycloak) to fully satisfy ZTA tenet 2. Additionally,
-\textbf{device posture} assessment -- integrating endpoint verification before granting access
--- is needed to address ZTA tenet 1.
+\textbf{mTLS for inter-service communication} should extend TLS from the current WAF perimeter
+to internal container-to-container channels (WAF $\to$ backend, backend $\to$ Keycloak) to
+fully satisfy ZTA tenet 2. Additionally, \textbf{device posture} assessment -- integrating
+endpoint verification before granting access -- is needed to address ZTA tenet 1.
+UUID primary keys have been implemented in Part 2, replacing sequential integer IDs across all
+entities (\texttt{Patient}, \texttt{Appointment}, \texttt{AuditLog}) and eliminating the
+brute-force IDOR enumeration vector from AS-03.
 
 % ─────────────────────────────────────────────────────────────────────────────
 \section{Conclusion}
@@ -1672,9 +1672,10 @@ pipeline validates the security posture both with and without the WAF in place.
 Of the eight abuse stories from Part 1, seven are now classified as \textbf{Prevented} and one
 (AS-07) as \textbf{Detected}. Soft-delete prevents irreversible data loss from cascade deletion
 (AS-06). The structured audit log makes every CRUD operation attributable and investigable
-(AS-07). No abuse story remains at Residual Risk. The principal outstanding items are UUID
-primary keys to harden IDOR resistance further, and mTLS for internal service-to-service
-channels to fully close ZTA tenet 2.
+(AS-07). No abuse story remains at Residual Risk. UUID primary keys were implemented, eliminating
+sequential-ID enumeration across all entities. The principal outstanding items are mTLS for
+internal service-to-service channels to fully close ZTA tenet 2, and device posture assessment
+to address ZTA tenet 1.
 
 \end{document}
 
