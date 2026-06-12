@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2025/dev/Debian) (preloaded format=pdflatex 2025.12.8)  11 JUN 2026 21:13
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2025/dev/Debian) (preloaded format=pdflatex 2025.12.8)  12 JUN 2026 13:59
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1255,7 +1255,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 [41]
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <10.95> on input line 1214.
+(Font)              <10.95> on input line 1242.
 
 
 
@@ -1266,46 +1266,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
 [42]
-Overfull \hbox (1.56624pt too wide) in paragraph at lines 1281--1281
-[]|\T1/lmr/bx/n/12 (-20) Item|  
- []
-
-
-Overfull \hbox (1.56624pt too wide) in paragraph at lines 1286--1286
-[]|\T1/lmr/bx/n/12 (-20) Item|  
- []
-
-
-Overfull \hbox (0.77084pt too wide) in paragraph at lines 1292--1292
-[]|\T1/lmr/m/n/12 (-20) API1|  
- []
-
-
-Overfull \hbox (0.77084pt too wide) in paragraph at lines 1295--1295
-[]|\T1/lmr/m/n/12 (-20) API3|  
- []
-
-
-Overfull \hbox (0.77084pt too wide) in paragraph at lines 1298--1298
-[]|\T1/lmr/m/n/12 (-20) API4|  
- []
-
-
-Overfull \hbox (0.77084pt too wide) in paragraph at lines 1301--1301
-[]|\T1/lmr/m/n/12 (-20) API5|  
- []
-
-
-Overfull \hbox (0.77084pt too wide) in paragraph at lines 1304--1304
-[]|\T1/lmr/m/n/12 (-20) API8|  
- []
-
-
-Overfull \hbox (0.77084pt too wide) in paragraph at lines 1307--1307
-[]|\T1/lmr/m/n/12 (-20) API9|  
- []
-
-
 
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -1315,6 +1275,44 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
 [43]
+Overfull \hbox (1.56624pt too wide) in paragraph at lines 1318--1318
+[]|\T1/lmr/bx/n/12 (-20) Item|  
+ []
+
+
+Overfull \hbox (1.56624pt too wide) in paragraph at lines 1323--1323
+[]|\T1/lmr/bx/n/12 (-20) Item|  
+ []
+
+
+Overfull \hbox (0.77084pt too wide) in paragraph at lines 1329--1329
+[]|\T1/lmr/m/n/12 (-20) API1|  
+ []
+
+
+Overfull \hbox (0.77084pt too wide) in paragraph at lines 1335--1335
+[]|\T1/lmr/m/n/12 (-20) API3|  
+ []
+
+
+Overfull \hbox (0.77084pt too wide) in paragraph at lines 1338--1338
+[]|\T1/lmr/m/n/12 (-20) API4|  
+ []
+
+
+Overfull \hbox (0.77084pt too wide) in paragraph at lines 1341--1341
+[]|\T1/lmr/m/n/12 (-20) API5|  
+ []
+
+
+Overfull \hbox (0.77084pt too wide) in paragraph at lines 1344--1344
+[]|\T1/lmr/m/n/12 (-20) API8|  
+ []
+
+
+Overfull \hbox (0.77084pt too wide) in paragraph at lines 1347--1347
+[]|\T1/lmr/m/n/12 (-20) API9|  
+ []
 
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -1333,26 +1331,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
 [45]
-Overfull \hbox (2.47537pt too wide) in alignment at lines 1415--1420
- [] [] [] [] 
- []
-
-
-Overfull \hbox (2.47537pt too wide) in alignment at lines 1420--1425
- [] [] [] [] 
- []
-
-
-Overfull \hbox (2.47537pt too wide) in alignment at lines 1425--1427
- [] [] [] [] 
- []
-
-
-Overfull \hbox (2.47537pt too wide) in alignment at lines 1427--1459
- [] [] [] [] 
- []
-
-
 
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -1362,6 +1340,25 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
 [46]
+Overfull \hbox (2.47537pt too wide) in alignment at lines 1455--1460
+ [] [] [] [] 
+ []
+
+
+Overfull \hbox (2.47537pt too wide) in alignment at lines 1460--1465
+ [] [] [] [] 
+ []
+
+
+Overfull \hbox (2.47537pt too wide) in alignment at lines 1465--1467
+ [] [] [] [] 
+ []
+
+
+Overfull \hbox (2.47537pt too wide) in alignment at lines 1467--1503
+ [] [] [] [] 
+ []
+
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
@@ -1370,7 +1367,16 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
 [47]
-Overfull \hbox (5.55594pt too wide) in paragraph at lines 1498--1498
+
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[48]
+Overfull \hbox (5.55594pt too wide) in paragraph at lines 1542--1542
 \T1/lmtt/m/n/12 /api/appointments?patientName=X 
  []
 
@@ -1381,19 +1387,11 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[48]
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 13.59999pt, for example:
-(fancyhdr)                \setlength{\headheight}{13.59999pt}.
-(fancyhdr)                You might also make \topmargin smaller:
-(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
-
 [49]
-<images/01_regression.png, id=718, 1232.605pt x 1123.19624pt>
+<images/01_regression.png, id=719, 1232.605pt x 1123.19624pt>
 File: images/01_regression.png Graphic file (type png)
 <use images/01_regression.png>
-Package pdftex.def Info: images/01_regression.png  used on input line 1537.
+Package pdftex.def Info: images/01_regression.png  used on input line 1581.
 (pdftex.def)             Requested size: 438.17227pt x 399.27731pt.
 
 
@@ -1405,10 +1403,10 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
 [50]
-<images/02_regression.png, id=723, 1232.605pt x 1033.8625pt>
+<images/02_regression.png, id=724, 1232.605pt x 1033.8625pt>
 File: images/02_regression.png Graphic file (type png)
 <use images/02_regression.png>
-Package pdftex.def Info: images/02_regression.png  used on input line 1543.
+Package pdftex.def Info: images/02_regression.png  used on input line 1587.
 (pdftex.def)             Requested size: 438.17227pt x 367.52069pt.
 
 
@@ -1420,10 +1418,10 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
 [51 <./images/01_regression.png (PNG copy)>]
-<images/03_regression.png, id=729, 1232.605pt x 1099.10625pt>
+<images/03_regression.png, id=730, 1232.605pt x 1099.10625pt>
 File: images/03_regression.png Graphic file (type png)
 <use images/03_regression.png>
-Package pdftex.def Info: images/03_regression.png  used on input line 1549.
+Package pdftex.def Info: images/03_regression.png  used on input line 1593.
 (pdftex.def)             Requested size: 438.17227pt x 390.71373pt.
 
 
@@ -1435,10 +1433,10 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
 [52 <./images/02_regression.png (PNG copy)>]
-<images/04_regression.png, id=735, 1232.605pt x 1107.13625pt>
+<images/04_regression.png, id=736, 1232.605pt x 1107.13625pt>
 File: images/04_regression.png Graphic file (type png)
 <use images/04_regression.png>
-Package pdftex.def Info: images/04_regression.png  used on input line 1555.
+Package pdftex.def Info: images/04_regression.png  used on input line 1599.
 (pdftex.def)             Requested size: 438.17227pt x 393.56827pt.
 
 
@@ -1450,10 +1448,10 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
 [53 <./images/03_regression.png (PNG copy)>]
-<images/05_regression.png, id=741, 1232.605pt x 1104.125pt>
+<images/05_regression.png, id=742, 1232.605pt x 1104.125pt>
 File: images/05_regression.png Graphic file (type png)
 <use images/05_regression.png>
-Package pdftex.def Info: images/05_regression.png  used on input line 1561.
+Package pdftex.def Info: images/05_regression.png  used on input line 1605.
 (pdftex.def)             Requested size: 438.17227pt x 392.49782pt.
 
 
@@ -1465,10 +1463,10 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
 [54 <./images/04_regression.png (PNG copy)>]
-<images/06_regression.png, id=748, 1232.605pt x 992.70876pt>
+<images/06_regression.png, id=749, 1232.605pt x 992.70876pt>
 File: images/06_regression.png Graphic file (type png)
 <use images/06_regression.png>
-Package pdftex.def Info: images/06_regression.png  used on input line 1567.
+Package pdftex.def Info: images/06_regression.png  used on input line 1611.
 (pdftex.def)             Requested size: 438.17227pt x 352.89122pt.
 
 
@@ -1480,10 +1478,10 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
 [55 <./images/05_regression.png (PNG copy)>]
-<images/07_regression.png, id=754, 1232.605pt x 1078.0275pt>
+<images/07_regression.png, id=755, 1232.605pt x 1078.0275pt>
 File: images/07_regression.png Graphic file (type png)
 <use images/07_regression.png>
-Package pdftex.def Info: images/07_regression.png  used on input line 1573.
+Package pdftex.def Info: images/07_regression.png  used on input line 1617.
 (pdftex.def)             Requested size: 438.17227pt x 383.2206pt.
 
 
@@ -1521,8 +1519,8 @@ Package rerunfilecheck Info: File `report.out' has not changed.
 (rerunfilecheck)             Checksum: 3335CDF4D6F9EA8B33CF88462167C9CC;11590.
  ) 
 Here is how much of TeX's memory you used:
- 16531 strings out of 475085
- 274419 string characters out of 5764176
+ 16532 strings out of 475085
+ 274435 string characters out of 5764176
  726307 words of memory out of 5000000
  38928 multiletter control sequences out of 15000+600000
  629573 words of font info for 158 fonts, out of 8000000 for 9000
@@ -1535,10 +1533,10 @@ lic/lm/lmr17.pfb></usr/share/texmf/fonts/type1/public/lm/lmr8.pfb></usr/share/t
 exmf/fonts/type1/public/lm/lmri10.pfb></usr/share/texmf/fonts/type1/public/lm/l
 mri12.pfb></usr/share/texmf/fonts/type1/public/lm/lmsy10.pfb></usr/share/texmf/
 fonts/type1/public/lm/lmtt12.pfb>
-Output written on report.pdf (59 pages, 5202521 bytes).
+Output written on report.pdf (59 pages, 5204767 bytes).
 PDF statistics:
- 871 PDF objects out of 1000 (max. 8388607)
- 719 compressed objects within 8 object streams
- 221 named destinations out of 1000 (max. 500000)
+ 872 PDF objects out of 1000 (max. 8388607)
+ 720 compressed objects within 8 object streams
+ 222 named destinations out of 1000 (max. 500000)
  40175 words of extra memory for PDF output out of 42996 (max. 10000000)
 
