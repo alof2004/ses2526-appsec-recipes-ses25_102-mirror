@@ -2,28 +2,28 @@ env:
   contexts:
     - name: Clinic Management App
       urls:
-        - http://frontend:8080/
-        - http://frontend:8080/patients
-        - http://frontend:8080/appointments
-        - http://backend:8080/api/patients
-        - http://backend:8080/api/patients/1
-        - http://backend:8080/api/patients/2
-        - http://backend:8080/api/appointments
-        - http://backend:8080/api/appointments/1
-        - http://backend:8080/api/appointments/2
-        - http://backend:8080/api/appointments?patientName=Afonso
-        - http://backend:8080/api/appointments?status=Scheduled
-        - http://backend:8080/api/appointments?specialty=Cardiology
-        - http://backend:8080/api/appointments?patientName=Afonso&status=Scheduled&specialty=Cardiology
+        - http://waf:8080/
+        - http://waf:8080/patients
+        - http://waf:8080/appointments
+        - http://waf:8080/api/patients
+        - http://waf:8080/api/patients/1
+        - http://waf:8080/api/patients/2
+        - http://waf:8080/api/appointments
+        - http://waf:8080/api/appointments/1
+        - http://waf:8080/api/appointments/2
+        - http://waf:8080/api/appointments?patientName=Afonso
+        - http://waf:8080/api/appointments?status=Scheduled
+        - http://waf:8080/api/appointments?specialty=Cardiology
+        - http://waf:8080/api/appointments?patientName=Afonso&status=Scheduled&specialty=Cardiology
       includePaths:
-        - http://frontend:8080/.*
-        - http://frontend:8080/patients.*
-        - http://frontend:8080/appointments.*
-        - http://backend:8080/api/.*
+        - http://waf:8080/.*
+        - http://waf:8080/patients.*
+        - http://waf:8080/appointments.*
+        - http://waf:8080/api/.*
       excludePaths:
-        - http://frontend:8080/@vite/.*
-        - http://frontend:8080/src/.*
-        - http://frontend:8080/node_modules/.*
+        - http://waf:8080/@vite/.*
+        - http://waf:8080/src/.*
+        - http://waf:8080/node_modules/.*
   parameters:
     failOnError: true
     failOnWarning: false
@@ -39,7 +39,7 @@ jobs:
   - type: spider
     parameters:
       context: Clinic Management App
-      url: http://frontend:8080/
+      url: http://waf:8080/
       maxDuration: 2
       maxDepth: 5
       maxChildren: 20
@@ -47,7 +47,7 @@ jobs:
   - type: spider
     parameters:
       context: Clinic Management App
-      url: http://frontend:8080/patients
+      url: http://waf:8080/patients
       maxDuration: 2
       maxDepth: 5
       maxChildren: 20
@@ -55,7 +55,7 @@ jobs:
   - type: spider
     parameters:
       context: Clinic Management App
-      url: http://frontend:8080/appointments
+      url: http://waf:8080/appointments
       maxDuration: 2
       maxDepth: 5
       maxChildren: 20
@@ -63,7 +63,7 @@ jobs:
   - type: spider
     parameters:
       context: Clinic Management App
-      url: http://backend:8080/api/patients
+      url: http://waf:8080/api/patients
       maxDuration: 2
       maxDepth: 5
       maxChildren: 20
@@ -71,7 +71,7 @@ jobs:
   - type: spider
     parameters:
       context: Clinic Management App
-      url: http://backend:8080/api/appointments
+      url: http://waf:8080/api/appointments
       maxDuration: 2
       maxDepth: 5
       maxChildren: 20
@@ -83,7 +83,7 @@ jobs:
   - type: activeScan
     parameters:
       context: Clinic Management App
-      url: http://backend:8080/api/patients
+      url: http://waf:8080/api/patients
       maxRuleDurationInMins: 3
       maxScanDurationInMins: 15
       threadPerHost: 2
@@ -111,7 +111,7 @@ jobs:
   - type: activeScan
     parameters:
       context: Clinic Management App
-      url: http://backend:8080/api/patients
+      url: http://waf:8080/api/patients
       maxRuleDurationInMins: 3
       maxScanDurationInMins: 10
       threadPerHost: 2
@@ -139,7 +139,7 @@ jobs:
   - type: activeScan
     parameters:
       context: Clinic Management App
-      url: http://backend:8080/api/appointments
+      url: http://waf:8080/api/appointments
       maxRuleDurationInMins: 3
       maxScanDurationInMins: 15
       threadPerHost: 2
@@ -167,7 +167,7 @@ jobs:
   - type: activeScan
     parameters:
       context: Clinic Management App
-      url: http://backend:8080/api/appointments?patientName=Afonso&status=Scheduled&specialty=Cardiology
+      url: http://waf:8080/api/appointments?patientName=Afonso&status=Scheduled&specialty=Cardiology
       maxRuleDurationInMins: 3
       maxScanDurationInMins: 10
       threadPerHost: 2
@@ -196,7 +196,7 @@ jobs:
     parameters:
       template: traditional-html
       reportDir: /zap/wrk
-      reportFile: zap-report.html
+      reportFile: zap-waf-report.html
       reportTitle: DAST Scan - Clinic Management App
       reportDescription: Local OWASP ZAP scan for the clinic management application
       displayReport: false
@@ -205,7 +205,7 @@ jobs:
     parameters:
       template: sarif-json
       reportDir: /zap/wrk
-      reportFile: zap-report.sarif
+      reportFile: zap-waf-report.sarif
       reportTitle: DAST Scan - Clinic Management App
       reportDescription: SARIF report for code scanning ingestion
       displayReport: false
@@ -214,6 +214,6 @@ jobs:
     parameters:
       template: traditional-json
       reportDir: /zap/wrk
-      reportFile: zap-report.json
+      reportFile: zap-waf-report.json
       reportTitle: DAST Scan - Clinic Management App
       displayReport: false

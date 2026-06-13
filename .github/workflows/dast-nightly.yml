@@ -32,12 +32,12 @@ jobs:
     timeout-minutes: 45
     steps:
       - name: Check out AppSec repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           path: appsec
 
       - name: Check out software repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           repository: ${{ env.TARGET_REPOSITORY }}
           ref: ${{ inputs.target_ref || env.DEFAULT_TARGET_REF }}
@@ -117,7 +117,7 @@ jobs:
             echo "backend=${backend_status} frontend=${frontend_ok} — retrying in 5s..."; sleep 5
           done
 
-      - name: Run OWASP ZAP baseline scan (direct)
+      - name: Run OWASP ZAP active scan (direct)
         run: |
           mkdir -p appsec/dast/reports/dast-direct-reports
           chmod 0777 appsec/dast/reports/dast-direct-reports
@@ -125,25 +125,21 @@ jobs:
           set +e
           docker run --rm \
             --network dast-network \
+            -v "$PWD/appsec/dast/zap-config:/zap/config:ro" \
             -v "$PWD/appsec/dast/reports/dast-direct-reports:/zap/wrk:rw" \
             ghcr.io/zaproxy/zaproxy:stable \
-            zap-baseline.py \
-            -t "http://frontend:8080" \
-            -a -j -I -m 2 -D 5 \
-            -r zap-direct-report.html \
-            -J zap-direct-report.json \
-            --autooff
+            zap.sh -cmd -autorun /zap/config/automation-plan.yaml
           scan_exit_code=$?
           set -e
 
           echo "ZAP exited with code ${scan_exit_code}."
-          if [ ! -f "appsec/dast/reports/dast-direct-reports/zap-direct-report.json" ]; then
+          if [ ! -f "appsec/dast/reports/dast-direct-reports/zap-report.json" ]; then
             echo "ZAP did not produce the report." >&2; exit 1
           fi
 
       - name: Upload direct reports
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v4.6.2
         with:
           name: dast-direct-reports
           path: appsec/dast/reports/dast-direct-reports/
@@ -163,12 +159,12 @@ jobs:
     timeout-minutes: 60
     steps:
       - name: Check out AppSec repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           path: appsec
 
       - name: Check out software repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           repository: ${{ env.TARGET_REPOSITORY }}
           ref: ${{ inputs.target_ref || env.DEFAULT_TARGET_REF }}
@@ -292,7 +288,7 @@ jobs:
             echo "waf=${waf_status} frontend=${frontend_ok} — retrying in 5s..."; sleep 5
           done
 
-      - name: Run OWASP ZAP baseline scan (via WAF)
+      - name: Run OWASP ZAP active scan (via WAF)
         run: |
           mkdir -p appsec/dast/reports/dast-waf-reports
           chmod 0777 appsec/dast/reports/dast-waf-reports
@@ -300,14 +296,10 @@ jobs:
           set +e
           docker run --rm \
             --network dast-waf-network \
+            -v "$PWD/appsec/dast/zap-config:/zap/config:ro" \
             -v "$PWD/appsec/dast/reports/dast-waf-reports:/zap/wrk:rw" \
             ghcr.io/zaproxy/zaproxy:stable \
-            zap-baseline.py \
-            -t "http://waf:8080" \
-            -a -j -I -m 2 -D 5 \
-            -r zap-waf-report.html \
-            -J zap-waf-report.json \
-            --autooff
+            zap.sh -cmd -autorun /zap/config/automation-plan-waf.yaml
           scan_exit_code=$?
           set -e
 
@@ -328,7 +320,7 @@ jobs:
 
       - name: Upload WAF reports
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v4.6.2
         with:
           name: dast-waf-reports
           path: appsec/dast/reports/dast-waf-reports/
