@@ -900,7 +900,7 @@ The nightly level confirms the value of deeper scheduled analysis: even though p
 
 \begin{figure}[H]
   \centering
-  \includegraphics[width=\linewidth]{sq4.png}
+  \includegraphics[width=0.85\linewidth]{sq4.png}
   \caption{GitHub Security tab -- open alerts detected by Trivy (HIGH, pom.xml and Dockerfiles) and Semgrep (errors)}
 \end{figure}
 
@@ -1020,13 +1020,13 @@ Modern Web Application                       & Informational & 8 \\
 
 \begin{figure}[H]
   \centering
-  \includegraphics[width=\linewidth]{Zap.png}
+  \includegraphics[width=0.80\linewidth]{Zap.png}
   \caption{ZAP Scanning Report (HTML) -- PR run, generated Mon 30 Mar 2026}
 \end{figure}
 
 \begin{figure}[H]
   \centering
-  \includegraphics[width=\linewidth]{alert_detail_zap.png}
+  \includegraphics[width=0.75\linewidth]{alert_detail_zap.png}
   \caption{ZAP Alert Detail -- Content Security Policy (CSP) Header Not Set (Medium, 4 instances)}
 \end{figure}
 
@@ -1076,13 +1076,13 @@ The nightly results confirm the same top findings as the PR scan. No High severi
 
 \begin{figure}[H]
   \centering
-  \includegraphics[width=\linewidth]{nightly_zap_2.png}
+  \includegraphics[width=0.80\linewidth]{nightly_zap_2.png}
   \caption{Nightly ZAP Scanning Report (HTML) -- Local OWASP ZAP scan, generated Tue 31 Mar 2026}
 \end{figure}
 
 \begin{figure}[H]
   \centering
-  \includegraphics[width=\linewidth]{nightly_zap.png}
+  \includegraphics[width=0.75\linewidth]{nightly_zap.png}
   \caption{Nightly ZAP Summary of Sequences -- alert breakdown: Medium (CSP, Anti-clickjacking), Low (X-Content-Type), Informational (Modern Web App)}
 \end{figure}
 
@@ -1667,49 +1667,170 @@ AS-08 & Overload the API with Repeated Requests &
 
 \subsection{Regression Evidence}
 
-The following figures present the regression diagrams produced for each abuse story, showing the original attack path, what changed in Part 2, and the resulting status.
+The following figures present the regression diagrams for each abuse story, showing the original attack path and the resulting status. Each diagram is followed by a table of the controls applied in Part 2.
 
+% ── AS-01 ────────────────────────────────────────────────────────────────────
 \begin{figure}[H]
   \centering
-  \includegraphics[width=\linewidth]{01_regression.png}
+  \includegraphics[width=0.95\linewidth]{01_regression.png}
   \caption{AS-01 -- Unauthorised Access to Patient Data: \textbf{Prevented}}
 \end{figure}
 
+\begin{table}[H]
+\centering
+\caption{AS-01 -- Controls applied in Part 2}
+\begin{tabularx}{\linewidth}{>{\bfseries}p{4.2cm} X}
+\toprule
+\textbf{Control} & \textbf{Implementation detail} \\
+\midrule
+Spring Security added    & \texttt{SecurityConfig.java} -- all routes now go through the filter chain \\
+JWT authentication       & \texttt{oauth2ResourceServer} -- every \texttt{/api/**} request requires a valid Keycloak Bearer token \\
+RBAC enforced            & \texttt{@PreAuthorize("@perms.canAnyRole(...)")} -- unauthenticated callers receive 401 \\
+Response DTOs            & \texttt{PatientResponseDTO} / \texttt{AppointmentResponseDTO} -- entities no longer serialised directly \\
+No entity field leakage  & \texttt{appointments[]} contains only \texttt{id}, not nested PII \\
+Stack traces suppressed  & \texttt{spring.web.error.include-message=never} \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+% ── AS-02 ────────────────────────────────────────────────────────────────────
 \begin{figure}[H]
   \centering
-  \includegraphics[width=\linewidth]{02_regression.png}
-  \caption{AS-02 -- Link Patient Identity to Appointment History: \textbf{Prevented}}
+  \includegraphics[width=0.95\linewidth]{02_regression.png}
+  \caption{AS-02 -- Link Patient Identity to Health Patterns: \textbf{Residual Risk}}
 \end{figure}
 
+\begin{table}[H]
+\centering
+\caption{AS-02 -- Controls applied in Part 2}
+\begin{tabularx}{\linewidth}{>{\bfseries}p{4.2cm} X}
+\toprule
+\textbf{Control} & \textbf{Implementation detail} \\
+\midrule
+JWT authentication        & All \texttt{/api/**} endpoints now require a valid Keycloak Bearer token -- unauthenticated Step 1/2 calls return 401 \\
+RBAC enforced             & \texttt{@PreAuthorize} -- only ADMIN, DOCTOR, RECEPTIONIST roles can read appointments \\
+AppointmentResponseDTO    & Returns \texttt{patientId} + \texttt{patientName} flat -- no nested PII object \\
+PatientResponseDTO        & \texttt{appointments[]} contains only \texttt{\{id\}}, not specialty/status \\
+\midrule
+\multicolumn{2}{p{\linewidth}}{\textit{Residual risk: patientName is still present alongside specialty in AppointmentResponseDTO -- an authorised user can still correlate identity with health specialties. Full mitigation requires field-level RBAC or purpose-limited projections.}} \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+% ── AS-03 ────────────────────────────────────────────────────────────────────
 \begin{figure}[H]
   \centering
-  \includegraphics[width=\linewidth]{03_regression.png}
+  \includegraphics[width=0.95\linewidth]{03_regression.png}
   \caption{AS-03 -- Direct Patient Identification via IDOR: \textbf{Prevented}}
 \end{figure}
 
+\begin{table}[H]
+\centering
+\caption{AS-03 -- Controls applied in Part 2}
+\begin{tabularx}{\linewidth}{>{\bfseries}p{4.2cm} X}
+\toprule
+\textbf{Control} & \textbf{Implementation detail} \\
+\midrule
+JWT authentication       & \texttt{SecurityConfig} -- \texttt{/api/patients/\{id\}} now requires a valid Keycloak Bearer token; unauthenticated calls return 401 \\
+RBAC enforced            & \texttt{@PreAuthorize("@perms.canAnyRole(authentication, 'patients', 'READ')")} -- only ADMIN/DOCTOR/RECEPTIONIST can read \\
+Rate limiting added      & \texttt{RateLimitFilter} -- 100 req/min per IP, HTTP 429 + \texttt{Retry-After: 60} \\
+Enumeration throttled    & Even authenticated bulk scans are throttled; bursts blocked after 100 requests/min \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+% ── AS-04 ────────────────────────────────────────────────────────────────────
 \begin{figure}[H]
   \centering
-  \includegraphics[width=\linewidth]{04_regression.png}
-  \caption{AS-04 -- Infer Health Condition from Appointment Metadata: \textbf{Prevented}}
+  \includegraphics[width=0.95\linewidth]{04_regression.png}
+  \caption{AS-04 -- Modify or Reassign Appointment Records: \textbf{Prevented}}
 \end{figure}
 
+\begin{table}[H]
+\centering
+\caption{AS-04 -- Controls applied in Part 2}
+\begin{tabularx}{\linewidth}{>{\bfseries}p{4.6cm} X}
+\toprule
+\textbf{Control} & \textbf{Implementation detail} \\
+\midrule
+JWT authentication          & \texttt{PUT /api/appointments/\{id\}} and \texttt{PUT /api/patients/\{id\}} now require a valid Keycloak Bearer token \\
+RBAC enforced               & \texttt{@PreAuthorize} -- UPDATE on appointments requires RECEPTIONIST or ADMIN role; UPDATE on patients requires DOCTOR or ADMIN \\
+AppointmentRequestDTO       & Accepts only \texttt{dateTime}, \texttt{specialty}, \texttt{status} -- no patient field in body \\
+Mass-assignment blocked     & \texttt{spring.jackson.deserialization.fail-on-unknown-properties=true} rejects extra fields \\
+Patient rebinding prevented & DTO has no patient field -- the service \texttt{update()} patient branch is structurally unreachable \\
+Input validation            & \texttt{@NotBlank}, \texttt{@NotNull} on all DTO fields -- invalid payloads return 400 with field errors \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+% ── AS-05 ────────────────────────────────────────────────────────────────────
 \begin{figure}[H]
   \centering
-  \includegraphics[width=\linewidth]{05_regression.png}
-  \caption{AS-05 -- Modify or Reassign Appointment Records: \textbf{Prevented}}
+  \includegraphics[width=0.95\linewidth]{05_regression.png}
+  \caption{AS-05 -- Destroy Patient Records via Cascade Deletion: \textbf{Prevented}}
 \end{figure}
 
+\begin{table}[H]
+\centering
+\caption{AS-05 -- Controls applied in Part 2}
+\begin{tabularx}{\linewidth}{>{\bfseries}p{4.6cm} X}
+\toprule
+\textbf{Control} & \textbf{Implementation detail} \\
+\midrule
+JWT authentication            & \texttt{DELETE /api/patients/\{id\}} now requires a valid Keycloak Bearer token; unauthenticated callers receive 401 \\
+RBAC -- ADMIN only            & \texttt{@PreAuthorize("@perms.canAnyRole(authentication, 'patients', 'DELETE')")} -- only ADMIN role has DELETE permission per \texttt{application.yml} \\
+DOCTOR / RECEPTIONIST blocked & Non-admin authenticated users receive 403 Forbidden on DELETE -- role matrix enforced \\
+Rate limiting                 & \texttt{RateLimitFilter} -- 100 req/min per IP; bulk delete loops are throttled even for ADMIN \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+% ── AS-06 ────────────────────────────────────────────────────────────────────
 \begin{figure}[H]
   \centering
-  \includegraphics[width=\linewidth]{06_regression.png}
-  \caption{AS-06 -- Destroy Patient Records via Cascade Deletion: \textbf{Prevented}}
+  \includegraphics[width=0.95\linewidth]{06_regression.png}
+  \caption{AS-06 -- Perform Undetectable Actions: \textbf{Residual Risk}}
 \end{figure}
 
+\begin{table}[H]
+\centering
+\caption{AS-06 -- Controls applied in Part 2}
+\begin{tabularx}{\linewidth}{>{\bfseries}p{4.2cm} X}
+\toprule
+\textbf{Control} & \textbf{Implementation detail} \\
+\midrule
+JWT authentication           & Every \texttt{/api/**} request now carries a verified Keycloak identity (\texttt{sub}, \texttt{preferred\_username}, roles) \\
+Identity extraction          & \texttt{JwtRoleConverter} maps \texttt{realm\_access.roles} to \texttt{ROLE\_*} authorities; \texttt{sub} claim identifies the actor \\
+Spring Security filter chain & All requests pass through the security layer -- the prerequisite for attribution is now in place \\
+Unauthenticated actions blocked & Anonymous requests return 401 -- the anonymous attacker profile from C1 is eliminated \\
+\midrule
+\multicolumn{2}{p{\linewidth}}{\textit{Residual risk: no structured audit log has been implemented. Authenticated actions are attributable to a JWT subject, but no interceptor writes a change record to a persistent store. Full resolution requires a structured access/audit log (Spring AOP interceptor or database trigger).}} \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+% ── AS-07 ────────────────────────────────────────────────────────────────────
 \begin{figure}[H]
   \centering
-  \includegraphics[width=\linewidth]{07_regression.png}
-  \caption{AS-07 -- Undetectable Actions: \textbf{Detected}; AS-08 -- API Overload: \textbf{Prevented}}
+  \includegraphics[width=0.95\linewidth]{07_regression.png}
+  \caption{AS-07 -- Overload API / Denial of Service: \textbf{Prevented}}
 \end{figure}
+
+\begin{table}[H]
+\centering
+\caption{AS-07 -- Controls applied in Part 2}
+\begin{tabularx}{\linewidth}{>{\bfseries}p{4.2cm} X}
+\toprule
+\textbf{Control} & \textbf{Implementation detail} \\
+\midrule
+Rate limiting          & \texttt{RateLimitFilter} -- 100 req/min per IP enforced at application layer \\
+HTTP 429 + Retry-After & Clients receive proper backpressure signal with \texttt{Retry-After: 60} header \\
+POST flood blocked     & \texttt{POST /api/appointments} also requires JWT + RECEPTIONIST/ADMIN role -- anonymous flood returns 401 \\
+Request size limits    & \texttt{server.tomcat.max-http-form-post-size=1MB} -- oversized payloads rejected \\
+Perimeter rate limiting & Nginx \texttt{limit\_req\_zone} enforces 30 req/s burst / 10 req/s sustained per IP at the WAF perimeter \\
+\bottomrule
+\end{tabularx}
+\end{table}
 
 \subsection{Regression Summary}
 
@@ -1777,32 +1898,34 @@ image was current at the time.
 \subsection{Part 2 Results}
 
 Between the Part 1 and Part 2 scans several new CVEs were disclosed against OpenSSL, musl
-libc, zlib and the same npm packages. The Part 2 scan therefore shows more raw findings than
-Part 1, which reflects the passage of time rather than a regression in the codebase.
+libc, zlib and several npm packages. An intermediate scan before Dockerfile hardening showed
+40 findings in the frontend image (1 CRITICAL, 39 HIGH) and 11 in the backend (all HIGH).
 
-To address the OS package CVEs, both Dockerfiles were updated to run a full package upgrade
-at build time: \texttt{apk upgrade --no-cache} in the frontend and \texttt{apt-get upgrade -y}
-in the backend. This ensures the images always pull the latest patched versions when built.
+Both Dockerfiles were updated to force a full OS package upgrade at build time:
+\texttt{apk update \&\& apk upgrade --no-cache} with an explicit nginx version pin in the
+frontend, and \texttt{apt-get upgrade -y} in the backend. After this hardening, the nightly
+Trivy image scans returned zero findings on both images.
 
 \begin{table}[H]
 \centering
-\caption{Part 2 Trivy image scan findings before Dockerfile hardening}
+\caption{Trivy image scan findings before and after Part 2 Dockerfile hardening}
 \begin{tabular}{lll}
 \toprule
-\textbf{Image} & \textbf{Findings} & \textbf{Category} \\
+\textbf{Image} & \textbf{Before hardening} & \textbf{After hardening} \\
 \midrule
-Frontend & 40 (1 CRITICAL, 39 HIGH) & libssl3, musl, zlib (OS); npm build-time packages \\
-Backend  & 11 (11 HIGH)             & OpenSSL (OS); Go stdlib in JDK tooling \\
+Frontend & 40 (1 CRITICAL, 39 HIGH) & 0 \\
+Backend  & 11 (11 HIGH)             & 0 \\
 \bottomrule
 \end{tabular}
 \end{table}
 
-The npm CVEs are confined to the Node.js build stage and are not present in the final Nginx
-image, so they carry no runtime risk. The Go stdlib CVEs in the backend are embedded in
-binaries that ship inside the JRE image itself and cannot be resolved by an OS upgrade;
-they are accepted as residual risk in third-party tooling. The nightly image scan after
-the Dockerfile hardening is pending the merge of the \texttt{develop} branch to
-\texttt{master}.
+The Semgrep PR advisory scan produced 7 advisory findings: one pre-existing Python dynamic
+URL finding and 6 Nginx header redefinition warnings. The Nginx warnings relate to the
+deliberate repetition of security headers inside \texttt{location} blocks, which is required
+to work around Nginx's header inheritance behaviour and is therefore intentional. The 3 Trivy
+filesystem advisory findings are missing \texttt{HEALTHCHECK} directives in the Dockerfiles,
+which is a LOW advisory with no security impact in the CI/CD context. All other scanners
+(Semgrep, Trivy filesystem, Gitleaks) returned zero findings.
 
 \section{DAST Re-Assessment}
 % ─────────────────────────────────────────────────────────────────────────────
@@ -1833,6 +1956,12 @@ PR      & 0 & 0 & 2 \\
 The nightly scan flagged a missing \texttt{X-Content-Type-Options} header. The PR scan
 additionally flagged a missing \texttt{Strict-Transport-Security} header and a Unix
 timestamp disclosure.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.75\linewidth]{dast-part1-nightly.png}
+  \caption{Part 1 nightly ZAP report: 0 High, 0 Medium, 1 Low}
+\end{figure}
 
 \subsection{Part 2 Results}
 
@@ -1867,6 +1996,18 @@ required by the project scope.
 No High severity findings were present in any Part 2 scan. The findings that existed in
 Part 1 (missing HSTS, missing X-Content-Type-Options) are no longer present because both
 headers are now set explicitly in the Nginx configuration.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.65\linewidth]{dast-part2-nightly-direct.png}
+  \caption{Part 2 nightly ZAP report (direct scan): 0 High, 3 Medium, 2 Low}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.65\linewidth]{dast-part2-nightly-waf.png}
+  \caption{Part 2 nightly ZAP report (via WAF): 0 High, 3 Medium, 2 Low}
+\end{figure}
 
 \section{Future Work}
 % ─────────────────────────────────────────────────────────────────────────────
