@@ -1098,6 +1098,95 @@ authentication flow documentation, Zero Trust Architecture framing, and abuse st
 regression -- and references the Keycloak/OIDC integration carried out by Afonso Ferreira.
 
 % ─────────────────────────────────────────────────────────────────────────────
+\section{Updated Data Flow Diagrams}
+% ─────────────────────────────────────────────────────────────────────────────
+
+The DFDs from Part 1 described the baseline system before any security controls were in place.
+In Part 2 the architecture changed significantly: Keycloak was added as an identity provider,
+a WAF with ModSecurity CRS was placed in front of the backend, and an explicit role-based
+access control layer was introduced. The diagrams below reflect this new architecture.
+
+\subsection{Level 0: System Context}
+
+At the context level the system is split into three zones. The \textbf{Internet} zone contains
+the two external actors: clinic staff (admins, doctors and receptionists) who interact with the
+application legitimately, and a generic attacker representing external threats. The
+\textbf{Perimeter} zone groups the components that handle all inbound traffic: the Nginx static
+frontend, the WAF running ModSecurity with the OWASP Core Rule Set, and Keycloak for identity
+and token management. The \textbf{Internal Network} contains the Spring Boot backend and the
+PostgreSQL database, neither of which is reachable directly from the Internet.
+
+Staff log in through Keycloak using Authorization Code with PKCE. The resulting JWT is then
+attached to every API call, which travels through the WAF before reaching the backend. The
+backend fetches Keycloak's public keys over the internal network to validate tokens without
+calling Keycloak on every request.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\linewidth]{DFT0.png}
+  \caption{DFD Level 0: Part 2 system context showing Internet, Perimeter and Internal Network zones}
+\end{figure}
+
+\subsection{Level 1: Detailed Data Flows}
+
+The Level 1 diagram breaks the system down into the eight numbered processes that correspond
+to real implemented components. The flow a request takes depends on how far it gets through
+the chain before being rejected.
+
+\begin{itemize}
+  \item \textbf{1.0 Frontend} serves the React SPA as static files from Nginx on port 8080
+        and forwards API calls to the WAF.
+  \item \textbf{2.0 TLS Termination} decrypts HTTPS traffic and applies IP-based rate limiting
+        at 30 requests per second with a burst allowance of 60.
+  \item \textbf{3.0 ModSecurity CRS} inspects the decrypted request in blocking mode at
+        Paranoia Level 1. Requests matching a CRS rule receive a 403 and go no further.
+  \item \textbf{4.0 Keycloak OIDC} issues short-lived JWT access tokens (5 minutes) and
+        refresh tokens that are rotated on every use.
+  \item \textbf{5.0 JWT Validation} uses \texttt{NimbusJwtDecoder} to verify the token
+        signature, issuer and expiry against the Keycloak JWKS endpoint. Invalid tokens
+        receive a 401.
+  \item \textbf{6.0 RBAC AuthZ} applies the role and action matrix defined in
+        \texttt{PermissionsConfig} via \texttt{@PreAuthorize}. Requests where the caller's
+        role does not permit the action receive a 403.
+  \item \textbf{7.0 Business Logic} handles patient and appointment management including
+        soft-delete to prevent irreversible data loss.
+  \item \textbf{8.0 Audit Log} records every write operation with the actor identity,
+        the affected resource and a timestamp.
+\end{itemize}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\linewidth]{DFT1.png}
+  \caption{DFD Level 1: Part 2 detailed data flows across all eight processes}
+\end{figure}
+
+\subsection{Level 2: Authentication and Authorization Sequence}
+
+The Level 2 diagram shows a sequence view of the three main flows that pass through the
+system.
+
+\textbf{Login.} When a staff member clicks login, the frontend redirects to Keycloak with a
+code challenge using S256. Keycloak returns an authorization code, which the frontend
+exchanges for a JWT access token valid for 5 minutes and a refresh token valid for one hour.
+
+\textbf{Token refresh.} When the access token nears expiry, the frontend sends the refresh
+token to Keycloak. Keycloak issues a new access token and a new refresh token, and immediately
+invalidates the old refresh token. Any attempt to reuse an already-consumed refresh token
+causes Keycloak to revoke the entire session, which prevents replay attacks even if a token
+is stolen.
+
+\textbf{API request.} Every API call from the frontend carries a Bearer token and passes
+through the WAF first. ModSecurity inspects the request and blocks anything matching a CRS
+rule with a 403. Clean requests reach the backend, which validates the JWT, checks the
+caller's role, writes an audit log entry and returns the response.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\linewidth]{DFT2.png}
+  \caption{DFD Level 2: login flow, token refresh with rotation, and API request sequence}
+\end{figure}
+
+% ─────────────────────────────────────────────────────────────────────────────
 \section{Authentication \& Identity Management}
 % ─────────────────────────────────────────────────────────────────────────────
 
