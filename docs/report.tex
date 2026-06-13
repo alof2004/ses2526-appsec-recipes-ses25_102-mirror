@@ -126,6 +126,10 @@
 \clearpage
 
 % ══════════════════════════════════════════════════════════════════════════════
+\part{Part 1 -- Security Assessment \& Tooling Setup}
+% ══════════════════════════════════════════════════════════════════════════════
+
+% ══════════════════════════════════════════════════════════════════════════════
 \chapter{Threat Modelling -- Context and Objectives}
 % ══════════════════════════════════════════════════════════════════════════════
 
@@ -1083,7 +1087,7 @@ The nightly results confirm the same top findings as the PR scan. No High severi
 \end{figure}
 
 % ══════════════════════════════════════════════════════════════════════════════
-\chapter{Part 2 -- Security Fixes \& Architecture}
+\part{Part 2 -- Fixing Issues \& Future Development}
 % ══════════════════════════════════════════════════════════════════════════════
 
 Building on the Part 1 assessment, Part 2 fixes the vulnerabilities identified and introduces
@@ -1180,7 +1184,7 @@ Token lifespans are configured as follows:
 \midrule
 Access token lifespan       & 300\,s (5 minutes) \\
 SSO session idle timeout    & 1\,800\,s (30 minutes) \\
-SSO session max lifespan    & 36\,000\,s (10 hours) \\
+SSO session max lifespan    & 3\,600\,s (1 hour) \\
 \bottomrule
 \end{tabular}
 \end{table}
