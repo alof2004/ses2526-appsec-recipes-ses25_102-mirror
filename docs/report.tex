@@ -1732,6 +1732,142 @@ Seven of the eight abuse stories are classified as \textbf{Prevented}; the remai
 audit log, making post-incident investigation possible. No abuse story remains at Residual Risk.
 
 % ─────────────────────────────────────────────────────────────────────────────
+\section{SAST Re-Assessment}
+% ─────────────────────────────────────────────────────────────────────────────
+
+The SAST pipeline runs three scanners at two lifecycle stages: Semgrep, Trivy filesystem
+and Gitleaks at the pull request level, and Semgrep, Trivy image scan and CodeQL at the
+nightly level.
+
+\subsection{Part 1 Baseline}
+
+Most scanners returned zero findings in Part 1. The PR advisory scan flagged two Dockerfiles
+for missing \texttt{HEALTHCHECK} instructions (DS-0026, LOW) and one Semgrep advisory finding
+for dynamic URL use in a Python script inside the repository. None of these represented
+application vulnerabilities.
+
+The only scanner with significant findings was the Trivy nightly image scan of the frontend
+container, which reported 23 HIGH or CRITICAL CVEs from outdated OS packages in the
+\texttt{nginx:alpine} base image and vulnerable npm packages in the Node build stage.
+
+\begin{table}[H]
+\centering
+\caption{Part 1 Trivy frontend image findings by package}
+\begin{tabular}{llll}
+\toprule
+\textbf{Package} & \textbf{Type} & \textbf{Findings} & \textbf{Severity} \\
+\midrule
+libssl3       & OS (Alpine)   & 3  & HIGH / CRITICAL \\
+zlib          & OS (Alpine)   & 1  & HIGH \\
+cross-spawn   & npm (build)   & 1  & HIGH \\
+flatted       & npm (build)   & 1  & HIGH \\
+glob          & npm (build)   & 1  & HIGH \\
+minimatch     & npm (build)   & 6  & HIGH \\
+rollup        & npm (build)   & 1  & HIGH \\
+tar           & npm (build)   & 6  & HIGH \\
+\midrule
+\textbf{Total} & & \textbf{23} & \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The backend image had no findings in Part 1 as the \texttt{eclipse-temurin:21-jre} base
+image was current at the time.
+
+\subsection{Part 2 Results}
+
+Between the Part 1 and Part 2 scans several new CVEs were disclosed against OpenSSL, musl
+libc, zlib and the same npm packages. The Part 2 scan therefore shows more raw findings than
+Part 1, which reflects the passage of time rather than a regression in the codebase.
+
+To address the OS package CVEs, both Dockerfiles were updated to run a full package upgrade
+at build time: \texttt{apk upgrade --no-cache} in the frontend and \texttt{apt-get upgrade -y}
+in the backend. This ensures the images always pull the latest patched versions when built.
+
+\begin{table}[H]
+\centering
+\caption{Part 2 Trivy image scan findings before Dockerfile hardening}
+\begin{tabular}{lll}
+\toprule
+\textbf{Image} & \textbf{Findings} & \textbf{Category} \\
+\midrule
+Frontend & 40 (1 CRITICAL, 39 HIGH) & libssl3, musl, zlib (OS); npm build-time packages \\
+Backend  & 11 (11 HIGH)             & OpenSSL (OS); Go stdlib in JDK tooling \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The npm CVEs are confined to the Node.js build stage and are not present in the final Nginx
+image, so they carry no runtime risk. The Go stdlib CVEs in the backend are embedded in
+binaries that ship inside the JRE image itself and cannot be resolved by an OS upgrade;
+they are accepted as residual risk in third-party tooling. The nightly image scan after
+the Dockerfile hardening is pending the merge of the \texttt{develop} branch to
+\texttt{master}.
+
+\section{DAST Re-Assessment}
+% ─────────────────────────────────────────────────────────────────────────────
+
+The DAST pipeline was re-run in Part 2 using two scan configurations as required by the
+assignment: once directly against the application and once through the WAF, so the
+contribution of ModSecurity can be isolated.
+
+\subsection{Part 1 Baseline}
+
+The Part 1 scans targeted the baseline application with no authentication and no WAF. The
+results were relatively clean because the application had very little surface area at the
+time: no headers, no CSP, and no complex flows for ZAP to probe.
+
+\begin{table}[H]
+\centering
+\caption{Part 1 DAST findings}
+\begin{tabular}{llll}
+\toprule
+\textbf{Run} & \textbf{High} & \textbf{Medium} & \textbf{Low} \\
+\midrule
+Nightly & 0 & 0 & 1 \\
+PR      & 0 & 0 & 2 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The nightly scan flagged a missing \texttt{X-Content-Type-Options} header. The PR scan
+additionally flagged a missing \texttt{Strict-Transport-Security} header and a Unix
+timestamp disclosure.
+
+\subsection{Part 2 Results}
+
+In Part 2 the security header set was greatly expanded. This paradoxically increased the
+number of ZAP findings because ZAP now has more headers to evaluate and flags stricter
+requirements such as COEP and COOP headers that were not expected on the baseline.
+
+\begin{table}[H]
+\centering
+\caption{Part 2 DAST findings (direct scan vs WAF scan)}
+\begin{tabular}{lllll}
+\toprule
+\textbf{Run} & \textbf{Scan mode} & \textbf{High} & \textbf{Medium} & \textbf{Low} \\
+\midrule
+Nightly & Direct (no WAF) & 0 & 3 & 2 \\
+Nightly & Via WAF         & 0 & 3 & 2 \\
+PR      & Direct (no WAF) & 0 & 3 & 2 \\
+PR      & Via WAF         & 0 & 3 & 2 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+All four runs return identical findings, which confirms that the WAF does not introduce
+new issues and that the same CSP gaps exist regardless of whether traffic passes through
+ModSecurity. The three Medium findings are all CSP-related: a missing fallback directive,
+\texttt{script-src unsafe-inline} and \texttt{style-src unsafe-inline}. These are accepted
+trade-offs for the current React frontend which relies on inline scripts and styles during
+the build. The two Low findings are missing \texttt{Cross-Origin-Embedder-Policy} and
+\texttt{Cross-Origin-Opener-Policy} headers, which are optional isolation headers not
+required by the project scope.
+
+No High severity findings were present in any Part 2 scan. The findings that existed in
+Part 1 (missing HSTS, missing X-Content-Type-Options) are no longer present because both
+headers are now set explicitly in the Nginx configuration.
+
 \section{Future Work}
 % ─────────────────────────────────────────────────────────────────────────────
 
