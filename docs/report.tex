@@ -1965,48 +1965,65 @@ timestamp disclosure.
 
 \subsection{Part 2 Results}
 
-In Part 2 the security header set was greatly expanded. This paradoxically increased the
-number of ZAP findings because ZAP now has more headers to evaluate and flags stricter
-requirements such as COEP and COOP headers that were not expected on the baseline.
+In Part 2 the DAST pipeline was upgraded from a passive baseline scan to a full active scan
+using \texttt{automation-plan.yaml}, targeting both frontend and backend endpoints with
+SQLi, XSS, path traversal and SSTI rules at HIGH strength. Each run was performed twice:
+once directly against the application and once through the WAF, so the contribution of
+ModSecurity CRS can be isolated.
 
 \begin{table}[H]
 \centering
-\caption{Part 2 DAST findings (direct scan vs WAF scan)}
-\begin{tabular}{lllll}
+\caption{Part 2 DAST findings -- active scan, direct vs WAF}
+\begin{tabularx}{\linewidth}{l l r r r X}
 \toprule
-\textbf{Run} & \textbf{Scan mode} & \textbf{High} & \textbf{Medium} & \textbf{Low} \\
+\textbf{Run} & \textbf{Mode} & \textbf{High} & \textbf{Med} & \textbf{Low} & \textbf{Notable findings} \\
 \midrule
-Nightly & Direct (no WAF) & 0 & 3 & 2 \\
-Nightly & Via WAF         & 0 & 3 & 2 \\
-PR      & Direct (no WAF) & 0 & 3 & 2 \\
-PR      & Via WAF         & 0 & 3 & 2 \\
+Nightly & Direct (no WAF) & 0 & 3 & 0 & CSP: no fallback directive, unsafe-inline script/style \\
+Nightly & Via WAF         & 0 & 0 & 2 & Server version leak, in-page banner info leak \\
+PR      & Direct (no WAF) & 0 & 3 & 2 & CSP: unsafe-inline; missing COEP/COOP headers \\
+PR      & Via WAF         & 0 & 3 & 2 & CSP: unsafe-inline; missing COEP/COOP headers \\
 \bottomrule
-\end{tabular}
+\end{tabularx}
 \end{table}
 
-All four runs return identical findings, which confirms that the WAF does not introduce
-new issues and that the same CSP gaps exist regardless of whether traffic passes through
-ModSecurity. The three Medium findings are all CSP-related: a missing fallback directive,
-\texttt{script-src unsafe-inline} and \texttt{style-src unsafe-inline}. These are accepted
-trade-offs for the current React frontend which relies on inline scripts and styles during
-the build. The two Low findings are missing \texttt{Cross-Origin-Embedder-Policy} and
-\texttt{Cross-Origin-Opener-Policy} headers, which are optional isolation headers not
-required by the project scope.
+No High severity findings were present in any run. The Part 1 findings (missing HSTS,
+missing \texttt{X-Content-Type-Options}) are fully resolved -- both headers are now set
+explicitly in the Nginx configuration.
 
-No High severity findings were present in any Part 2 scan. The findings that existed in
-Part 1 (missing HSTS, missing X-Content-Type-Options) are no longer present because both
-headers are now set explicitly in the Nginx configuration.
+The three Medium findings (CSP-related) are accepted trade-offs: the React frontend
+requires \texttt{unsafe-inline} for scripts and styles during the build, and \texttt{form-action}
+is not a directive with a \texttt{default-src} fallback. The two Low findings in the PR scan
+(\texttt{Cross-Origin-Embedder-Policy} and \texttt{Cross-Origin-Opener-Policy}) are optional
+isolation headers outside the project scope.
+
+The nightly WAF scan shows a different finding profile to the direct scan: the WAF introduces
+two Low findings from Nginx leaking its version string in the \texttt{Server} header and in
+page banners. These are resolved by adding \texttt{server\_tokens off} to the WAF Nginx
+configuration. The PR scans are identical direct vs WAF, confirming ModSecurity CRS does not
+suppress or alter the CSP-related findings.
 
 \begin{figure}[H]
   \centering
-  \includegraphics[width=0.65\linewidth]{dast-part2-nightly-direct.png}
-  \caption{Part 2 nightly ZAP report (direct scan): 0 High, 3 Medium, 2 Low}
+  \includegraphics[width=0.75\linewidth]{dast-p2-nightly-direct.png}
+  \caption{Part 2 nightly ZAP active scan (direct): 0 High, 3 Medium, 0 Low}
 \end{figure}
 
 \begin{figure}[H]
   \centering
-  \includegraphics[width=0.65\linewidth]{dast-part2-nightly-waf.png}
-  \caption{Part 2 nightly ZAP report (via WAF): 0 High, 3 Medium, 2 Low}
+  \includegraphics[width=0.75\linewidth]{dast-p2-nightly-waf.png}
+  \caption{Part 2 nightly ZAP active scan (via WAF): 0 High, 0 Medium, 2 Low}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.75\linewidth]{dast-p2-pr-direct.png}
+  \caption{Part 2 PR ZAP scan (direct): 0 High, 3 Medium, 2 Low}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.75\linewidth]{dast-p2-pr-waf.png}
+  \caption{Part 2 PR ZAP scan (via WAF): 0 High, 3 Medium, 2 Low}
 \end{figure}
 
 \section{Future Work}
