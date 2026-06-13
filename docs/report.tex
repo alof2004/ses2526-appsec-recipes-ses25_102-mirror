@@ -1965,9 +1965,8 @@ timestamp disclosure.
 
 \subsection{Part 2 Results}
 
-In Part 2 the DAST pipeline was upgraded from a passive baseline scan to a full active scan
-using \texttt{automation-plan.yaml}, targeting both frontend and backend endpoints with
-SQLi, XSS, path traversal and SSTI rules at HIGH strength. Each run was performed twice:
+The Part 2 DAST scan targets both frontend and backend endpoints with active rules for
+SQLi, XSS, path traversal and SSTI at HIGH strength. Each run was performed twice:
 once directly against the application and once through the WAF, so the contribution of
 ModSecurity CRS can be isolated.
 

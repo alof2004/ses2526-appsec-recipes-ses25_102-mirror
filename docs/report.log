@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2025/dev/Debian) (preloaded format=pdflatex 2025.11.6)  13 JUN 2026 11:50
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2025/dev/Debian) (preloaded format=pdflatex 2025.11.6)  13 JUN 2026 14:57
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1638,13 +1638,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
 [66]
-<report_images/dast-part2-nightly-direct.png, id=881, 1405.25pt x 903.375pt>
-File: report_images/dast-part2-nightly-direct.png Graphic file (type png)
-<use report_images/dast-part2-nightly-direct.png>
-Package pdftex.def Info: report_images/dast-part2-nightly-direct.png  used on i
-nput line 2002.
-(pdftex.def)             Requested size: 284.8093pt x 183.08406pt.
-
 
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -1654,12 +1647,24 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
 [67 <./report_images/dast-part1-nightly.png (PNG copy)>]
-<report_images/dast-part2-nightly-waf.png, id=888, 1405.25pt x 903.375pt>
-File: report_images/dast-part2-nightly-waf.png Graphic file (type png)
-<use report_images/dast-part2-nightly-waf.png>
-Package pdftex.def Info: report_images/dast-part2-nightly-waf.png  used on inpu
-t line 2008.
-(pdftex.def)             Requested size: 284.8093pt x 183.08406pt.
+<report_images/dast-p2-nightly-direct.png, id=887, 1405.25pt x 903.375pt>
+File: report_images/dast-p2-nightly-direct.png Graphic file (type png)
+<use report_images/dast-p2-nightly-direct.png>
+Package pdftex.def Info: report_images/dast-p2-nightly-direct.png  used on inpu
+t line 2007.
+(pdftex.def)             Requested size: 328.6292pt x 211.25932pt.
+<report_images/dast-p2-nightly-waf.png, id=888, 1405.25pt x 903.375pt>
+File: report_images/dast-p2-nightly-waf.png Graphic file (type png)
+<use report_images/dast-p2-nightly-waf.png>
+Package pdftex.def Info: report_images/dast-p2-nightly-waf.png  used on input l
+ine 2013.
+(pdftex.def)             Requested size: 328.6292pt x 211.25932pt.
+<report_images/dast-p2-pr-direct.png, id=889, 1405.25pt x 903.375pt>
+File: report_images/dast-p2-pr-direct.png Graphic file (type png)
+<use report_images/dast-p2-pr-direct.png>
+Package pdftex.def Info: report_images/dast-p2-pr-direct.png  used on input lin
+e 2019.
+(pdftex.def)             Requested size: 328.6292pt x 211.25932pt.
 
 
 
@@ -1669,8 +1674,15 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[68 <./report_images/dast-part2-nightly-direct.png (PNG copy)> <./report_images
-/dast-part2-nightly-waf.png (PNG copy)>]
+[68 <./report_images/dast-p2-nightly-direct.png (PNG copy)> <./report_images/da
+st-p2-nightly-waf.png (PNG copy)>]
+<report_images/dast-p2-pr-waf.png, id=896, 1405.25pt x 903.375pt>
+File: report_images/dast-p2-pr-waf.png Graphic file (type png)
+<use report_images/dast-p2-pr-waf.png>
+Package pdftex.def Info: report_images/dast-p2-pr-waf.png  used on input line 2
+025.
+(pdftex.def)             Requested size: 328.6292pt x 211.25932pt.
+
 
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -1679,7 +1691,17 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[69] (./report.aux)
+[69 <./report_images/dast-p2-pr-direct.png (PNG copy)> <./report_images/dast-p2
+-pr-waf.png (PNG copy)>]
+
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[70] (./report.aux)
  ***********
 LaTeX2e <2024-11-01> patch level 2
 L3 programming layer <2025-01-18>
@@ -1688,10 +1710,10 @@ Package rerunfilecheck Info: File `report.out' has not changed.
 (rerunfilecheck)             Checksum: 102A071E8DFE3564907492A92FB4A33C;13799.
  ) 
 Here is how much of TeX's memory you used:
- 16652 strings out of 473197
- 277205 string characters out of 5718605
+ 16673 strings out of 473197
+ 277859 string characters out of 5718605
  731166 words of memory out of 5000000
- 39234 multiletter control sequences out of 15000+600000
+ 39252 multiletter control sequences out of 15000+600000
  630542 words of font info for 167 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  75i,13n,79p,1195b,622s stack positions out of 10000i,1000n,20000p,200000b,200000s
@@ -1702,10 +1724,10 @@ lic/lm/lmr17.pfb></usr/share/texmf/fonts/type1/public/lm/lmr8.pfb></usr/share/t
 exmf/fonts/type1/public/lm/lmri10.pfb></usr/share/texmf/fonts/type1/public/lm/l
 mri12.pfb></usr/share/texmf/fonts/type1/public/lm/lmsy10.pfb></usr/share/texmf/
 fonts/type1/public/lm/lmtt12.pfb>
-Output written on report.pdf (70 pages, 5400872 bytes).
+Output written on report.pdf (71 pages, 5556062 bytes).
 PDF statistics:
- 1008 PDF objects out of 1200 (max. 8388607)
- 835 compressed objects within 9 object streams
- 261 named destinations out of 1000 (max. 500000)
- 40293 words of extra memory for PDF output out of 42996 (max. 10000000)
+ 1016 PDF objects out of 1200 (max. 8388607)
+ 840 compressed objects within 9 object streams
+ 264 named destinations out of 1000 (max. 500000)
+ 40303 words of extra memory for PDF output out of 42996 (max. 10000000)
 

@@ -1,0 +1,1242 @@
+{
+   "runs": [
+      {
+         "results": [ 
+            {
+               "level": "warning",
+               "locations": [
+                  {
+                     "physicalLocation": {
+                        "artifactLocation": {
+                           "uri": "http:\/\/frontend:8080\/appointments"
+                        },
+                        
+                        "region": {
+                           "startLine": 1,
+                           
+                           "properties" : { 
+                               "startLineFailure" : "Resolved invalid start line: 0 - used fallback value instead."
+                            }, 
+                           "snippet": {
+                               "text": "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self' https:\/\/localhost:8443 https:\/\/localhost:8080; font-src 'self'; object-src 'none'; base-uri 'self'; frame-ancestors 'none'"
+                           }
+                        }
+                     },
+                     "properties": {
+                         "attack": ""
+                     }
+                  }
+               ],
+               "message": {
+                  "text": "The directive(s): form-action is\/are among the directives that do not fallback to default-src."
+               },
+               "ruleId": "10055",
+               "webRequest": {
+                   "protocol": "HTTP",
+                   "version": "1.1",
+                   "target": "http:\/\/frontend:8080\/appointments",
+                   "method": "GET",
+                   "headers": {
+                       "cache-control" : "no-cache",
+                       "host" : "frontend:8080",
+                       "pragma" : "no-cache",
+                       "user-agent" : "Mozilla\/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit\/537.36 (KHTML, like Gecko) Chrome\/141.0.0.0 Safari\/537.36"
+                   },
+                   "body": {
+                       
+                   }
+               },
+               "webResponse": {
+                   "statusCode": 200,
+                   "reasonPhrase": "OK",
+                   "protocol": "HTTP",
+                   "version": "1.1",
+                   "headers": {
+                       "Accept-Ranges" : "bytes",
+                       "Connection" : "keep-alive",
+                       "Content-Length" : "455",
+                       "Content-Security-Policy" : "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self' https:\/\/localhost:8443 https:\/\/localhost:8080; font-src 'self'; object-src 'none'; base-uri 'self'; frame-ancestors 'none'",
+                       "Content-Type" : "text\/html",
+                       "Cross-Origin-Resource-Policy" : "same-origin",
+                       "Date" : "Sat, 13 Jun 2026 13:50:00 GMT",
+                       "ETag" : "\"6a2d5fda-1c7\"",
+                       "Last-Modified" : "Sat, 13 Jun 2026 13:49:14 GMT",
+                       "Permissions-Policy" : "geolocation=(), microphone=(), camera=()",
+                       "Referrer-Policy" : "strict-origin-when-cross-origin",
+                       "Server" : "nginx",
+                       "X-Content-Type-Options" : "nosniff",
+                       "X-Frame-Options" : "DENY"
+                   },
+                   "body": {
+                       "text": "<!doctype html>\n<html lang=\"en\">\n  <head>\n    <meta charset=\"UTF-8\" \/>\n    <link rel=\"icon\" type=\"image\/svg+xml\" href=\"\/vite.svg\" \/>\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\" \/>\n    <title>frontend<\/title>\n    <script type=\"module\" crossorigin src=\"\/assets\/index-B6N7bpyj.js\"><\/script>\n    <link rel=\"stylesheet\" crossorigin href=\"\/assets\/index-DpoqUnYp.css\">\n  <\/head>\n  <body>\n    <div id=\"root\"><\/div>\n  <\/body>\n<\/html>\n"
+                   },
+                   "noResponseReceived": false
+               }
+            },
+            {
+               "level": "warning",
+               "locations": [
+                  {
+                     "physicalLocation": {
+                        "artifactLocation": {
+                           "uri": "http:\/\/frontend:8080\/patients"
+                        },
+                        
+                        "region": {
+                           "startLine": 1,
+                           
+                           "properties" : { 
+                               "startLineFailure" : "Resolved invalid start line: 0 - used fallback value instead."
+                            }, 
+                           "snippet": {
+                               "text": "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self' https:\/\/localhost:8443 https:\/\/localhost:8080; font-src 'self'; object-src 'none'; base-uri 'self'; frame-ancestors 'none'"
+                           }
+                        }
+                     },
+                     "properties": {
+                         "attack": ""
+                     }
+                  }
+               ],
+               "message": {
+                  "text": "The directive(s): form-action is\/are among the directives that do not fallback to default-src."
+               },
+               "ruleId": "10055",
+               "webRequest": {
+                   "protocol": "HTTP",
+                   "version": "1.1",
+                   "target": "http:\/\/frontend:8080\/patients",
+                   "method": "GET",
+                   "headers": {
+                       "cache-control" : "no-cache",
+                       "host" : "frontend:8080",
+                       "pragma" : "no-cache",
+                       "user-agent" : "Mozilla\/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit\/537.36 (KHTML, like Gecko) Chrome\/141.0.0.0 Safari\/537.36"
+                   },
+                   "body": {
+                       
+                   }
+               },
+               "webResponse": {
+                   "statusCode": 200,
+                   "reasonPhrase": "OK",
+                   "protocol": "HTTP",
+                   "version": "1.1",
+                   "headers": {
+                       "Accept-Ranges" : "bytes",
+                       "Connection" : "keep-alive",
+                       "Content-Length" : "455",
+                       "Content-Security-Policy" : "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self' https:\/\/localhost:8443 https:\/\/localhost:8080; font-src 'self'; object-src 'none'; base-uri 'self'; frame-ancestors 'none'",
+                       "Content-Type" : "text\/html",
+                       "Cross-Origin-Resource-Policy" : "same-origin",
+                       "Date" : "Sat, 13 Jun 2026 13:50:00 GMT",
+                       "ETag" : "\"6a2d5fda-1c7\"",
+                       "Last-Modified" : "Sat, 13 Jun 2026 13:49:14 GMT",
+                       "Permissions-Policy" : "geolocation=(), microphone=(), camera=()",
+                       "Referrer-Policy" : "strict-origin-when-cross-origin",
+                       "Server" : "nginx",
+                       "X-Content-Type-Options" : "nosniff",
+                       "X-Frame-Options" : "DENY"
+                   },
+                   "body": {
+                       "text": "<!doctype html>\n<html lang=\"en\">\n  <head>\n    <meta charset=\"UTF-8\" \/>\n    <link rel=\"icon\" type=\"image\/svg+xml\" href=\"\/vite.svg\" \/>\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\" \/>\n    <title>frontend<\/title>\n    <script type=\"module\" crossorigin src=\"\/assets\/index-B6N7bpyj.js\"><\/script>\n    <link rel=\"stylesheet\" crossorigin href=\"\/assets\/index-DpoqUnYp.css\">\n  <\/head>\n  <body>\n    <div id=\"root\"><\/div>\n  <\/body>\n<\/html>\n"
+                   },
+                   "noResponseReceived": false
+               }
+            },
+            {
+               "level": "warning",
+               "locations": [
+                  {
+                     "physicalLocation": {
+                        "artifactLocation": {
+                           "uri": "http:\/\/frontend:8080\/robots.txt"
+                        },
+                        
+                        "region": {
+                           "startLine": 1,
+                           
+                           "properties" : { 
+                               "startLineFailure" : "Resolved invalid start line: 0 - used fallback value instead."
+                            }, 
+                           "snippet": {
+                               "text": "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self' https:\/\/localhost:8443 https:\/\/localhost:8080; font-src 'self'; object-src 'none'; base-uri 'self'; frame-ancestors 'none'"
+                           }
+                        }
+                     },
+                     "properties": {
+                         "attack": ""
+                     }
+                  }
+               ],
+               "message": {
+                  "text": "The directive(s): form-action is\/are among the directives that do not fallback to default-src."
+               },
+               "ruleId": "10055",
+               "webRequest": {
+                   "protocol": "HTTP",
+                   "version": "1.1",
+                   "target": "http:\/\/frontend:8080\/robots.txt",
+                   "method": "GET",
+                   "headers": {
+                       "cache-control" : "no-cache",
+                       "host" : "frontend:8080",
+                       "pragma" : "no-cache",
+                       "user-agent" : ""
+                   },
+                   "body": {
+                       
+                   }
+               },
+               "webResponse": {
+                   "statusCode": 200,
+                   "reasonPhrase": "OK",
+                   "protocol": "HTTP",
+                   "version": "1.1",
+                   "headers": {
+                       "Accept-Ranges" : "bytes",
+                       "Connection" : "keep-alive",
+                       "Content-Length" : "455",
+                       "Content-Security-Policy" : "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self' https:\/\/localhost:8443 https:\/\/localhost:8080; font-src 'self'; object-src 'none'; base-uri 'self'; frame-ancestors 'none'",
+                       "Content-Type" : "text\/html",
+                       "Cross-Origin-Resource-Policy" : "same-origin",
+                       "Date" : "Sat, 13 Jun 2026 13:50:00 GMT",
+                       "ETag" : "\"6a2d5fda-1c7\"",
+                       "Last-Modified" : "Sat, 13 Jun 2026 13:49:14 GMT",
+                       "Permissions-Policy" : "geolocation=(), microphone=(), camera=()",
+                       "Referrer-Policy" : "strict-origin-when-cross-origin",
+                       "Server" : "nginx",
+                       "X-Content-Type-Options" : "nosniff",
+                       "X-Frame-Options" : "DENY"
+                   },
+                   "body": {
+                       "text": "<!doctype html>\n<html lang=\"en\">\n  <head>\n    <meta charset=\"UTF-8\" \/>\n    <link rel=\"icon\" type=\"image\/svg+xml\" href=\"\/vite.svg\" \/>\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\" \/>\n    <title>frontend<\/title>\n    <script type=\"module\" crossorigin src=\"\/assets\/index-B6N7bpyj.js\"><\/script>\n    <link rel=\"stylesheet\" crossorigin href=\"\/assets\/index-DpoqUnYp.css\">\n  <\/head>\n  <body>\n    <div id=\"root\"><\/div>\n  <\/body>\n<\/html>\n"
+                   },
+                   "noResponseReceived": false
+               }
+            },
+            {
+               "level": "warning",
+               "locations": [
+                  {
+                     "physicalLocation": {
+                        "artifactLocation": {
+                           "uri": "http:\/\/frontend:8080\/"
+                        },
+                        
+                        "region": {
+                           "startLine": 1,
+                           
+                           "properties" : { 
+                               "startLineFailure" : "Resolved invalid start line: 0 - used fallback value instead."
+                            }, 
+                           "snippet": {
+                               "text": "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self' https:\/\/localhost:8443 https:\/\/localhost:8080; font-src 'self'; object-src 'none'; base-uri 'self'; frame-ancestors 'none'"
+                           }
+                        }
+                     },
+                     "properties": {
+                         "attack": ""
+                     }
+                  }
+               ],
+               "message": {
+                  "text": "script-src includes unsafe-inline."
+               },
+               "ruleId": "10055",
+               "webRequest": {
+                   "protocol": "HTTP",
+                   "version": "1.1",
+                   "target": "http:\/\/frontend:8080\/",
+                   "method": "GET",
+                   "headers": {
+                       "cache-control" : "no-cache",
+                       "host" : "frontend:8080",
+                       "pragma" : "no-cache",
+                       "user-agent" : "Mozilla\/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit\/537.36 (KHTML, like Gecko) Chrome\/141.0.0.0 Safari\/537.36"
+                   },
+                   "body": {
+                       
+                   }
+               },
+               "webResponse": {
+                   "statusCode": 200,
+                   "reasonPhrase": "OK",
+                   "protocol": "HTTP",
+                   "version": "1.1",
+                   "headers": {
+                       "Accept-Ranges" : "bytes",
+                       "Connection" : "keep-alive",
+                       "Content-Length" : "455",
+                       "Content-Security-Policy" : "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self' https:\/\/localhost:8443 https:\/\/localhost:8080; font-src 'self'; object-src 'none'; base-uri 'self'; frame-ancestors 'none'",
+                       "Content-Type" : "text\/html",
+                       "Cross-Origin-Resource-Policy" : "same-origin",
+                       "Date" : "Sat, 13 Jun 2026 13:50:00 GMT",
+                       "ETag" : "\"6a2d5fda-1c7\"",
+                       "Last-Modified" : "Sat, 13 Jun 2026 13:49:14 GMT",
+                       "Permissions-Policy" : "geolocation=(), microphone=(), camera=()",
+                       "Referrer-Policy" : "strict-origin-when-cross-origin",
+                       "Server" : "nginx",
+                       "X-Content-Type-Options" : "nosniff",
+                       "X-Frame-Options" : "DENY"
+                   },
+                   "body": {
+                       "text": "<!doctype html>\n<html lang=\"en\">\n  <head>\n    <meta charset=\"UTF-8\" \/>\n    <link rel=\"icon\" type=\"image\/svg+xml\" href=\"\/vite.svg\" \/>\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\" \/>\n    <title>frontend<\/title>\n    <script type=\"module\" crossorigin src=\"\/assets\/index-B6N7bpyj.js\"><\/script>\n    <link rel=\"stylesheet\" crossorigin href=\"\/assets\/index-DpoqUnYp.css\">\n  <\/head>\n  <body>\n    <div id=\"root\"><\/div>\n  <\/body>\n<\/html>\n"
+                   },
+                   "noResponseReceived": false
+               }
+            },
+            {
+               "level": "warning",
+               "locations": [
+                  {
+                     "physicalLocation": {
+                        "artifactLocation": {
+                           "uri": "http:\/\/frontend:8080\/appointments"
+                        },
+                        
+                        "region": {
+                           "startLine": 1,
+                           
+                           "properties" : { 
+                               "startLineFailure" : "Resolved invalid start line: 0 - used fallback value instead."
+                            }, 
+                           "snippet": {
+                               "text": "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self' https:\/\/localhost:8443 https:\/\/localhost:8080; font-src 'self'; object-src 'none'; base-uri 'self'; frame-ancestors 'none'"
+                           }
+                        }
+                     },
+                     "properties": {
+                         "attack": ""
+                     }
+                  }
+               ],
+               "message": {
+                  "text": "script-src includes unsafe-inline."
+               },
+               "ruleId": "10055",
+               "webRequest": {
+                   "protocol": "HTTP",
+                   "version": "1.1",
+                   "target": "http:\/\/frontend:8080\/appointments",
+                   "method": "GET",
+                   "headers": {
+                       "cache-control" : "no-cache",
+                       "host" : "frontend:8080",
+                       "pragma" : "no-cache",
+                       "user-agent" : "Mozilla\/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit\/537.36 (KHTML, like Gecko) Chrome\/141.0.0.0 Safari\/537.36"
+                   },
+                   "body": {
+                       
+                   }
+               },
+               "webResponse": {
+                   "statusCode": 200,
+                   "reasonPhrase": "OK",
+                   "protocol": "HTTP",
+                   "version": "1.1",
+                   "headers": {
+                       "Accept-Ranges" : "bytes",
+                       "Connection" : "keep-alive",
+                       "Content-Length" : "455",
+                       "Content-Security-Policy" : "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self' https:\/\/localhost:8443 https:\/\/localhost:8080; font-src 'self'; object-src 'none'; base-uri 'self'; frame-ancestors 'none'",
+                       "Content-Type" : "text\/html",
+                       "Cross-Origin-Resource-Policy" : "same-origin",
+                       "Date" : "Sat, 13 Jun 2026 13:50:00 GMT",
+                       "ETag" : "\"6a2d5fda-1c7\"",
+                       "Last-Modified" : "Sat, 13 Jun 2026 13:49:14 GMT",
+                       "Permissions-Policy" : "geolocation=(), microphone=(), camera=()",
+                       "Referrer-Policy" : "strict-origin-when-cross-origin",
+                       "Server" : "nginx",
+                       "X-Content-Type-Options" : "nosniff",
+                       "X-Frame-Options" : "DENY"
+                   },
+                   "body": {
+                       "text": "<!doctype html>\n<html lang=\"en\">\n  <head>\n    <meta charset=\"UTF-8\" \/>\n    <link rel=\"icon\" type=\"image\/svg+xml\" href=\"\/vite.svg\" \/>\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\" \/>\n    <title>frontend<\/title>\n    <script type=\"module\" crossorigin src=\"\/assets\/index-B6N7bpyj.js\"><\/script>\n    <link rel=\"stylesheet\" crossorigin href=\"\/assets\/index-DpoqUnYp.css\">\n  <\/head>\n  <body>\n    <div id=\"root\"><\/div>\n  <\/body>\n<\/html>\n"
+                   },
+                   "noResponseReceived": false
+               }
+            },
+            {
+               "level": "warning",
+               "locations": [
+                  {
+                     "physicalLocation": {
+                        "artifactLocation": {
+                           "uri": "http:\/\/frontend:8080\/patients"
+                        },
+                        
+                        "region": {
+                           "startLine": 1,
+                           
+                           "properties" : { 
+                               "startLineFailure" : "Resolved invalid start line: 0 - used fallback value instead."
+                            }, 
+                           "snippet": {
+                               "text": "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self' https:\/\/localhost:8443 https:\/\/localhost:8080; font-src 'self'; object-src 'none'; base-uri 'self'; frame-ancestors 'none'"
+                           }
+                        }
+                     },
+                     "properties": {
+                         "attack": ""
+                     }
+                  }
+               ],
+               "message": {
+                  "text": "script-src includes unsafe-inline."
+               },
+               "ruleId": "10055",
+               "webRequest": {
+                   "protocol": "HTTP",
+                   "version": "1.1",
+                   "target": "http:\/\/frontend:8080\/patients",
+                   "method": "GET",
+                   "headers": {
+                       "cache-control" : "no-cache",
+                       "host" : "frontend:8080",
+                       "pragma" : "no-cache",
+                       "user-agent" : "Mozilla\/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit\/537.36 (KHTML, like Gecko) Chrome\/141.0.0.0 Safari\/537.36"
+                   },
+                   "body": {
+                       
+                   }
+               },
+               "webResponse": {
+                   "statusCode": 200,
+                   "reasonPhrase": "OK",
+                   "protocol": "HTTP",
+                   "version": "1.1",
+                   "headers": {
+                       "Accept-Ranges" : "bytes",
+                       "Connection" : "keep-alive",
+                       "Content-Length" : "455",
+                       "Content-Security-Policy" : "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self' https:\/\/localhost:8443 https:\/\/localhost:8080; font-src 'self'; object-src 'none'; base-uri 'self'; frame-ancestors 'none'",
+                       "Content-Type" : "text\/html",
+                       "Cross-Origin-Resource-Policy" : "same-origin",
+                       "Date" : "Sat, 13 Jun 2026 13:50:00 GMT",
+                       "ETag" : "\"6a2d5fda-1c7\"",
+                       "Last-Modified" : "Sat, 13 Jun 2026 13:49:14 GMT",
+                       "Permissions-Policy" : "geolocation=(), microphone=(), camera=()",
+                       "Referrer-Policy" : "strict-origin-when-cross-origin",
+                       "Server" : "nginx",
+                       "X-Content-Type-Options" : "nosniff",
+                       "X-Frame-Options" : "DENY"
+                   },
+                   "body": {
+                       "text": "<!doctype html>\n<html lang=\"en\">\n  <head>\n    <meta charset=\"UTF-8\" \/>\n    <link rel=\"icon\" type=\"image\/svg+xml\" href=\"\/vite.svg\" \/>\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\" \/>\n    <title>frontend<\/title>\n    <script type=\"module\" crossorigin src=\"\/assets\/index-B6N7bpyj.js\"><\/script>\n    <link rel=\"stylesheet\" crossorigin href=\"\/assets\/index-DpoqUnYp.css\">\n  <\/head>\n  <body>\n    <div id=\"root\"><\/div>\n  <\/body>\n<\/html>\n"
+                   },
+                   "noResponseReceived": false
+               }
+            },
+            {
+               "level": "warning",
+               "locations": [
+                  {
+                     "physicalLocation": {
+                        "artifactLocation": {
+                           "uri": "http:\/\/frontend:8080\/robots.txt"
+                        },
+                        
+                        "region": {
+                           "startLine": 1,
+                           
+                           "properties" : { 
+                               "startLineFailure" : "Resolved invalid start line: 0 - used fallback value instead."
+                            }, 
+                           "snippet": {
+                               "text": "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self' https:\/\/localhost:8443 https:\/\/localhost:8080; font-src 'self'; object-src 'none'; base-uri 'self'; frame-ancestors 'none'"
+                           }
+                        }
+                     },
+                     "properties": {
+                         "attack": ""
+                     }
+                  }
+               ],
+               "message": {
+                  "text": "script-src includes unsafe-inline."
+               },
+               "ruleId": "10055",
+               "webRequest": {
+                   "protocol": "HTTP",
+                   "version": "1.1",
+                   "target": "http:\/\/frontend:8080\/robots.txt",
+                   "method": "GET",
+                   "headers": {
+                       "cache-control" : "no-cache",
+                       "host" : "frontend:8080",
+                       "pragma" : "no-cache",
+                       "user-agent" : ""
+                   },
+                   "body": {
+                       
+                   }
+               },
+               "webResponse": {
+                   "statusCode": 200,
+                   "reasonPhrase": "OK",
+                   "protocol": "HTTP",
+                   "version": "1.1",
+                   "headers": {
+                       "Accept-Ranges" : "bytes",
+                       "Connection" : "keep-alive",
+                       "Content-Length" : "455",
+                       "Content-Security-Policy" : "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self' https:\/\/localhost:8443 https:\/\/localhost:8080; font-src 'self'; object-src 'none'; base-uri 'self'; frame-ancestors 'none'",
+                       "Content-Type" : "text\/html",
+                       "Cross-Origin-Resource-Policy" : "same-origin",
+                       "Date" : "Sat, 13 Jun 2026 13:50:00 GMT",
+                       "ETag" : "\"6a2d5fda-1c7\"",
+                       "Last-Modified" : "Sat, 13 Jun 2026 13:49:14 GMT",
+                       "Permissions-Policy" : "geolocation=(), microphone=(), camera=()",
+                       "Referrer-Policy" : "strict-origin-when-cross-origin",
+                       "Server" : "nginx",
+                       "X-Content-Type-Options" : "nosniff",
+                       "X-Frame-Options" : "DENY"
+                   },
+                   "body": {
+                       "text": "<!doctype html>\n<html lang=\"en\">\n  <head>\n    <meta charset=\"UTF-8\" \/>\n    <link rel=\"icon\" type=\"image\/svg+xml\" href=\"\/vite.svg\" \/>\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\" \/>\n    <title>frontend<\/title>\n    <script type=\"module\" crossorigin src=\"\/assets\/index-B6N7bpyj.js\"><\/script>\n    <link rel=\"stylesheet\" crossorigin href=\"\/assets\/index-DpoqUnYp.css\">\n  <\/head>\n  <body>\n    <div id=\"root\"><\/div>\n  <\/body>\n<\/html>\n"
+                   },
+                   "noResponseReceived": false
+               }
+            },
+            {
+               "level": "warning",
+               "locations": [
+                  {
+                     "physicalLocation": {
+                        "artifactLocation": {
+                           "uri": "http:\/\/frontend:8080\/"
+                        },
+                        
+                        "region": {
+                           "startLine": 1,
+                           
+                           "properties" : { 
+                               "startLineFailure" : "Resolved invalid start line: 0 - used fallback value instead."
+                            }, 
+                           "snippet": {
+                               "text": "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self' https:\/\/localhost:8443 https:\/\/localhost:8080; font-src 'self'; object-src 'none'; base-uri 'self'; frame-ancestors 'none'"
+                           }
+                        }
+                     },
+                     "properties": {
+                         "attack": ""
+                     }
+                  }
+               ],
+               "message": {
+                  "text": "style-src includes unsafe-inline."
+               },
+               "ruleId": "10055",
+               "webRequest": {
+                   "protocol": "HTTP",
+                   "version": "1.1",
+                   "target": "http:\/\/frontend:8080\/",
+                   "method": "GET",
+                   "headers": {
+                       "cache-control" : "no-cache",
+                       "host" : "frontend:8080",
+                       "pragma" : "no-cache",
+                       "user-agent" : "Mozilla\/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit\/537.36 (KHTML, like Gecko) Chrome\/141.0.0.0 Safari\/537.36"
+                   },
+                   "body": {
+                       
+                   }
+               },
+               "webResponse": {
+                   "statusCode": 200,
+                   "reasonPhrase": "OK",
+                   "protocol": "HTTP",
+                   "version": "1.1",
+                   "headers": {
+                       "Accept-Ranges" : "bytes",
+                       "Connection" : "keep-alive",
+                       "Content-Length" : "455",
+                       "Content-Security-Policy" : "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self' https:\/\/localhost:8443 https:\/\/localhost:8080; font-src 'self'; object-src 'none'; base-uri 'self'; frame-ancestors 'none'",
+                       "Content-Type" : "text\/html",
+                       "Cross-Origin-Resource-Policy" : "same-origin",
+                       "Date" : "Sat, 13 Jun 2026 13:50:00 GMT",
+                       "ETag" : "\"6a2d5fda-1c7\"",
+                       "Last-Modified" : "Sat, 13 Jun 2026 13:49:14 GMT",
+                       "Permissions-Policy" : "geolocation=(), microphone=(), camera=()",
+                       "Referrer-Policy" : "strict-origin-when-cross-origin",
+                       "Server" : "nginx",
+                       "X-Content-Type-Options" : "nosniff",
+                       "X-Frame-Options" : "DENY"
+                   },
+                   "body": {
+                       "text": "<!doctype html>\n<html lang=\"en\">\n  <head>\n    <meta charset=\"UTF-8\" \/>\n    <link rel=\"icon\" type=\"image\/svg+xml\" href=\"\/vite.svg\" \/>\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\" \/>\n    <title>frontend<\/title>\n    <script type=\"module\" crossorigin src=\"\/assets\/index-B6N7bpyj.js\"><\/script>\n    <link rel=\"stylesheet\" crossorigin href=\"\/assets\/index-DpoqUnYp.css\">\n  <\/head>\n  <body>\n    <div id=\"root\"><\/div>\n  <\/body>\n<\/html>\n"
+                   },
+                   "noResponseReceived": false
+               }
+            },
+            {
+               "level": "warning",
+               "locations": [
+                  {
+                     "physicalLocation": {
+                        "artifactLocation": {
+                           "uri": "http:\/\/frontend:8080\/appointments"
+                        },
+                        
+                        "region": {
+                           "startLine": 1,
+                           
+                           "properties" : { 
+                               "startLineFailure" : "Resolved invalid start line: 0 - used fallback value instead."
+                            }, 
+                           "snippet": {
+                               "text": "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self' https:\/\/localhost:8443 https:\/\/localhost:8080; font-src 'self'; object-src 'none'; base-uri 'self'; frame-ancestors 'none'"
+                           }
+                        }
+                     },
+                     "properties": {
+                         "attack": ""
+                     }
+                  }
+               ],
+               "message": {
+                  "text": "style-src includes unsafe-inline."
+               },
+               "ruleId": "10055",
+               "webRequest": {
+                   "protocol": "HTTP",
+                   "version": "1.1",
+                   "target": "http:\/\/frontend:8080\/appointments",
+                   "method": "GET",
+                   "headers": {
+                       "cache-control" : "no-cache",
+                       "host" : "frontend:8080",
+                       "pragma" : "no-cache",
+                       "user-agent" : "Mozilla\/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit\/537.36 (KHTML, like Gecko) Chrome\/141.0.0.0 Safari\/537.36"
+                   },
+                   "body": {
+                       
+                   }
+               },
+               "webResponse": {
+                   "statusCode": 200,
+                   "reasonPhrase": "OK",
+                   "protocol": "HTTP",
+                   "version": "1.1",
+                   "headers": {
+                       "Accept-Ranges" : "bytes",
+                       "Connection" : "keep-alive",
+                       "Content-Length" : "455",
+                       "Content-Security-Policy" : "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self' https:\/\/localhost:8443 https:\/\/localhost:8080; font-src 'self'; object-src 'none'; base-uri 'self'; frame-ancestors 'none'",
+                       "Content-Type" : "text\/html",
+                       "Cross-Origin-Resource-Policy" : "same-origin",
+                       "Date" : "Sat, 13 Jun 2026 13:50:00 GMT",
+                       "ETag" : "\"6a2d5fda-1c7\"",
+                       "Last-Modified" : "Sat, 13 Jun 2026 13:49:14 GMT",
+                       "Permissions-Policy" : "geolocation=(), microphone=(), camera=()",
+                       "Referrer-Policy" : "strict-origin-when-cross-origin",
+                       "Server" : "nginx",
+                       "X-Content-Type-Options" : "nosniff",
+                       "X-Frame-Options" : "DENY"
+                   },
+                   "body": {
+                       "text": "<!doctype html>\n<html lang=\"en\">\n  <head>\n    <meta charset=\"UTF-8\" \/>\n    <link rel=\"icon\" type=\"image\/svg+xml\" href=\"\/vite.svg\" \/>\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\" \/>\n    <title>frontend<\/title>\n    <script type=\"module\" crossorigin src=\"\/assets\/index-B6N7bpyj.js\"><\/script>\n    <link rel=\"stylesheet\" crossorigin href=\"\/assets\/index-DpoqUnYp.css\">\n  <\/head>\n  <body>\n    <div id=\"root\"><\/div>\n  <\/body>\n<\/html>\n"
+                   },
+                   "noResponseReceived": false
+               }
+            },
+            {
+               "level": "warning",
+               "locations": [
+                  {
+                     "physicalLocation": {
+                        "artifactLocation": {
+                           "uri": "http:\/\/frontend:8080\/patients"
+                        },
+                        
+                        "region": {
+                           "startLine": 1,
+                           
+                           "properties" : { 
+                               "startLineFailure" : "Resolved invalid start line: 0 - used fallback value instead."
+                            }, 
+                           "snippet": {
+                               "text": "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self' https:\/\/localhost:8443 https:\/\/localhost:8080; font-src 'self'; object-src 'none'; base-uri 'self'; frame-ancestors 'none'"
+                           }
+                        }
+                     },
+                     "properties": {
+                         "attack": ""
+                     }
+                  }
+               ],
+               "message": {
+                  "text": "style-src includes unsafe-inline."
+               },
+               "ruleId": "10055",
+               "webRequest": {
+                   "protocol": "HTTP",
+                   "version": "1.1",
+                   "target": "http:\/\/frontend:8080\/patients",
+                   "method": "GET",
+                   "headers": {
+                       "cache-control" : "no-cache",
+                       "host" : "frontend:8080",
+                       "pragma" : "no-cache",
+                       "user-agent" : "Mozilla\/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit\/537.36 (KHTML, like Gecko) Chrome\/141.0.0.0 Safari\/537.36"
+                   },
+                   "body": {
+                       
+                   }
+               },
+               "webResponse": {
+                   "statusCode": 200,
+                   "reasonPhrase": "OK",
+                   "protocol": "HTTP",
+                   "version": "1.1",
+                   "headers": {
+                       "Accept-Ranges" : "bytes",
+                       "Connection" : "keep-alive",
+                       "Content-Length" : "455",
+                       "Content-Security-Policy" : "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self' https:\/\/localhost:8443 https:\/\/localhost:8080; font-src 'self'; object-src 'none'; base-uri 'self'; frame-ancestors 'none'",
+                       "Content-Type" : "text\/html",
+                       "Cross-Origin-Resource-Policy" : "same-origin",
+                       "Date" : "Sat, 13 Jun 2026 13:50:00 GMT",
+                       "ETag" : "\"6a2d5fda-1c7\"",
+                       "Last-Modified" : "Sat, 13 Jun 2026 13:49:14 GMT",
+                       "Permissions-Policy" : "geolocation=(), microphone=(), camera=()",
+                       "Referrer-Policy" : "strict-origin-when-cross-origin",
+                       "Server" : "nginx",
+                       "X-Content-Type-Options" : "nosniff",
+                       "X-Frame-Options" : "DENY"
+                   },
+                   "body": {
+                       "text": "<!doctype html>\n<html lang=\"en\">\n  <head>\n    <meta charset=\"UTF-8\" \/>\n    <link rel=\"icon\" type=\"image\/svg+xml\" href=\"\/vite.svg\" \/>\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\" \/>\n    <title>frontend<\/title>\n    <script type=\"module\" crossorigin src=\"\/assets\/index-B6N7bpyj.js\"><\/script>\n    <link rel=\"stylesheet\" crossorigin href=\"\/assets\/index-DpoqUnYp.css\">\n  <\/head>\n  <body>\n    <div id=\"root\"><\/div>\n  <\/body>\n<\/html>\n"
+                   },
+                   "noResponseReceived": false
+               }
+            },
+            {
+               "level": "warning",
+               "locations": [
+                  {
+                     "physicalLocation": {
+                        "artifactLocation": {
+                           "uri": "http:\/\/frontend:8080\/robots.txt"
+                        },
+                        
+                        "region": {
+                           "startLine": 1,
+                           
+                           "properties" : { 
+                               "startLineFailure" : "Resolved invalid start line: 0 - used fallback value instead."
+                            }, 
+                           "snippet": {
+                               "text": "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self' https:\/\/localhost:8443 https:\/\/localhost:8080; font-src 'self'; object-src 'none'; base-uri 'self'; frame-ancestors 'none'"
+                           }
+                        }
+                     },
+                     "properties": {
+                         "attack": ""
+                     }
+                  }
+               ],
+               "message": {
+                  "text": "style-src includes unsafe-inline."
+               },
+               "ruleId": "10055",
+               "webRequest": {
+                   "protocol": "HTTP",
+                   "version": "1.1",
+                   "target": "http:\/\/frontend:8080\/robots.txt",
+                   "method": "GET",
+                   "headers": {
+                       "cache-control" : "no-cache",
+                       "host" : "frontend:8080",
+                       "pragma" : "no-cache",
+                       "user-agent" : ""
+                   },
+                   "body": {
+                       
+                   }
+               },
+               "webResponse": {
+                   "statusCode": 200,
+                   "reasonPhrase": "OK",
+                   "protocol": "HTTP",
+                   "version": "1.1",
+                   "headers": {
+                       "Accept-Ranges" : "bytes",
+                       "Connection" : "keep-alive",
+                       "Content-Length" : "455",
+                       "Content-Security-Policy" : "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self' https:\/\/localhost:8443 https:\/\/localhost:8080; font-src 'self'; object-src 'none'; base-uri 'self'; frame-ancestors 'none'",
+                       "Content-Type" : "text\/html",
+                       "Cross-Origin-Resource-Policy" : "same-origin",
+                       "Date" : "Sat, 13 Jun 2026 13:50:00 GMT",
+                       "ETag" : "\"6a2d5fda-1c7\"",
+                       "Last-Modified" : "Sat, 13 Jun 2026 13:49:14 GMT",
+                       "Permissions-Policy" : "geolocation=(), microphone=(), camera=()",
+                       "Referrer-Policy" : "strict-origin-when-cross-origin",
+                       "Server" : "nginx",
+                       "X-Content-Type-Options" : "nosniff",
+                       "X-Frame-Options" : "DENY"
+                   },
+                   "body": {
+                       "text": "<!doctype html>\n<html lang=\"en\">\n  <head>\n    <meta charset=\"UTF-8\" \/>\n    <link rel=\"icon\" type=\"image\/svg+xml\" href=\"\/vite.svg\" \/>\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\" \/>\n    <title>frontend<\/title>\n    <script type=\"module\" crossorigin src=\"\/assets\/index-B6N7bpyj.js\"><\/script>\n    <link rel=\"stylesheet\" crossorigin href=\"\/assets\/index-DpoqUnYp.css\">\n  <\/head>\n  <body>\n    <div id=\"root\"><\/div>\n  <\/body>\n<\/html>\n"
+                   },
+                   "noResponseReceived": false
+               }
+            },
+            {
+               "level": "none",
+               "locations": [
+                  {
+                     "physicalLocation": {
+                        "artifactLocation": {
+                           "uri": "http:\/\/frontend:8080\/"
+                        },
+                        
+                        "region": {
+                           "startLine": 8,
+                           
+                           "snippet": {
+                               "text": "<script type=\"module\" crossorigin src=\"\/assets\/index-B6N7bpyj.js\"><\/script>"
+                           }
+                        }
+                     },
+                     "properties": {
+                         "attack": ""
+                     }
+                  }
+               ],
+               "message": {
+                  "text": "No links have been found while there are scripts, which is an indication that this is a modern web application."
+               },
+               "ruleId": "10109",
+               "webRequest": {
+                   "protocol": "HTTP",
+                   "version": "1.1",
+                   "target": "http:\/\/frontend:8080\/",
+                   "method": "GET",
+                   "headers": {
+                       "cache-control" : "no-cache",
+                       "host" : "frontend:8080",
+                       "pragma" : "no-cache",
+                       "user-agent" : "Mozilla\/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit\/537.36 (KHTML, like Gecko) Chrome\/141.0.0.0 Safari\/537.36"
+                   },
+                   "body": {
+                       
+                   }
+               },
+               "webResponse": {
+                   "statusCode": 200,
+                   "reasonPhrase": "OK",
+                   "protocol": "HTTP",
+                   "version": "1.1",
+                   "headers": {
+                       "Accept-Ranges" : "bytes",
+                       "Connection" : "keep-alive",
+                       "Content-Length" : "455",
+                       "Content-Security-Policy" : "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self' https:\/\/localhost:8443 https:\/\/localhost:8080; font-src 'self'; object-src 'none'; base-uri 'self'; frame-ancestors 'none'",
+                       "Content-Type" : "text\/html",
+                       "Cross-Origin-Resource-Policy" : "same-origin",
+                       "Date" : "Sat, 13 Jun 2026 13:50:00 GMT",
+                       "ETag" : "\"6a2d5fda-1c7\"",
+                       "Last-Modified" : "Sat, 13 Jun 2026 13:49:14 GMT",
+                       "Permissions-Policy" : "geolocation=(), microphone=(), camera=()",
+                       "Referrer-Policy" : "strict-origin-when-cross-origin",
+                       "Server" : "nginx",
+                       "X-Content-Type-Options" : "nosniff",
+                       "X-Frame-Options" : "DENY"
+                   },
+                   "body": {
+                       "text": "<!doctype html>\n<html lang=\"en\">\n  <head>\n    <meta charset=\"UTF-8\" \/>\n    <link rel=\"icon\" type=\"image\/svg+xml\" href=\"\/vite.svg\" \/>\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\" \/>\n    <title>frontend<\/title>\n    <script type=\"module\" crossorigin src=\"\/assets\/index-B6N7bpyj.js\"><\/script>\n    <link rel=\"stylesheet\" crossorigin href=\"\/assets\/index-DpoqUnYp.css\">\n  <\/head>\n  <body>\n    <div id=\"root\"><\/div>\n  <\/body>\n<\/html>\n"
+                   },
+                   "noResponseReceived": false
+               }
+            },
+            {
+               "level": "none",
+               "locations": [
+                  {
+                     "physicalLocation": {
+                        "artifactLocation": {
+                           "uri": "http:\/\/frontend:8080\/appointments"
+                        },
+                        
+                        "region": {
+                           "startLine": 8,
+                           
+                           "snippet": {
+                               "text": "<script type=\"module\" crossorigin src=\"\/assets\/index-B6N7bpyj.js\"><\/script>"
+                           }
+                        }
+                     },
+                     "properties": {
+                         "attack": ""
+                     }
+                  }
+               ],
+               "message": {
+                  "text": "No links have been found while there are scripts, which is an indication that this is a modern web application."
+               },
+               "ruleId": "10109",
+               "webRequest": {
+                   "protocol": "HTTP",
+                   "version": "1.1",
+                   "target": "http:\/\/frontend:8080\/appointments",
+                   "method": "GET",
+                   "headers": {
+                       "cache-control" : "no-cache",
+                       "host" : "frontend:8080",
+                       "pragma" : "no-cache",
+                       "user-agent" : "Mozilla\/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit\/537.36 (KHTML, like Gecko) Chrome\/141.0.0.0 Safari\/537.36"
+                   },
+                   "body": {
+                       
+                   }
+               },
+               "webResponse": {
+                   "statusCode": 200,
+                   "reasonPhrase": "OK",
+                   "protocol": "HTTP",
+                   "version": "1.1",
+                   "headers": {
+                       "Accept-Ranges" : "bytes",
+                       "Connection" : "keep-alive",
+                       "Content-Length" : "455",
+                       "Content-Security-Policy" : "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self' https:\/\/localhost:8443 https:\/\/localhost:8080; font-src 'self'; object-src 'none'; base-uri 'self'; frame-ancestors 'none'",
+                       "Content-Type" : "text\/html",
+                       "Cross-Origin-Resource-Policy" : "same-origin",
+                       "Date" : "Sat, 13 Jun 2026 13:50:00 GMT",
+                       "ETag" : "\"6a2d5fda-1c7\"",
+                       "Last-Modified" : "Sat, 13 Jun 2026 13:49:14 GMT",
+                       "Permissions-Policy" : "geolocation=(), microphone=(), camera=()",
+                       "Referrer-Policy" : "strict-origin-when-cross-origin",
+                       "Server" : "nginx",
+                       "X-Content-Type-Options" : "nosniff",
+                       "X-Frame-Options" : "DENY"
+                   },
+                   "body": {
+                       "text": "<!doctype html>\n<html lang=\"en\">\n  <head>\n    <meta charset=\"UTF-8\" \/>\n    <link rel=\"icon\" type=\"image\/svg+xml\" href=\"\/vite.svg\" \/>\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\" \/>\n    <title>frontend<\/title>\n    <script type=\"module\" crossorigin src=\"\/assets\/index-B6N7bpyj.js\"><\/script>\n    <link rel=\"stylesheet\" crossorigin href=\"\/assets\/index-DpoqUnYp.css\">\n  <\/head>\n  <body>\n    <div id=\"root\"><\/div>\n  <\/body>\n<\/html>\n"
+                   },
+                   "noResponseReceived": false
+               }
+            },
+            {
+               "level": "none",
+               "locations": [
+                  {
+                     "physicalLocation": {
+                        "artifactLocation": {
+                           "uri": "http:\/\/frontend:8080\/patients"
+                        },
+                        
+                        "region": {
+                           "startLine": 8,
+                           
+                           "snippet": {
+                               "text": "<script type=\"module\" crossorigin src=\"\/assets\/index-B6N7bpyj.js\"><\/script>"
+                           }
+                        }
+                     },
+                     "properties": {
+                         "attack": ""
+                     }
+                  }
+               ],
+               "message": {
+                  "text": "No links have been found while there are scripts, which is an indication that this is a modern web application."
+               },
+               "ruleId": "10109",
+               "webRequest": {
+                   "protocol": "HTTP",
+                   "version": "1.1",
+                   "target": "http:\/\/frontend:8080\/patients",
+                   "method": "GET",
+                   "headers": {
+                       "cache-control" : "no-cache",
+                       "host" : "frontend:8080",
+                       "pragma" : "no-cache",
+                       "user-agent" : "Mozilla\/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit\/537.36 (KHTML, like Gecko) Chrome\/141.0.0.0 Safari\/537.36"
+                   },
+                   "body": {
+                       
+                   }
+               },
+               "webResponse": {
+                   "statusCode": 200,
+                   "reasonPhrase": "OK",
+                   "protocol": "HTTP",
+                   "version": "1.1",
+                   "headers": {
+                       "Accept-Ranges" : "bytes",
+                       "Connection" : "keep-alive",
+                       "Content-Length" : "455",
+                       "Content-Security-Policy" : "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self' https:\/\/localhost:8443 https:\/\/localhost:8080; font-src 'self'; object-src 'none'; base-uri 'self'; frame-ancestors 'none'",
+                       "Content-Type" : "text\/html",
+                       "Cross-Origin-Resource-Policy" : "same-origin",
+                       "Date" : "Sat, 13 Jun 2026 13:50:00 GMT",
+                       "ETag" : "\"6a2d5fda-1c7\"",
+                       "Last-Modified" : "Sat, 13 Jun 2026 13:49:14 GMT",
+                       "Permissions-Policy" : "geolocation=(), microphone=(), camera=()",
+                       "Referrer-Policy" : "strict-origin-when-cross-origin",
+                       "Server" : "nginx",
+                       "X-Content-Type-Options" : "nosniff",
+                       "X-Frame-Options" : "DENY"
+                   },
+                   "body": {
+                       "text": "<!doctype html>\n<html lang=\"en\">\n  <head>\n    <meta charset=\"UTF-8\" \/>\n    <link rel=\"icon\" type=\"image\/svg+xml\" href=\"\/vite.svg\" \/>\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\" \/>\n    <title>frontend<\/title>\n    <script type=\"module\" crossorigin src=\"\/assets\/index-B6N7bpyj.js\"><\/script>\n    <link rel=\"stylesheet\" crossorigin href=\"\/assets\/index-DpoqUnYp.css\">\n  <\/head>\n  <body>\n    <div id=\"root\"><\/div>\n  <\/body>\n<\/html>\n"
+                   },
+                   "noResponseReceived": false
+               }
+            },
+            {
+               "level": "none",
+               "locations": [
+                  {
+                     "physicalLocation": {
+                        "artifactLocation": {
+                           "uri": "http:\/\/frontend:8080\/robots.txt"
+                        },
+                        
+                        "region": {
+                           "startLine": 8,
+                           
+                           "snippet": {
+                               "text": "<script type=\"module\" crossorigin src=\"\/assets\/index-B6N7bpyj.js\"><\/script>"
+                           }
+                        }
+                     },
+                     "properties": {
+                         "attack": ""
+                     }
+                  }
+               ],
+               "message": {
+                  "text": "No links have been found while there are scripts, which is an indication that this is a modern web application."
+               },
+               "ruleId": "10109",
+               "webRequest": {
+                   "protocol": "HTTP",
+                   "version": "1.1",
+                   "target": "http:\/\/frontend:8080\/robots.txt",
+                   "method": "GET",
+                   "headers": {
+                       "cache-control" : "no-cache",
+                       "host" : "frontend:8080",
+                       "pragma" : "no-cache",
+                       "user-agent" : ""
+                   },
+                   "body": {
+                       
+                   }
+               },
+               "webResponse": {
+                   "statusCode": 200,
+                   "reasonPhrase": "OK",
+                   "protocol": "HTTP",
+                   "version": "1.1",
+                   "headers": {
+                       "Accept-Ranges" : "bytes",
+                       "Connection" : "keep-alive",
+                       "Content-Length" : "455",
+                       "Content-Security-Policy" : "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self' https:\/\/localhost:8443 https:\/\/localhost:8080; font-src 'self'; object-src 'none'; base-uri 'self'; frame-ancestors 'none'",
+                       "Content-Type" : "text\/html",
+                       "Cross-Origin-Resource-Policy" : "same-origin",
+                       "Date" : "Sat, 13 Jun 2026 13:50:00 GMT",
+                       "ETag" : "\"6a2d5fda-1c7\"",
+                       "Last-Modified" : "Sat, 13 Jun 2026 13:49:14 GMT",
+                       "Permissions-Policy" : "geolocation=(), microphone=(), camera=()",
+                       "Referrer-Policy" : "strict-origin-when-cross-origin",
+                       "Server" : "nginx",
+                       "X-Content-Type-Options" : "nosniff",
+                       "X-Frame-Options" : "DENY"
+                   },
+                   "body": {
+                       "text": "<!doctype html>\n<html lang=\"en\">\n  <head>\n    <meta charset=\"UTF-8\" \/>\n    <link rel=\"icon\" type=\"image\/svg+xml\" href=\"\/vite.svg\" \/>\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\" \/>\n    <title>frontend<\/title>\n    <script type=\"module\" crossorigin src=\"\/assets\/index-B6N7bpyj.js\"><\/script>\n    <link rel=\"stylesheet\" crossorigin href=\"\/assets\/index-DpoqUnYp.css\">\n  <\/head>\n  <body>\n    <div id=\"root\"><\/div>\n  <\/body>\n<\/html>\n"
+                   },
+                   "noResponseReceived": false
+               }
+            },
+            {
+               "level": "none",
+               "locations": [
+                  {
+                     "physicalLocation": {
+                        "artifactLocation": {
+                           "uri": "http:\/\/frontend:8080\/sitemap.xml"
+                        },
+                        
+                        "region": {
+                           "startLine": 8,
+                           
+                           "snippet": {
+                               "text": "<script type=\"module\" crossorigin src=\"\/assets\/index-B6N7bpyj.js\"><\/script>"
+                           }
+                        }
+                     },
+                     "properties": {
+                         "attack": ""
+                     }
+                  }
+               ],
+               "message": {
+                  "text": "No links have been found while there are scripts, which is an indication that this is a modern web application."
+               },
+               "ruleId": "10109",
+               "webRequest": {
+                   "protocol": "HTTP",
+                   "version": "1.1",
+                   "target": "http:\/\/frontend:8080\/sitemap.xml",
+                   "method": "GET",
+                   "headers": {
+                       "cache-control" : "no-cache",
+                       "host" : "frontend:8080",
+                       "pragma" : "no-cache",
+                       "user-agent" : ""
+                   },
+                   "body": {
+                       
+                   }
+               },
+               "webResponse": {
+                   "statusCode": 200,
+                   "reasonPhrase": "OK",
+                   "protocol": "HTTP",
+                   "version": "1.1",
+                   "headers": {
+                       "Accept-Ranges" : "bytes",
+                       "Connection" : "keep-alive",
+                       "Content-Length" : "455",
+                       "Content-Security-Policy" : "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self' https:\/\/localhost:8443 https:\/\/localhost:8080; font-src 'self'; object-src 'none'; base-uri 'self'; frame-ancestors 'none'",
+                       "Content-Type" : "text\/html",
+                       "Cross-Origin-Resource-Policy" : "same-origin",
+                       "Date" : "Sat, 13 Jun 2026 13:50:00 GMT",
+                       "ETag" : "\"6a2d5fda-1c7\"",
+                       "Last-Modified" : "Sat, 13 Jun 2026 13:49:14 GMT",
+                       "Permissions-Policy" : "geolocation=(), microphone=(), camera=()",
+                       "Referrer-Policy" : "strict-origin-when-cross-origin",
+                       "Server" : "nginx",
+                       "X-Content-Type-Options" : "nosniff",
+                       "X-Frame-Options" : "DENY"
+                   },
+                   "body": {
+                       "text": "<!doctype html>\n<html lang=\"en\">\n  <head>\n    <meta charset=\"UTF-8\" \/>\n    <link rel=\"icon\" type=\"image\/svg+xml\" href=\"\/vite.svg\" \/>\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\" \/>\n    <title>frontend<\/title>\n    <script type=\"module\" crossorigin src=\"\/assets\/index-B6N7bpyj.js\"><\/script>\n    <link rel=\"stylesheet\" crossorigin href=\"\/assets\/index-DpoqUnYp.css\">\n  <\/head>\n  <body>\n    <div id=\"root\"><\/div>\n  <\/body>\n<\/html>\n"
+                   },
+                   "noResponseReceived": false
+               }
+            }
+         ],
+         "taxonomies": [
+            {
+               "downloadUri": "https:\/\/cwe.mitre.org\/data\/xml\/cwec_v4.8.xml.zip",
+               "guid":  "b000a760-3e52-3565-a35c-f61369da53b7",
+               "informationUri": "https:\/\/cwe.mitre.org\/data\/published\/cwe_v4.8.pdf",
+               "isComprehensive": true,
+               "language": "en",
+               "minimumRequiredLocalizedDataSemanticVersion": "4.8",
+               "name":  "CWE",
+               "organization": "MITRE",
+               "releaseDateUtc": "2022-06-28",
+               "shortDescription": {
+                  "text": "The MITRE Common Weakness Enumeration"
+               },
+               "taxa": [
+                  {
+                     "guid": "098ecca7-f059-3e81-a2ff-a54023da4848",
+                     "helpUri": "https:\/\/cwe.mitre.org\/data\/definitions\/-1.html",
+                     "id": "-1"
+                  },
+                  {
+                     "guid": "c60fb1e0-6538-36e7-9dfd-7702d6cf8b1f",
+                     "helpUri": "https:\/\/cwe.mitre.org\/data\/definitions\/693.html",
+                     "id": "693"
+                  }
+               ],
+               "version": "4.8"
+            }
+         ],
+         "tool": {
+            "driver": {
+               "guid": "3716e880-7ee2-34d2-9cf1-0f88c0dc613a",
+               "informationUri": "https:\/\/www.zaproxy.org\/",
+               "name": "ZAP",
+               "rules": [ 
+                  {
+                     "id": "10055",
+                     "defaultConfiguration": {
+                        "level": "warning"
+                     },
+                     "fullDescription": {
+                        "text": "The Content Security Policy fails to define one of the directives that has no fallback. Missing\/excluding them is the same as allowing anything."
+                     },
+                     "name": "CSP: Failure to Define Directive with No Fallback",
+                     "properties": {
+                            "references": [
+                                "https:\/\/www.w3.org\/TR\/CSP\/",
+                                "https:\/\/caniuse.com\/#search=content+security+policy",
+                                "https:\/\/content-security-policy.com\/",
+                                "https:\/\/github.com\/HtmlUnit\/htmlunit-csp",
+                                "https:\/\/web.dev\/articles\/csp#resource-options"
+                            ],
+                            "solution": {
+                                "text": "Ensure that your web server, application server, load balancer, etc. is properly configured to set the Content-Security-Policy header."
+                            },
+                            "confidence": "high"
+                     },
+                     "relationships": [ 
+                        {
+                           "kinds": [
+                              "superset"
+                           ],
+                           "target": {
+                              "guid":"c60fb1e0-6538-36e7-9dfd-7702d6cf8b1f",
+                              "id": "693",
+                              "toolComponent": {
+                                 "guid": "b000a760-3e52-3565-a35c-f61369da53b7",
+                                 "name": "CWE"
+                              }
+                           }
+                        }
+                        
+                     ],
+                     "shortDescription": {
+                        "text": "CSP: Failure to Define Directive with No Fallback"
+                     }
+                  },
+                  {
+                     "id": "10109",
+                     "defaultConfiguration": {
+                        "level": "none"
+                     },
+                     "fullDescription": {
+                        "text": "The application appears to be a modern web application. If you need to explore it automatically then the Ajax Spider may well be more effective than the standard one."
+                     },
+                     "name": "Modern Web Application",
+                     "properties": {
+                            "references": [],
+                            "solution": {
+                                "text": "This is an informational alert and so no changes are required."
+                            },
+                            "confidence": "medium"
+                     },
+                     "relationships": [ 
+                     ],
+                     "shortDescription": {
+                        "text": "Modern Web Application"
+                     }
+                  }
+                  
+               ],
+               "semanticVersion": "2.17.0",
+               "supportedTaxonomies": [ 
+                  {
+                     "guid": "b000a760-3e52-3565-a35c-f61369da53b7",
+                     "name": "CWE"
+                  }
+               ],
+               "version": "2.17.0"
+            }
+         }
+      }
+   ],
+   "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/master/Schemata/sarif-schema-2.1.0.json",
+   "version": "2.1.0"
+}
