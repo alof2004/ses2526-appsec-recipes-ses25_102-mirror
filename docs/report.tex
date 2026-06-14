@@ -937,23 +937,23 @@ The dynamic analysis scope covers the running ClinicWave application deployed in
 
 \subsection{Pull Request Level}
 
-Runs through \texttt{dast-pr.yml}. The workflow builds the frontend and backend from the PR branch, starts a temporary PostgreSQL container, brings the full application up inside a dedicated Docker network, waits for both services to become reachable, and then runs an OWASP ZAP Baseline scan against the frontend entry point.
+Runs through \texttt{dast-pr.yml}. The workflow builds the frontend and backend from the PR branch, starts a temporary PostgreSQL container, brings the full application up inside a dedicated Docker network, waits for both services to become reachable, and then runs an OWASP ZAP scan directly against the application without the WAF.
 
-The PR gate is configured to fail when the ZAP report contains High severity findings. The workflow also generates both HTML and JSON ZAP reports, uploads them as workflow artefacts, evaluates the JSON output, and posts a DAST summary comment back to the pull request.
+The PR gate is configured to fail when the ZAP report contains High severity findings. The PR workflow is intentionally direct-only to keep merge-time feedback fast and focused on application regressions; the WAF comparison is reserved for the nightly workflow. The workflow also generates both HTML and JSON ZAP reports, uploads them as workflow artefacts, evaluates the JSON output, and posts a DAST summary comment back to the pull request.
 
 \subsection{Nightly Level}
 
-Runs through \texttt{dast-nightly.yml}. This workflow checks out the software repository, builds and launches the full stack inside an isolated Docker environment, and scans with OWASP ZAP Baseline against the running frontend. It produces HTML and JSON ZAP reports, uploads them as artefacts, and writes a summarised view of alert counts and alert types into the workflow summary.
+Runs through \texttt{dast-nightly.yml}. This workflow checks out the software repository, builds and launches the full stack inside an isolated Docker environment, and runs the full DAST evidence set: one ZAP scan directly against the application and one ZAP scan through the ModSecurity WAF. It produces HTML and JSON ZAP reports for both modes, uploads them as artefacts, and writes a summarised view of alert counts and alert types into the workflow summary.
 
 \subsection{Why the Two Levels Matter}
 
-The pull request level provides merge-time validation and direct reviewer visibility. The nightly level provides recurring security monitoring against a stable target branch. This separation is useful because runtime scanning is slower and more environment-dependent than static analysis, so it benefits from having one layer optimised for gating and another for ongoing observation.
+The pull request level provides merge-time validation and direct reviewer visibility. The nightly level provides recurring security monitoring against a stable target branch and satisfies the assignment requirement to compare the application directly and through the WAF. This separation is useful because runtime scanning is slower and more environment-dependent than static analysis, so it benefits from having one layer optimised for gating and another for complete security evidence.
 
 % ─────────────────────────────────────────────────────────────────────────────
 \section{Runtime Environment and Tooling}
 % ─────────────────────────────────────────────────────────────────────────────
 
-Both workflows use \textbf{OWASP ZAP Baseline}. The application is launched inside Docker with a temporary PostgreSQL container, a backend container exposing the Spring Boot API, and a frontend container exposing the React/Vite application. The scanner targets the running frontend entry point.
+Both workflows use \textbf{OWASP ZAP} automation plans. The application is launched inside Docker with a temporary PostgreSQL container, a backend container exposing the Spring Boot API, and a frontend container exposing the React/Vite application. The PR workflow scans the direct application stack. The nightly workflow scans both the direct stack and the WAF-fronted stack.
 
 % ─────────────────────────────────────────────────────────────────────────────
 \section{Strengths and Limitations}
@@ -1934,6 +1934,34 @@ The DAST pipeline was re-run in Part 2 using two scan configurations as required
 assignment: once directly against the application and once through the WAF, so the
 contribution of ModSecurity can be isolated.
 
+\subsection{Scan Configuration}
+
+The Part 2 nightly scan uses a ZAP automation plan (\texttt{automation-plan.yaml}) that
+extends the Part 1 configuration with two additions.
+
+\textbf{OpenAPI import.} ZAP fetches the OpenAPI specification from
+\texttt{/v3/api-docs} before spidering. This means every endpoint, path parameter,
+and query parameter defined in the spec is known to ZAP before the active scan starts,
+giving it a complete map of the API surface rather than relying on link discovery alone.
+
+\textbf{Authenticated scanning.} In Part 1 the application had no authentication, so
+ZAP could reach all endpoints unauthenticated. In Part 2 every \texttt{/api/**} endpoint
+requires a valid JWT issued by Keycloak. Without a token ZAP would receive \texttt{401
+Unauthorized} on every API request and would never exercise the business logic, making
+the active attack rules (SQLi, XSS, path traversal, SSTI) effectively useless against
+the protected surface.
+
+To solve this, the nightly workflow starts a Keycloak container alongside the application
+stack, imports the clinic realm from \texttt{keycloak/realm-export.json}, and fetches a
+token using the Resource Owner Password Credentials grant with the \texttt{clinic-frontend}
+public client and the \texttt{admin} test user. The token is injected into every ZAP
+request via the \texttt{replacer} job, which adds an \texttt{Authorization: Bearer
+<token>} header before each request is sent. This allows ZAP to scan all authenticated
+endpoints as a logged-in admin user, covering the full API attack surface.
+
+The active scan rules remain the same as Part 1: SQLi (rule 40018), XSS (40019), path
+traversal (40012), SSTI (90019), and RFI (7), all at HIGH strength and LOW threshold.
+
 \subsection{Part 1 Baseline}
 
 The Part 1 scans targeted the baseline application with no authentication and no WAF. The
@@ -1947,40 +1975,44 @@ time: no headers, no CSP, and no complex flows for ZAP to probe.
 \toprule
 \textbf{Run} & \textbf{High} & \textbf{Medium} & \textbf{Low} \\
 \midrule
-Nightly & 0 & 0 & 1 \\
-PR      & 0 & 0 & 2 \\
+Nightly & 0 & 2 & 8 \\
+PR      & 0 & 2 & 8 \\
 \bottomrule
 \end{tabular}
 \end{table}
 
-The nightly scan flagged a missing \texttt{X-Content-Type-Options} header. The PR scan
-additionally flagged a missing \texttt{Strict-Transport-Security} header and a Unix
-timestamp disclosure.
+Both scans found the same 2 Medium findings (missing CSP and missing anti-clickjacking header)
+and 8 Low findings covering missing HSTS, \texttt{X-Content-Type-Options},
+\texttt{Cross-Origin-Embedder-Policy}, \texttt{Cross-Origin-Opener-Policy},
+\texttt{Cross-Origin-Resource-Policy}, \texttt{Permissions-Policy}, Unix timestamp
+disclosure, and application error disclosure. All of these are headers that had not yet been
+configured on the baseline application.
 
 \begin{figure}[H]
   \centering
   \includegraphics[width=0.75\linewidth]{dast-part1-nightly.png}
-  \caption{Part 1 nightly ZAP report: 0 High, 0 Medium, 1 Low}
+  \caption{Part 1 nightly ZAP report: 0 High, 2 Medium, 8 Low}
 \end{figure}
 
 \subsection{Part 2 Results}
 
 The Part 2 DAST scan targets both frontend and backend endpoints with active rules for
-SQLi, XSS, path traversal and SSTI at HIGH strength. Each run was performed twice:
-once directly against the application and once through the WAF, so the contribution of
-ModSecurity CRS can be isolated.
+SQLi, XSS, path traversal and SSTI at HIGH strength. The PR workflow is kept as a
+direct-only merge gate so pull requests receive faster feedback on application regressions.
+The nightly workflow performs the full evidence run twice: once directly against the
+application and once through the WAF, so the contribution of ModSecurity CRS can be
+isolated as required by the assignment.
 
 \begin{table}[H]
 \centering
-\caption{Part 2 DAST findings -- active scan, direct vs WAF}
+\caption{Part 2 DAST findings -- PR gate and nightly direct-vs-WAF evidence}
 \begin{tabularx}{\linewidth}{l l r r r X}
 \toprule
 \textbf{Run} & \textbf{Mode} & \textbf{High} & \textbf{Med} & \textbf{Low} & \textbf{Notable findings} \\
 \midrule
 Nightly & Direct (no WAF) & 0 & 3 & 0 & CSP: no fallback directive, unsafe-inline script/style \\
-Nightly & Via WAF         & 0 & 0 & 2 & Server version leak, in-page banner info leak \\
+Nightly & Via WAF         & 0 & 0 & 1 & Server version leak via \texttt{Server} response header \\
 PR      & Direct (no WAF) & 0 & 3 & 2 & CSP: unsafe-inline; missing COEP/COOP headers \\
-PR      & Via WAF         & 0 & 3 & 2 & CSP: unsafe-inline; missing COEP/COOP headers \\
 \bottomrule
 \end{tabularx}
 \end{table}
@@ -1991,15 +2023,31 @@ explicitly in the Nginx configuration.
 
 The three Medium findings (CSP-related) are accepted trade-offs: the React frontend
 requires \texttt{unsafe-inline} for scripts and styles during the build, and \texttt{form-action}
-is not a directive with a \texttt{default-src} fallback. The two Low findings in the PR scan
-(\texttt{Cross-Origin-Embedder-Policy} and \texttt{Cross-Origin-Opener-Policy}) are optional
-isolation headers outside the project scope.
+is not a directive with a \texttt{default-src} fallback. The two Low findings in the PR direct
+scan (\texttt{Cross-Origin-Embedder-Policy} and \texttt{Cross-Origin-Opener-Policy}) are
+optional isolation headers outside the project scope.
 
-The nightly WAF scan shows a different finding profile to the direct scan: the WAF introduces
-two Low findings from Nginx leaking its version string in the \texttt{Server} header and in
-page banners. These are resolved by adding \texttt{server\_tokens off} to the WAF Nginx
-configuration. The PR scans are identical direct vs WAF, confirming ModSecurity CRS does not
-suppress or alter the CSP-related findings.
+\subsection{WAF vs No WAF (Nightly)}
+
+\begin{table}[H]
+\centering
+\caption{Part 2 nightly -- WAF vs no WAF}
+\begin{tabularx}{\linewidth}{l r r r X}
+\toprule
+\textbf{Mode} & \textbf{High} & \textbf{Med} & \textbf{Low} & \textbf{Notable findings} \\
+\midrule
+No WAF  & 0 & 3 & 0 & CSP: no fallback directive, unsafe-inline script/style \\
+Via WAF & 0 & 0 & 1 & Server version leak via \texttt{Server} response header \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+The WAF eliminates all 3 Medium CSP findings: ModSecurity CRS intercepts requests at the
+WAF layer before they reach the frontend, so ZAP observes the WAF's own
+\texttt{default-src 'none'} response rather than the frontend's CSP.
+The 1 Low finding introduced by the WAF (Nginx leaking its version string in the
+\texttt{Server} header) is mitigated by \texttt{server\_tokens off} in the WAF Nginx
+configuration. No High findings were present in either run.
 
 \begin{figure}[H]
   \centering
@@ -2010,19 +2058,13 @@ suppress or alter the CSP-related findings.
 \begin{figure}[H]
   \centering
   \includegraphics[width=0.75\linewidth]{dast-p2-nightly-waf.png}
-  \caption{Part 2 nightly ZAP active scan (via WAF): 0 High, 0 Medium, 2 Low}
+  \caption{Part 2 nightly ZAP active scan (via WAF): 0 High, 0 Medium, 1 Low}
 \end{figure}
 
 \begin{figure}[H]
   \centering
   \includegraphics[width=0.75\linewidth]{dast-p2-pr-direct.png}
   \caption{Part 2 PR ZAP scan (direct): 0 High, 3 Medium, 2 Low}
-\end{figure}
-
-\begin{figure}[H]
-  \centering
-  \includegraphics[width=0.75\linewidth]{dast-p2-pr-waf.png}
-  \caption{Part 2 PR ZAP scan (via WAF): 0 High, 3 Medium, 2 Low}
 \end{figure}
 
 \section{Future Work}
@@ -2064,4 +2106,3 @@ internal service-to-service channels to fully close ZTA tenet 2, and device post
 to address ZTA tenet 1.
 
 \end{document}
-
