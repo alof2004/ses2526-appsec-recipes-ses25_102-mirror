@@ -1648,12 +1648,13 @@ AS-06 & Destroy Patient Records via Cascade Deletion &
   API call. \\[8pt]
 
 AS-07 & Perform Undetectable Actions &
-  \textbf{\textcolor{sevmedium}{Detected}} &
-  A structured \texttt{audit\_logs} table now persists every CREATE, UPDATE, and DELETE
-  operation with the JWT \texttt{sub} claim (actor), resource type, resource ID, and
-  timestamp. The log is written synchronously within the same request. ADMIN users can
-  query the full trail via \texttt{GET /api/audit-logs}. Post-incident investigation is
-  now possible for all authenticated CRUD operations. \\[8pt]
+  \textbf{\textcolor{sevlow}{Prevented}} &
+  A structured \texttt{audit\_logs} table persists every CREATE, UPDATE, and DELETE with
+  the JWT \texttt{sub} claim (actor), resource type, resource ID, and timestamp. The
+  application database role has \texttt{UPDATE} and \texttt{DELETE} revoked on
+  \texttt{audit\_logs} at startup via \texttt{AuditLogProtectionRunner}: even a fully
+  compromised backend cannot erase entries. The audit trail is tamper-proof, making
+  undetectable actions structurally impossible. \\[8pt]
 
 AS-08 & Overload the API with Repeated Requests &
   \textbf{\textcolor{sevlow}{Prevented}} &
@@ -1848,9 +1849,11 @@ Residual Risk  & 0 & -- \\
 \end{tabular}
 \end{table}
 
-Seven of the eight abuse stories are classified as \textbf{Prevented}; the remaining one
-(AS-07) is classified as \textbf{Detected} -- actor identity and action are persisted in the
-audit log, making post-incident investigation possible. No abuse story remains at Residual Risk.
+All eight abuse stories are classified as \textbf{Prevented}. No abuse story remains at
+Detected or Residual Risk. AS-07 was initially classified as Detected because the audit log
+existed but could be erased by a privileged attacker via direct SQL. This was resolved by
+revoking \texttt{UPDATE} and \texttt{DELETE} on the \texttt{audit\_logs} table from the
+application database role at startup, making the trail tamper-proof.
 
 % ─────────────────────────────────────────────────────────────────────────────
 \section{SAST Re-Assessment}
