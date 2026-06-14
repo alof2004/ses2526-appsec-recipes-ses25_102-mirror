@@ -43,7 +43,7 @@
 \contentsline {subsection}{\numberline {3.4.3}Why the Two Levels Matter}{37}{subsection.3.4.3}%
 \contentsline {section}{\numberline {3.5}Runtime Environment and Tooling}{37}{section.3.5}%
 \contentsline {section}{\numberline {3.6}Strengths and Limitations}{37}{section.3.6}%
-\contentsline {section}{\numberline {3.7}Results}{37}{section.3.7}%
+\contentsline {section}{\numberline {3.7}Results}{38}{section.3.7}%
 \contentsline {subsection}{\numberline {3.7.1}Pull Request Results}{38}{subsection.3.7.1}%
 \contentsline {subsection}{\numberline {3.7.2}Nightly Results}{40}{subsection.3.7.2}%
 \contentsline {part}{II\hspace {1em}Part 2 -- Fixing Issues \& Future Development}{42}{part.2}%
@@ -81,7 +81,9 @@
 \contentsline {subsection}{\numberline {3.15.1}Part 1 Baseline}{65}{subsection.3.15.1}%
 \contentsline {subsection}{\numberline {3.15.2}Part 2 Results}{65}{subsection.3.15.2}%
 \contentsline {section}{\numberline {3.16}DAST Re-Assessment}{66}{section.3.16}%
-\contentsline {subsection}{\numberline {3.16.1}Part 1 Baseline}{66}{subsection.3.16.1}%
-\contentsline {subsection}{\numberline {3.16.2}Part 2 Results}{67}{subsection.3.16.2}%
-\contentsline {section}{\numberline {3.17}Future Work}{69}{section.3.17}%
+\contentsline {subsection}{\numberline {3.16.1}Scan Configuration}{66}{subsection.3.16.1}%
+\contentsline {subsection}{\numberline {3.16.2}Part 1 Baseline}{67}{subsection.3.16.2}%
+\contentsline {subsection}{\numberline {3.16.3}Part 2 Results}{67}{subsection.3.16.3}%
+\contentsline {subsection}{\numberline {3.16.4}WAF vs No WAF (Nightly)}{68}{subsection.3.16.4}%
+\contentsline {section}{\numberline {3.17}Future Work}{70}{section.3.17}%
 \contentsline {section}{\numberline {3.18}Conclusion}{70}{section.3.18}%

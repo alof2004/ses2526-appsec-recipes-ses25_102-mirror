@@ -25,198 +25,6 @@
                   }
                ],
                "message": {
-                  "text": "There is a chance that the highlight in the finding is on a value in the headers, versus the actual matched string in the response body."
-               },
-               "ruleId": "10009",
-               "webRequest": {
-                   "protocol": "HTTP",
-                   "version": "1.1",
-                   "target": "http:\/\/waf:8080\/",
-                   "method": "GET",
-                   "headers": {
-                       "cache-control" : "no-cache",
-                       "host" : "waf:8080",
-                       "pragma" : "no-cache",
-                       "user-agent" : "Mozilla\/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit\/537.36 (KHTML, like Gecko) Chrome\/141.0.0.0 Safari\/537.36"
-                   },
-                   "body": {
-                       
-                   }
-               },
-               "webResponse": {
-                   "statusCode": 404,
-                   "reasonPhrase": "Not Found",
-                   "protocol": "HTTP",
-                   "version": "1.1",
-                   "headers": {
-                       "Connection" : "keep-alive",
-                       "Content-Length" : "555",
-                       "Content-Security-Policy" : "default-src 'none'; script-src 'none'; style-src 'none'; form-action 'none'; base-uri 'none'; frame-ancestors 'none'",
-                       "Content-Type" : "text\/html",
-                       "Date" : "Sat, 13 Jun 2026 13:50:18 GMT",
-                       "Referrer-Policy" : "strict-origin-when-cross-origin",
-                       "Server" : "nginx\/1.30.1",
-                       "Strict-Transport-Security" : "max-age=31536000; includeSubDomains",
-                       "X-Content-Type-Options" : "nosniff",
-                       "X-Frame-Options" : "DENY"
-                   },
-                   "body": {
-                       "text": "<html>\r\n<head><title>404 Not Found<\/title><\/head>\r\n<body>\r\n<center><h1>404 Not Found<\/h1><\/center>\r\n<hr><center>nginx\/1.30.1<\/center>\r\n<\/body>\r\n<\/html>\r\n<!-- a padding to disable MSIE and Chrome friendly error page -->\r\n<!-- a padding to disable MSIE and Chrome friendly error page -->\r\n<!-- a padding to disable MSIE and Chrome friendly error page -->\r\n<!-- a padding to disable MSIE and Chrome friendly error page -->\r\n<!-- a padding to disable MSIE and Chrome friendly error page -->\r\n<!-- a padding to disable MSIE and Chrome friendly error page -->\r\n"
-                   },
-                   "noResponseReceived": false
-               }
-            },
-            {
-               "level": "note",
-               "locations": [
-                  {
-                     "physicalLocation": {
-                        "artifactLocation": {
-                           "uri": "http:\/\/waf:8080\/appointments"
-                        },
-                        
-                        "region": {
-                           "startLine": 5,
-                           
-                           "snippet": {
-                               "text": "nginx\/1.30.1"
-                           }
-                        }
-                     },
-                     "properties": {
-                         "attack": ""
-                     }
-                  }
-               ],
-               "message": {
-                  "text": "There is a chance that the highlight in the finding is on a value in the headers, versus the actual matched string in the response body."
-               },
-               "ruleId": "10009",
-               "webRequest": {
-                   "protocol": "HTTP",
-                   "version": "1.1",
-                   "target": "http:\/\/waf:8080\/appointments",
-                   "method": "GET",
-                   "headers": {
-                       "cache-control" : "no-cache",
-                       "host" : "waf:8080",
-                       "pragma" : "no-cache",
-                       "user-agent" : "Mozilla\/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit\/537.36 (KHTML, like Gecko) Chrome\/141.0.0.0 Safari\/537.36"
-                   },
-                   "body": {
-                       
-                   }
-               },
-               "webResponse": {
-                   "statusCode": 404,
-                   "reasonPhrase": "Not Found",
-                   "protocol": "HTTP",
-                   "version": "1.1",
-                   "headers": {
-                       "Connection" : "keep-alive",
-                       "Content-Length" : "555",
-                       "Content-Security-Policy" : "default-src 'none'; script-src 'none'; style-src 'none'; form-action 'none'; base-uri 'none'; frame-ancestors 'none'",
-                       "Content-Type" : "text\/html",
-                       "Date" : "Sat, 13 Jun 2026 13:50:18 GMT",
-                       "Referrer-Policy" : "strict-origin-when-cross-origin",
-                       "Server" : "nginx\/1.30.1",
-                       "Strict-Transport-Security" : "max-age=31536000; includeSubDomains",
-                       "X-Content-Type-Options" : "nosniff",
-                       "X-Frame-Options" : "DENY"
-                   },
-                   "body": {
-                       "text": "<html>\r\n<head><title>404 Not Found<\/title><\/head>\r\n<body>\r\n<center><h1>404 Not Found<\/h1><\/center>\r\n<hr><center>nginx\/1.30.1<\/center>\r\n<\/body>\r\n<\/html>\r\n<!-- a padding to disable MSIE and Chrome friendly error page -->\r\n<!-- a padding to disable MSIE and Chrome friendly error page -->\r\n<!-- a padding to disable MSIE and Chrome friendly error page -->\r\n<!-- a padding to disable MSIE and Chrome friendly error page -->\r\n<!-- a padding to disable MSIE and Chrome friendly error page -->\r\n<!-- a padding to disable MSIE and Chrome friendly error page -->\r\n"
-                   },
-                   "noResponseReceived": false
-               }
-            },
-            {
-               "level": "note",
-               "locations": [
-                  {
-                     "physicalLocation": {
-                        "artifactLocation": {
-                           "uri": "http:\/\/waf:8080\/patients"
-                        },
-                        
-                        "region": {
-                           "startLine": 5,
-                           
-                           "snippet": {
-                               "text": "nginx\/1.30.1"
-                           }
-                        }
-                     },
-                     "properties": {
-                         "attack": ""
-                     }
-                  }
-               ],
-               "message": {
-                  "text": "There is a chance that the highlight in the finding is on a value in the headers, versus the actual matched string in the response body."
-               },
-               "ruleId": "10009",
-               "webRequest": {
-                   "protocol": "HTTP",
-                   "version": "1.1",
-                   "target": "http:\/\/waf:8080\/patients",
-                   "method": "GET",
-                   "headers": {
-                       "cache-control" : "no-cache",
-                       "host" : "waf:8080",
-                       "pragma" : "no-cache",
-                       "user-agent" : "Mozilla\/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit\/537.36 (KHTML, like Gecko) Chrome\/141.0.0.0 Safari\/537.36"
-                   },
-                   "body": {
-                       
-                   }
-               },
-               "webResponse": {
-                   "statusCode": 404,
-                   "reasonPhrase": "Not Found",
-                   "protocol": "HTTP",
-                   "version": "1.1",
-                   "headers": {
-                       "Connection" : "keep-alive",
-                       "Content-Length" : "555",
-                       "Content-Security-Policy" : "default-src 'none'; script-src 'none'; style-src 'none'; form-action 'none'; base-uri 'none'; frame-ancestors 'none'",
-                       "Content-Type" : "text\/html",
-                       "Date" : "Sat, 13 Jun 2026 13:50:18 GMT",
-                       "Referrer-Policy" : "strict-origin-when-cross-origin",
-                       "Server" : "nginx\/1.30.1",
-                       "Strict-Transport-Security" : "max-age=31536000; includeSubDomains",
-                       "X-Content-Type-Options" : "nosniff",
-                       "X-Frame-Options" : "DENY"
-                   },
-                   "body": {
-                       "text": "<html>\r\n<head><title>404 Not Found<\/title><\/head>\r\n<body>\r\n<center><h1>404 Not Found<\/h1><\/center>\r\n<hr><center>nginx\/1.30.1<\/center>\r\n<\/body>\r\n<\/html>\r\n<!-- a padding to disable MSIE and Chrome friendly error page -->\r\n<!-- a padding to disable MSIE and Chrome friendly error page -->\r\n<!-- a padding to disable MSIE and Chrome friendly error page -->\r\n<!-- a padding to disable MSIE and Chrome friendly error page -->\r\n<!-- a padding to disable MSIE and Chrome friendly error page -->\r\n<!-- a padding to disable MSIE and Chrome friendly error page -->\r\n"
-                   },
-                   "noResponseReceived": false
-               }
-            },
-            {
-               "level": "note",
-               "locations": [
-                  {
-                     "physicalLocation": {
-                        "artifactLocation": {
-                           "uri": "http:\/\/waf:8080\/"
-                        },
-                        
-                        "region": {
-                           "startLine": 5,
-                           
-                           "snippet": {
-                               "text": "nginx\/1.30.1"
-                           }
-                        }
-                     },
-                     "properties": {
-                         "attack": ""
-                     }
-                  }
-               ],
-               "message": {
                   "text": "The web\/application server is leaking version information via the \"Server\" HTTP response header. Access to such information may facilitate attackers identifying other vulnerabilities your web\/application server is subject to."
                },
                "ruleId": "10036",
@@ -229,31 +37,27 @@
                        "cache-control" : "no-cache",
                        "host" : "waf:8080",
                        "pragma" : "no-cache",
-                       "user-agent" : "Mozilla\/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit\/537.36 (KHTML, like Gecko) Chrome\/141.0.0.0 Safari\/537.36"
+                       "user-agent" : ""
                    },
                    "body": {
                        
                    }
                },
                "webResponse": {
-                   "statusCode": 404,
-                   "reasonPhrase": "Not Found",
+                   "statusCode": 301,
+                   "reasonPhrase": "Moved Permanently",
                    "protocol": "HTTP",
                    "version": "1.1",
                    "headers": {
                        "Connection" : "keep-alive",
-                       "Content-Length" : "555",
-                       "Content-Security-Policy" : "default-src 'none'; script-src 'none'; style-src 'none'; form-action 'none'; base-uri 'none'; frame-ancestors 'none'",
+                       "Content-Length" : "169",
                        "Content-Type" : "text\/html",
-                       "Date" : "Sat, 13 Jun 2026 13:50:18 GMT",
-                       "Referrer-Policy" : "strict-origin-when-cross-origin",
-                       "Server" : "nginx\/1.30.1",
-                       "Strict-Transport-Security" : "max-age=31536000; includeSubDomains",
-                       "X-Content-Type-Options" : "nosniff",
-                       "X-Frame-Options" : "DENY"
+                       "Date" : "Sun, 14 Jun 2026 04:30:36 GMT",
+                       "Location" : "https:\/\/waf:8443\/",
+                       "Server" : "nginx\/1.30.1"
                    },
                    "body": {
-                       "text": "<html>\r\n<head><title>404 Not Found<\/title><\/head>\r\n<body>\r\n<center><h1>404 Not Found<\/h1><\/center>\r\n<hr><center>nginx\/1.30.1<\/center>\r\n<\/body>\r\n<\/html>\r\n<!-- a padding to disable MSIE and Chrome friendly error page -->\r\n<!-- a padding to disable MSIE and Chrome friendly error page -->\r\n<!-- a padding to disable MSIE and Chrome friendly error page -->\r\n<!-- a padding to disable MSIE and Chrome friendly error page -->\r\n<!-- a padding to disable MSIE and Chrome friendly error page -->\r\n<!-- a padding to disable MSIE and Chrome friendly error page -->\r\n"
+                       "text": "<html>\r\n<head><title>301 Moved Permanently<\/title><\/head>\r\n<body>\r\n<center><h1>301 Moved Permanently<\/h1><\/center>\r\n<hr><center>nginx\/1.30.1<\/center>\r\n<\/body>\r\n<\/html>\r\n"
                    },
                    "noResponseReceived": false
                }
@@ -264,147 +68,7 @@
                   {
                      "physicalLocation": {
                         "artifactLocation": {
-                           "uri": "http:\/\/waf:8080\/api\/patients"
-                        },
-                        
-                        "region": {
-                           "startLine": 1,
-                           
-                           "properties" : { 
-                               "startLineFailure" : "Resolved invalid start line: 0 - used fallback value instead."
-                            }, 
-                           "snippet": {
-                               "text": "nginx\/1.30.1"
-                           }
-                        }
-                     },
-                     "properties": {
-                         "attack": ""
-                     }
-                  }
-               ],
-               "message": {
-                  "text": "The web\/application server is leaking version information via the \"Server\" HTTP response header. Access to such information may facilitate attackers identifying other vulnerabilities your web\/application server is subject to."
-               },
-               "ruleId": "10036",
-               "webRequest": {
-                   "protocol": "HTTP",
-                   "version": "1.1",
-                   "target": "http:\/\/waf:8080\/api\/patients",
-                   "method": "GET",
-                   "headers": {
-                       "cache-control" : "no-cache",
-                       "host" : "waf:8080",
-                       "pragma" : "no-cache",
-                       "user-agent" : "Mozilla\/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit\/537.36 (KHTML, like Gecko) Chrome\/141.0.0.0 Safari\/537.36"
-                   },
-                   "body": {
-                       
-                   }
-               },
-               "webResponse": {
-                   "statusCode": 401,
-                   "reasonPhrase": "",
-                   "protocol": "HTTP",
-                   "version": "1.1",
-                   "headers": {
-                       "Cache-Control" : "no-cache, no-store, max-age=0, must-revalidate",
-                       "Connection" : "keep-alive",
-                       "Content-Length" : "0",
-                       "Content-Security-Policy" : "default-src 'none'; frame-ancestors 'none'",
-                       "Date" : "Sat, 13 Jun 2026 13:50:18 GMT",
-                       "Expires" : "0",
-                       "Pragma" : "no-cache",
-                       "Server" : "nginx\/1.30.1",
-                       "Vary" : "Access-Control-Request-Headers",
-                       "WWW-Authenticate" : "Bearer resource_metadata=\"http:\/\/waf\/.well-known\/oauth-protected-resource\"",
-                       "X-Content-Type-Options" : "nosniff",
-                       "X-Frame-Options" : "DENY",
-                       "X-XSS-Protection" : "0"
-                   },
-                   "body": {
-                       
-                   },
-                   "noResponseReceived": false
-               }
-            },
-            {
-               "level": "note",
-               "locations": [
-                  {
-                     "physicalLocation": {
-                        "artifactLocation": {
-                           "uri": "http:\/\/waf:8080\/api\/patients\/1"
-                        },
-                        
-                        "region": {
-                           "startLine": 1,
-                           
-                           "properties" : { 
-                               "startLineFailure" : "Resolved invalid start line: 0 - used fallback value instead."
-                            }, 
-                           "snippet": {
-                               "text": "nginx\/1.30.1"
-                           }
-                        }
-                     },
-                     "properties": {
-                         "attack": ""
-                     }
-                  }
-               ],
-               "message": {
-                  "text": "The web\/application server is leaking version information via the \"Server\" HTTP response header. Access to such information may facilitate attackers identifying other vulnerabilities your web\/application server is subject to."
-               },
-               "ruleId": "10036",
-               "webRequest": {
-                   "protocol": "HTTP",
-                   "version": "1.1",
-                   "target": "http:\/\/waf:8080\/api\/patients\/1",
-                   "method": "GET",
-                   "headers": {
-                       "cache-control" : "no-cache",
-                       "host" : "waf:8080",
-                       "pragma" : "no-cache",
-                       "user-agent" : "Mozilla\/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit\/537.36 (KHTML, like Gecko) Chrome\/141.0.0.0 Safari\/537.36"
-                   },
-                   "body": {
-                       
-                   }
-               },
-               "webResponse": {
-                   "statusCode": 401,
-                   "reasonPhrase": "",
-                   "protocol": "HTTP",
-                   "version": "1.1",
-                   "headers": {
-                       "Cache-Control" : "no-cache, no-store, max-age=0, must-revalidate",
-                       "Connection" : "keep-alive",
-                       "Content-Length" : "0",
-                       "Content-Security-Policy" : "default-src 'none'; frame-ancestors 'none'",
-                       "Date" : "Sat, 13 Jun 2026 13:50:18 GMT",
-                       "Expires" : "0",
-                       "Pragma" : "no-cache",
-                       "Server" : "nginx\/1.30.1",
-                       "Vary" : "Access-Control-Request-Headers",
-                       "WWW-Authenticate" : "Bearer resource_metadata=\"http:\/\/waf\/.well-known\/oauth-protected-resource\"",
-                       "X-Content-Type-Options" : "nosniff",
-                       "X-Frame-Options" : "DENY",
-                       "X-XSS-Protection" : "0"
-                   },
-                   "body": {
-                       
-                   },
-                   "noResponseReceived": false
-               }
-            },
-            {
-               "level": "note",
-               "locations": [
-                  {
-                     "physicalLocation": {
-                        "artifactLocation": {
-                           "uri": "http:\/\/waf:8080\/appointments"
+                           "uri": "http:\/\/waf:8080\/api"
                         },
                         
                         "region": {
@@ -427,37 +91,33 @@
                "webRequest": {
                    "protocol": "HTTP",
                    "version": "1.1",
-                   "target": "http:\/\/waf:8080\/appointments",
+                   "target": "http:\/\/waf:8080\/api",
                    "method": "GET",
                    "headers": {
                        "cache-control" : "no-cache",
                        "host" : "waf:8080",
                        "pragma" : "no-cache",
-                       "user-agent" : "Mozilla\/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit\/537.36 (KHTML, like Gecko) Chrome\/141.0.0.0 Safari\/537.36"
+                       "user-agent" : ""
                    },
                    "body": {
                        
                    }
                },
                "webResponse": {
-                   "statusCode": 404,
-                   "reasonPhrase": "Not Found",
+                   "statusCode": 301,
+                   "reasonPhrase": "Moved Permanently",
                    "protocol": "HTTP",
                    "version": "1.1",
                    "headers": {
                        "Connection" : "keep-alive",
-                       "Content-Length" : "555",
-                       "Content-Security-Policy" : "default-src 'none'; script-src 'none'; style-src 'none'; form-action 'none'; base-uri 'none'; frame-ancestors 'none'",
+                       "Content-Length" : "169",
                        "Content-Type" : "text\/html",
-                       "Date" : "Sat, 13 Jun 2026 13:50:18 GMT",
-                       "Referrer-Policy" : "strict-origin-when-cross-origin",
-                       "Server" : "nginx\/1.30.1",
-                       "Strict-Transport-Security" : "max-age=31536000; includeSubDomains",
-                       "X-Content-Type-Options" : "nosniff",
-                       "X-Frame-Options" : "DENY"
+                       "Date" : "Sun, 14 Jun 2026 04:30:36 GMT",
+                       "Location" : "https:\/\/waf:8443\/api",
+                       "Server" : "nginx\/1.30.1"
                    },
                    "body": {
-                       "text": "<html>\r\n<head><title>404 Not Found<\/title><\/head>\r\n<body>\r\n<center><h1>404 Not Found<\/h1><\/center>\r\n<hr><center>nginx\/1.30.1<\/center>\r\n<\/body>\r\n<\/html>\r\n<!-- a padding to disable MSIE and Chrome friendly error page -->\r\n<!-- a padding to disable MSIE and Chrome friendly error page -->\r\n<!-- a padding to disable MSIE and Chrome friendly error page -->\r\n<!-- a padding to disable MSIE and Chrome friendly error page -->\r\n<!-- a padding to disable MSIE and Chrome friendly error page -->\r\n<!-- a padding to disable MSIE and Chrome friendly error page -->\r\n"
+                       "text": "<html>\r\n<head><title>301 Moved Permanently<\/title><\/head>\r\n<body>\r\n<center><h1>301 Moved Permanently<\/h1><\/center>\r\n<hr><center>nginx\/1.30.1<\/center>\r\n<\/body>\r\n<\/html>\r\n"
                    },
                    "noResponseReceived": false
                }
@@ -468,7 +128,7 @@
                   {
                      "physicalLocation": {
                         "artifactLocation": {
-                           "uri": "http:\/\/waf:8080\/patients"
+                           "uri": "http:\/\/waf:8080\/api\/appointments\/1"
                         },
                         
                         "region": {
@@ -491,37 +151,153 @@
                "webRequest": {
                    "protocol": "HTTP",
                    "version": "1.1",
-                   "target": "http:\/\/waf:8080\/patients",
+                   "target": "http:\/\/waf:8080\/api\/appointments\/1",
                    "method": "GET",
                    "headers": {
                        "cache-control" : "no-cache",
                        "host" : "waf:8080",
                        "pragma" : "no-cache",
-                       "user-agent" : "Mozilla\/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit\/537.36 (KHTML, like Gecko) Chrome\/141.0.0.0 Safari\/537.36"
+                       "user-agent" : ""
                    },
                    "body": {
                        
                    }
                },
                "webResponse": {
-                   "statusCode": 404,
-                   "reasonPhrase": "Not Found",
+                   "statusCode": 301,
+                   "reasonPhrase": "Moved Permanently",
                    "protocol": "HTTP",
                    "version": "1.1",
                    "headers": {
                        "Connection" : "keep-alive",
-                       "Content-Length" : "555",
-                       "Content-Security-Policy" : "default-src 'none'; script-src 'none'; style-src 'none'; form-action 'none'; base-uri 'none'; frame-ancestors 'none'",
+                       "Content-Length" : "169",
                        "Content-Type" : "text\/html",
-                       "Date" : "Sat, 13 Jun 2026 13:50:18 GMT",
-                       "Referrer-Policy" : "strict-origin-when-cross-origin",
-                       "Server" : "nginx\/1.30.1",
-                       "Strict-Transport-Security" : "max-age=31536000; includeSubDomains",
-                       "X-Content-Type-Options" : "nosniff",
-                       "X-Frame-Options" : "DENY"
+                       "Date" : "Sun, 14 Jun 2026 04:30:36 GMT",
+                       "Location" : "https:\/\/waf:8443\/api\/appointments\/1",
+                       "Server" : "nginx\/1.30.1"
                    },
                    "body": {
-                       "text": "<html>\r\n<head><title>404 Not Found<\/title><\/head>\r\n<body>\r\n<center><h1>404 Not Found<\/h1><\/center>\r\n<hr><center>nginx\/1.30.1<\/center>\r\n<\/body>\r\n<\/html>\r\n<!-- a padding to disable MSIE and Chrome friendly error page -->\r\n<!-- a padding to disable MSIE and Chrome friendly error page -->\r\n<!-- a padding to disable MSIE and Chrome friendly error page -->\r\n<!-- a padding to disable MSIE and Chrome friendly error page -->\r\n<!-- a padding to disable MSIE and Chrome friendly error page -->\r\n<!-- a padding to disable MSIE and Chrome friendly error page -->\r\n"
+                       "text": "<html>\r\n<head><title>301 Moved Permanently<\/title><\/head>\r\n<body>\r\n<center><h1>301 Moved Permanently<\/h1><\/center>\r\n<hr><center>nginx\/1.30.1<\/center>\r\n<\/body>\r\n<\/html>\r\n"
+                   },
+                   "noResponseReceived": false
+               }
+            },
+            {
+               "level": "note",
+               "locations": [
+                  {
+                     "physicalLocation": {
+                        "artifactLocation": {
+                           "uri": "http:\/\/waf:8080\/robots.txt"
+                        },
+                        
+                        "region": {
+                           "startLine": 5,
+                           
+                           "snippet": {
+                               "text": "nginx\/1.30.1"
+                           }
+                        }
+                     },
+                     "properties": {
+                         "attack": ""
+                     }
+                  }
+               ],
+               "message": {
+                  "text": "The web\/application server is leaking version information via the \"Server\" HTTP response header. Access to such information may facilitate attackers identifying other vulnerabilities your web\/application server is subject to."
+               },
+               "ruleId": "10036",
+               "webRequest": {
+                   "protocol": "HTTP",
+                   "version": "1.1",
+                   "target": "http:\/\/waf:8080\/robots.txt",
+                   "method": "GET",
+                   "headers": {
+                       "cache-control" : "no-cache",
+                       "host" : "waf:8080",
+                       "pragma" : "no-cache",
+                       "user-agent" : ""
+                   },
+                   "body": {
+                       
+                   }
+               },
+               "webResponse": {
+                   "statusCode": 301,
+                   "reasonPhrase": "Moved Permanently",
+                   "protocol": "HTTP",
+                   "version": "1.1",
+                   "headers": {
+                       "Connection" : "keep-alive",
+                       "Content-Length" : "169",
+                       "Content-Type" : "text\/html",
+                       "Date" : "Sun, 14 Jun 2026 04:30:36 GMT",
+                       "Location" : "https:\/\/waf:8443\/robots.txt",
+                       "Server" : "nginx\/1.30.1"
+                   },
+                   "body": {
+                       "text": "<html>\r\n<head><title>301 Moved Permanently<\/title><\/head>\r\n<body>\r\n<center><h1>301 Moved Permanently<\/h1><\/center>\r\n<hr><center>nginx\/1.30.1<\/center>\r\n<\/body>\r\n<\/html>\r\n"
+                   },
+                   "noResponseReceived": false
+               }
+            },
+            {
+               "level": "note",
+               "locations": [
+                  {
+                     "physicalLocation": {
+                        "artifactLocation": {
+                           "uri": "http:\/\/waf:8080\/sitemap.xml"
+                        },
+                        
+                        "region": {
+                           "startLine": 5,
+                           
+                           "snippet": {
+                               "text": "nginx\/1.30.1"
+                           }
+                        }
+                     },
+                     "properties": {
+                         "attack": ""
+                     }
+                  }
+               ],
+               "message": {
+                  "text": "The web\/application server is leaking version information via the \"Server\" HTTP response header. Access to such information may facilitate attackers identifying other vulnerabilities your web\/application server is subject to."
+               },
+               "ruleId": "10036",
+               "webRequest": {
+                   "protocol": "HTTP",
+                   "version": "1.1",
+                   "target": "http:\/\/waf:8080\/sitemap.xml",
+                   "method": "GET",
+                   "headers": {
+                       "cache-control" : "no-cache",
+                       "host" : "waf:8080",
+                       "pragma" : "no-cache",
+                       "user-agent" : ""
+                   },
+                   "body": {
+                       
+                   }
+               },
+               "webResponse": {
+                   "statusCode": 301,
+                   "reasonPhrase": "Moved Permanently",
+                   "protocol": "HTTP",
+                   "version": "1.1",
+                   "headers": {
+                       "Connection" : "keep-alive",
+                       "Content-Length" : "169",
+                       "Content-Type" : "text\/html",
+                       "Date" : "Sun, 14 Jun 2026 04:30:36 GMT",
+                       "Location" : "https:\/\/waf:8443\/sitemap.xml",
+                       "Server" : "nginx\/1.30.1"
+                   },
+                   "body": {
+                       "text": "<html>\r\n<head><title>301 Moved Permanently<\/title><\/head>\r\n<body>\r\n<center><h1>301 Moved Permanently<\/h1><\/center>\r\n<hr><center>nginx\/1.30.1<\/center>\r\n<\/body>\r\n<\/html>\r\n"
                    },
                    "noResponseReceived": false
                }
@@ -576,7 +352,7 @@
                        "Connection" : "keep-alive",
                        "Content-Length" : "169",
                        "Content-Type" : "text\/html",
-                       "Date" : "Sat, 13 Jun 2026 13:50:40 GMT",
+                       "Date" : "Sun, 14 Jun 2026 04:30:59 GMT",
                        "Location" : "https:\/\/waf:8443\/api\/patients\/1",
                        "Server" : "nginx\/1.30.1"
                    },
@@ -636,7 +412,7 @@
                        "Connection" : "keep-alive",
                        "Content-Length" : "169",
                        "Content-Type" : "text\/html",
-                       "Date" : "Sat, 13 Jun 2026 13:50:40 GMT",
+                       "Date" : "Sun, 14 Jun 2026 04:30:59 GMT",
                        "Location" : "https:\/\/waf:8443\/api\/patients\/1",
                        "Server" : "nginx\/1.30.1"
                    },
@@ -696,7 +472,7 @@
                        "Connection" : "keep-alive",
                        "Content-Length" : "169",
                        "Content-Type" : "text\/html",
-                       "Date" : "Sat, 13 Jun 2026 13:50:40 GMT",
+                       "Date" : "Sun, 14 Jun 2026 04:30:59 GMT",
                        "Location" : "https:\/\/waf:8443\/api\/patients\/1",
                        "Server" : "nginx\/1.30.1"
                    },
@@ -742,44 +518,6 @@
                "informationUri": "https:\/\/www.zaproxy.org\/",
                "name": "ZAP",
                "rules": [ 
-                  {
-                     "id": "10009",
-                     "defaultConfiguration": {
-                        "level": "note"
-                     },
-                     "fullDescription": {
-                        "text": "The server returned a version banner string in the response content. Such information leaks may allow attackers to further target specific issues impacting the product and version in use."
-                     },
-                     "name": "In Page Banner Information Leak",
-                     "properties": {
-                            "references": [
-                                "https:\/\/owasp.org\/www-project-web-security-testing-guide\/v41\/4-Web_Application_Security_Testing\/08-Testing_for_Error_Handling\/"
-                            ],
-                            "solution": {
-                                "text": "Configure the server to prevent such information leaks. For example:\nUnder Tomcat this is done via the \"server\" directive and implementation of custom error pages.\nUnder Apache this is done via the \"ServerSignature\" and \"ServerTokens\" directives."
-                            },
-                            "confidence": "high"
-                     },
-                     "relationships": [ 
-                        {
-                           "kinds": [
-                              "superset"
-                           ],
-                           "target": {
-                              "guid":"b70a7030-c124-3e5f-a628-a76f82820eed",
-                              "id": "497",
-                              "toolComponent": {
-                                 "guid": "b000a760-3e52-3565-a35c-f61369da53b7",
-                                 "name": "CWE"
-                              }
-                           }
-                        }
-                        
-                     ],
-                     "shortDescription": {
-                        "text": "In Page Banner Information Leak"
-                     }
-                  },
                   {
                      "id": "10036",
                      "defaultConfiguration": {

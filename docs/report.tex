@@ -937,13 +937,13 @@ The dynamic analysis scope covers the running ClinicWave application deployed in
 
 \subsection{Pull Request Level}
 
-Runs through \texttt{dast-pr.yml}. The workflow builds the frontend and backend from the PR branch, starts a temporary PostgreSQL container, brings the full application up inside a dedicated Docker network, waits for both services to become reachable, and then runs an OWASP ZAP scan directly against the application without the WAF.
+Runs through the baseline software repository workflow \texttt{dast-pr.yml}. The workflow builds the frontend and backend from the PR branch, starts a temporary PostgreSQL container, brings the full application up inside a dedicated Docker network, waits for both services to become reachable, and then runs an OWASP ZAP scan directly against the application without the WAF.
 
 The PR gate is configured to fail when the ZAP report contains High severity findings. The PR workflow is intentionally direct-only to keep merge-time feedback fast and focused on application regressions; the WAF comparison is reserved for the nightly workflow. The workflow also generates both HTML and JSON ZAP reports, uploads them as workflow artefacts, evaluates the JSON output, and posts a DAST summary comment back to the pull request.
 
 \subsection{Nightly Level}
 
-Runs through \texttt{dast-nightly.yml}. This workflow checks out the software repository, builds and launches the full stack inside an isolated Docker environment, and runs the full DAST evidence set: one ZAP scan directly against the application and one ZAP scan through the ModSecurity WAF. It produces HTML and JSON ZAP reports for both modes, uploads them as artefacts, and writes a summarised view of alert counts and alert types into the workflow summary.
+Runs through the AppSec repository workflow \texttt{dast-nightly.yml}. This workflow checks out the software repository, builds and launches the full stack inside an isolated Docker environment, and runs the full DAST evidence set: one ZAP scan directly against the application and one ZAP scan through the ModSecurity WAF. It produces HTML and JSON ZAP reports for both modes, uploads them as artefacts, and writes a summarised view of alert counts and alert types into the workflow summary.
 
 \subsection{Why the Two Levels Matter}
 
@@ -953,7 +953,7 @@ The pull request level provides merge-time validation and direct reviewer visibi
 \section{Runtime Environment and Tooling}
 % ─────────────────────────────────────────────────────────────────────────────
 
-Both workflows use \textbf{OWASP ZAP} automation plans. The application is launched inside Docker with a temporary PostgreSQL container, a backend container exposing the Spring Boot API, and a frontend container exposing the React/Vite application. The PR workflow scans the direct application stack. The nightly workflow scans both the direct stack and the WAF-fronted stack.
+Both workflows use \textbf{OWASP ZAP}. The application is launched inside Docker with a temporary PostgreSQL container, a backend container exposing the Spring Boot API, and a frontend container exposing the React/Vite application. The PR workflow in the software repository scans the direct application stack. The nightly workflow in the AppSec repository scans both the direct stack and the WAF-fronted stack.
 
 % ─────────────────────────────────────────────────────────────────────────────
 \section{Strengths and Limitations}

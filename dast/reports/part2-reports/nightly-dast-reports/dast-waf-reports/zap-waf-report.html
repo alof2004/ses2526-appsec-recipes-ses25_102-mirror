@@ -215,7 +215,7 @@ td {
 	</h2>
 
 	<h3>
-		Generated on Sat, 13 Jun 2026 13:51:42
+		Generated on Sun, 14 Jun 2026 04:32:01
 	</h3>
 
 	<h3>
@@ -256,7 +256,7 @@ td {
 					<div>Low</div>
 				</td>
 				<td align="center">
-					<div>2</div>
+					<div>1</div>
 				</td>
 			</tr>
 			<tr>
@@ -303,14 +303,6 @@ td {
 					align="center">Number of Instances</th>
 			</tr>
 			<tr>
-				<td><a href="#10009">In Page Banner Information Leak</a></td>
-				<td align="center" class="risk-1">Low</td>
-				
-				
-				<td align="center">3</td>
-				
-			</tr>
-			<tr>
 				<td><a href="#10036">Server Leaks Version Information via &quot;Server&quot; HTTP Response Header Field</a></td>
 				<td align="center" class="risk-1">Low</td>
 				
@@ -332,185 +324,6 @@ td {
 
 	
 		<h3>Alert Detail</h3>
-		
-			<table class="results">
-				<tr height="24">
-					<th width="20%" class="risk-1"><a
-						id="10009"></a>
-						<div>Low</div></th>
-					<th class="risk-1">In Page Banner Information Leak</th>
-				</tr>
-				<tr>
-					<td width="20%">Description</td>
-					<td width="80%">
-							<div>The server returned a version banner string in the response content. Such information leaks may allow attackers to further target specific issues impacting the product and version in use.</div>
-							
-						</td>
-				</tr>
-				<TR vAlign="top">
-					<TD colspan="2"></TD>
-				</TR>
-				
-					<tr>
-						<td width="20%"
-							class="indent1">URL</td>
-						<td width="80%"><a href="http://waf:8080/">http://waf:8080/</a></td>
-					</tr>
-					<tr>
-						<td width="20%"
-							class="indent2">Node Name</td>
-						<td width="80%">http://waf:8080/</td>
-					</tr>
-					<tr>
-						<td width="20%"
-							class="indent2">Method</td>
-						<td width="80%">GET</td>
-					</tr>
-					<tr>
-						<td width="20%"
-							class="indent2">Parameter</td>
-						<td width="80%"></td>
-					</tr>
-					<tr>
-						<td width="20%"
-							class="indent2">Attack</td>
-						<td width="80%"></td>
-					</tr>
-					<tr>
-						<td width="20%"
-							class="indent2">Evidence</td>
-						<td width="80%">nginx/1.30.1</td>
-					</tr>
-					<tr>
-						<td width="20%"
-							class="indent2">Other Info</td>
-						<td width="80%">
-							<div>There is a chance that the highlight in the finding is on a value in the headers, versus the actual matched string in the response body.</div>
-							
-						</td>
-					</tr>
-				
-					<tr>
-						<td width="20%"
-							class="indent1">URL</td>
-						<td width="80%"><a href="http://waf:8080/appointments">http://waf:8080/appointments</a></td>
-					</tr>
-					<tr>
-						<td width="20%"
-							class="indent2">Node Name</td>
-						<td width="80%">http://waf:8080/appointments</td>
-					</tr>
-					<tr>
-						<td width="20%"
-							class="indent2">Method</td>
-						<td width="80%">GET</td>
-					</tr>
-					<tr>
-						<td width="20%"
-							class="indent2">Parameter</td>
-						<td width="80%"></td>
-					</tr>
-					<tr>
-						<td width="20%"
-							class="indent2">Attack</td>
-						<td width="80%"></td>
-					</tr>
-					<tr>
-						<td width="20%"
-							class="indent2">Evidence</td>
-						<td width="80%">nginx/1.30.1</td>
-					</tr>
-					<tr>
-						<td width="20%"
-							class="indent2">Other Info</td>
-						<td width="80%">
-							<div>There is a chance that the highlight in the finding is on a value in the headers, versus the actual matched string in the response body.</div>
-							
-						</td>
-					</tr>
-				
-					<tr>
-						<td width="20%"
-							class="indent1">URL</td>
-						<td width="80%"><a href="http://waf:8080/patients">http://waf:8080/patients</a></td>
-					</tr>
-					<tr>
-						<td width="20%"
-							class="indent2">Node Name</td>
-						<td width="80%">http://waf:8080/patients</td>
-					</tr>
-					<tr>
-						<td width="20%"
-							class="indent2">Method</td>
-						<td width="80%">GET</td>
-					</tr>
-					<tr>
-						<td width="20%"
-							class="indent2">Parameter</td>
-						<td width="80%"></td>
-					</tr>
-					<tr>
-						<td width="20%"
-							class="indent2">Attack</td>
-						<td width="80%"></td>
-					</tr>
-					<tr>
-						<td width="20%"
-							class="indent2">Evidence</td>
-						<td width="80%">nginx/1.30.1</td>
-					</tr>
-					<tr>
-						<td width="20%"
-							class="indent2">Other Info</td>
-						<td width="80%">
-							<div>There is a chance that the highlight in the finding is on a value in the headers, versus the actual matched string in the response body.</div>
-							
-						</td>
-					</tr>
-				
-				<tr>
-					<td width="20%">Instances</td>
-					
-					
-					<td width="80%">3</td>
-					
-				</tr>
-				<tr>
-					<td width="20%">Solution</td>
-					<td width="80%">
-							<div>Configure the server to prevent such information leaks. For example:</div>
-							<br />
-						
-							<div>Under Tomcat this is done via the &quot;server&quot; directive and implementation of custom error pages.</div>
-							<br />
-						
-							<div>Under Apache this is done via the &quot;ServerSignature&quot; and &quot;ServerTokens&quot; directives.</div>
-							
-						</td>
-				</tr>
-				<tr>
-					<td width="20%">Reference</td>
-					<td width="80%">
-							<a href="https://owasp.org/www-project-web-security-testing-guide/v41/4-Web_Application_Security_Testing/08-Testing_for_Error_Handling/">https://owasp.org/www-project-web-security-testing-guide/v41/4-Web_Application_Security_Testing/08-Testing_for_Error_Handling/</a>
-							
-						</td>
-				</tr>
-				<tr>
-					<td width="20%">CWE Id</td>
-					<td width="80%"><a
-						href="https://cwe.mitre.org/data/definitions/497.html">497</a></td>
-				</tr>
-				<tr>
-					<td width="20%">WASC Id</td>
-					<td width="80%">13</td>
-				</tr>
-				<tr>
-					<td width="20%">Plugin Id</td>
-					<td width="80%"><a
-						href="https://www.zaproxy.org/docs/alerts/10009/">10009</a></td>
-				</tr>
-			</table>
-			<div class="spacer"></div>
 		
 			<table class="results">
 				<tr height="24">
@@ -569,12 +382,12 @@ td {
 					<tr>
 						<td width="20%"
 							class="indent1">URL</td>
-						<td width="80%"><a href="http://waf:8080/api/patients">http://waf:8080/api/patients</a></td>
+						<td width="80%"><a href="http://waf:8080/api">http://waf:8080/api</a></td>
 					</tr>
 					<tr>
 						<td width="20%"
 							class="indent2">Node Name</td>
-						<td width="80%">http://waf:8080/api/patients</td>
+						<td width="80%">http://waf:8080/api</td>
 					</tr>
 					<tr>
 						<td width="20%"
@@ -605,12 +418,12 @@ td {
 					<tr>
 						<td width="20%"
 							class="indent1">URL</td>
-						<td width="80%"><a href="http://waf:8080/api/patients/1">http://waf:8080/api/patients/1</a></td>
+						<td width="80%"><a href="http://waf:8080/api/appointments/1">http://waf:8080/api/appointments/1</a></td>
 					</tr>
 					<tr>
 						<td width="20%"
 							class="indent2">Node Name</td>
-						<td width="80%">http://waf:8080/api/patients/1</td>
+						<td width="80%">http://waf:8080/api/appointments/1</td>
 					</tr>
 					<tr>
 						<td width="20%"
@@ -641,12 +454,12 @@ td {
 					<tr>
 						<td width="20%"
 							class="indent1">URL</td>
-						<td width="80%"><a href="http://waf:8080/appointments">http://waf:8080/appointments</a></td>
+						<td width="80%"><a href="http://waf:8080/robots.txt">http://waf:8080/robots.txt</a></td>
 					</tr>
 					<tr>
 						<td width="20%"
 							class="indent2">Node Name</td>
-						<td width="80%">http://waf:8080/appointments</td>
+						<td width="80%">http://waf:8080/robots.txt</td>
 					</tr>
 					<tr>
 						<td width="20%"
@@ -677,12 +490,12 @@ td {
 					<tr>
 						<td width="20%"
 							class="indent1">URL</td>
-						<td width="80%"><a href="http://waf:8080/patients">http://waf:8080/patients</a></td>
+						<td width="80%"><a href="http://waf:8080/sitemap.xml">http://waf:8080/sitemap.xml</a></td>
 					</tr>
 					<tr>
 						<td width="20%"
 							class="indent2">Node Name</td>
-						<td width="80%">http://waf:8080/patients</td>
+						<td width="80%">http://waf:8080/sitemap.xml</td>
 					</tr>
 					<tr>
 						<td width="20%"
