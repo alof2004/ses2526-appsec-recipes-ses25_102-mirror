@@ -36,6 +36,23 @@ jobs:
       maxAlertsPerRule: 10
       enableTags: false
 
+  - type: replacer
+    parameters:
+      description: Inject Bearer token on all API requests
+      rules:
+        - description: Authorization header
+          matchType: REQ_HEADER
+          matchString: Authorization
+          matchRegex: false
+          replacementString: "Bearer ${ZAP_TOKEN}"
+          initiators: []
+
+  - type: openapi
+    parameters:
+      apiUrl: http://backend:8080/v3/api-docs
+      context: Clinic Management App
+      targetUrl: http://backend:8080
+
   - type: spider
     parameters:
       context: Clinic Management App

@@ -64,6 +64,32 @@ jobs:
             echo "Attempt $i: waiting..."; sleep 2
           done
 
+      - name: Start Keycloak
+        working-directory: software
+        run: |
+          docker run -d \
+            --name keycloak \
+            --network dast-network \
+            -p 18180:8080 \
+            -e KC_BOOTSTRAP_ADMIN_USERNAME=admin \
+            -e KC_BOOTSTRAP_ADMIN_PASSWORD=admin \
+            -e KC_HTTP_PORT=8080 \
+            -e KC_HOSTNAME_STRICT=false \
+            -e KC_HOSTNAME_STRICT_HTTPS=false \
+            -e KC_HTTP_ENABLED=true \
+            -e KC_LOG_LEVEL=WARN \
+            -v "$PWD/keycloak:/opt/keycloak/data/import:ro" \
+            quay.io/keycloak/keycloak:26.2.5 \
+            start-dev --import-realm
+
+          echo "Waiting for Keycloak..."
+          for i in {1..60}; do
+            if curl -sf http://localhost:18180/health/ready >/dev/null 2>&1; then
+              echo "Keycloak is ready!"; break
+            fi
+            echo "Attempt $i: waiting..."; sleep 5
+          done
+
       - name: Build and start backend
         working-directory: software
         run: |
@@ -77,8 +103,8 @@ jobs:
             -e SPRING_DATASOURCE_USERNAME=clinic_user \
             -e SPRING_DATASOURCE_PASSWORD=clinic_pass \
             -e SPRING_JPA_HIBERNATE_DDL_AUTO=update \
-            -e KEYCLOAK_JWKS_URI=http://localhost:8180/realms/clinic/protocol/openid-connect/certs \
-            -e KEYCLOAK_ISSUER_URI=http://localhost:8180/realms/clinic \
+            -e KEYCLOAK_JWKS_URI=http://keycloak:8080/realms/clinic/protocol/openid-connect/certs \
+            -e KEYCLOAK_ISSUER_URI=http://keycloak:8080/realms/clinic \
             -e CORS_ALLOWED_ORIGINS=http://localhost:15173 \
             clinic-backend:dast
 
@@ -87,7 +113,7 @@ jobs:
         run: |
           docker build -t clinic-frontend:dast \
             --build-arg VITE_API_BASE_URL=http://localhost:18080/api \
-            --build-arg VITE_KEYCLOAK_URL=http://localhost:8180 \
+            --build-arg VITE_KEYCLOAK_URL=http://localhost:18180 \
             ./src/frontend
           docker run -d \
             --name frontend \
@@ -117,6 +143,18 @@ jobs:
             echo "backend=${backend_status} frontend=${frontend_ok} — retrying in 5s..."; sleep 5
           done
 
+      - name: Fetch ZAP auth token
+        run: |
+          token=$(curl -sf \
+            -d "client_id=clinic-frontend" \
+            -d "username=admin" \
+            -d "password=Admin1234!" \
+            -d "grant_type=password" \
+            "http://localhost:18180/realms/clinic/protocol/openid-connect/token" \
+            | python3 -c "import sys,json; print(json.load(sys.stdin)['access_token'])")
+          echo "ZAP_TOKEN=${token}" >> "$GITHUB_ENV"
+          echo "Token fetched (length: ${#token})"
+
       - name: Run OWASP ZAP active scan (direct)
         run: |
           mkdir -p appsec/dast/reports/dast-direct-reports
@@ -125,6 +163,7 @@ jobs:
           set +e
           docker run --rm \
             --network dast-network \
+            -e ZAP_TOKEN="${ZAP_TOKEN}" \
             -v "$PWD/appsec/dast/zap-config:/zap/config:ro" \
             -v "$PWD/appsec/dast/reports/dast-direct-reports:/zap/wrk:rw" \
             ghcr.io/zaproxy/zaproxy:stable \
@@ -148,8 +187,8 @@ jobs:
       - name: Clean up
         if: always()
         run: |
-          docker stop frontend backend postgres || true
-          docker rm  frontend backend postgres || true
+          docker stop frontend backend keycloak postgres || true
+          docker rm  frontend backend keycloak postgres || true
           docker network rm dast-network || true
 
   # ── Job 2: ZAP through Nginx + ModSecurity WAF ────────────────────────────
@@ -191,6 +230,32 @@ jobs:
             echo "Attempt $i: waiting..."; sleep 2
           done
 
+      - name: Start Keycloak
+        working-directory: software
+        run: |
+          docker run -d \
+            --name keycloak \
+            --network dast-waf-network \
+            -p 18180:8080 \
+            -e KC_BOOTSTRAP_ADMIN_USERNAME=admin \
+            -e KC_BOOTSTRAP_ADMIN_PASSWORD=admin \
+            -e KC_HTTP_PORT=8080 \
+            -e KC_HOSTNAME_STRICT=false \
+            -e KC_HOSTNAME_STRICT_HTTPS=false \
+            -e KC_HTTP_ENABLED=true \
+            -e KC_LOG_LEVEL=WARN \
+            -v "$PWD/keycloak:/opt/keycloak/data/import:ro" \
+            quay.io/keycloak/keycloak:26.2.5 \
+            start-dev --import-realm
+
+          echo "Waiting for Keycloak..."
+          for i in {1..60}; do
+            if curl -sf http://localhost:18180/health/ready >/dev/null 2>&1; then
+              echo "Keycloak is ready!"; break
+            fi
+            echo "Attempt $i: waiting..."; sleep 5
+          done
+
       - name: Build and start backend (internal only)
         working-directory: software
         run: |
@@ -203,8 +268,8 @@ jobs:
             -e SPRING_DATASOURCE_USERNAME=clinic_user \
             -e SPRING_DATASOURCE_PASSWORD=clinic_pass \
             -e SPRING_JPA_HIBERNATE_DDL_AUTO=update \
-            -e KEYCLOAK_JWKS_URI=http://localhost:8180/realms/clinic/protocol/openid-connect/certs \
-            -e KEYCLOAK_ISSUER_URI=http://localhost:8180/realms/clinic \
+            -e KEYCLOAK_JWKS_URI=http://keycloak:8080/realms/clinic/protocol/openid-connect/certs \
+            -e KEYCLOAK_ISSUER_URI=http://keycloak:8080/realms/clinic \
             -e CORS_ALLOWED_ORIGINS=http://localhost:15173 \
             clinic-backend:dast-waf
 
@@ -288,6 +353,18 @@ jobs:
             echo "waf=${waf_status} frontend=${frontend_ok} — retrying in 5s..."; sleep 5
           done
 
+      - name: Fetch ZAP auth token
+        run: |
+          token=$(curl -sf \
+            -d "client_id=clinic-frontend" \
+            -d "username=admin" \
+            -d "password=Admin1234!" \
+            -d "grant_type=password" \
+            "http://localhost:18180/realms/clinic/protocol/openid-connect/token" \
+            | python3 -c "import sys,json; print(json.load(sys.stdin)['access_token'])")
+          echo "ZAP_TOKEN=${token}" >> "$GITHUB_ENV"
+          echo "Token fetched (length: ${#token})"
+
       - name: Run OWASP ZAP active scan (via WAF)
         run: |
           mkdir -p appsec/dast/reports/dast-waf-reports
@@ -296,6 +373,7 @@ jobs:
           set +e
           docker run --rm \
             --network dast-waf-network \
+            -e ZAP_TOKEN="${ZAP_TOKEN}" \
             -v "$PWD/appsec/dast/zap-config:/zap/config:ro" \
             -v "$PWD/appsec/dast/reports/dast-waf-reports:/zap/wrk:rw" \
             ghcr.io/zaproxy/zaproxy:stable \
@@ -329,6 +407,6 @@ jobs:
       - name: Clean up
         if: always()
         run: |
-          docker stop frontend waf backend postgres || true
-          docker rm  frontend waf backend postgres || true
+          docker stop frontend waf backend keycloak postgres || true
+          docker rm  frontend waf backend keycloak postgres || true
           docker network rm dast-waf-network || true
