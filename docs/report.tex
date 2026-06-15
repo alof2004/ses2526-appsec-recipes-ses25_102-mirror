@@ -1187,6 +1187,167 @@ caller's role, writes an audit log entry and returns the response.
 \end{figure}
 
 % ─────────────────────────────────────────────────────────────────────────────
+\section{Threat Model Re-Assessment}
+% ─────────────────────────────────────────────────────────────────────────────
+
+The Part 1 threat model identified threats across all six STRIDE categories and seven
+LINDDUN categories against the baseline system. This section maps each threat to the
+Part 2 control that mitigates it.
+
+\subsection{STRIDE Re-Assessment}
+
+\begin{longtable}{S{0.8cm} S{3.0cm} S{2.0cm} p{7.2cm}}
+\caption{STRIDE threats and Part 2 mitigations}\\
+\toprule
+\textbf{ID} & \textbf{Threat} & \textbf{Status} & \textbf{Part 2 Mitigation} \\
+\midrule
+\endfirsthead
+\multicolumn{4}{l}{\small\textit{(continued)}}\\
+\toprule
+\textbf{ID} & \textbf{Threat} & \textbf{Status} & \textbf{Part 2 Mitigation} \\
+\midrule
+\endhead
+\bottomrule
+\endfoot
+
+S-01 & No authentication & \textbf{\textcolor{sevlow}{Mitigated}} &
+  Keycloak OIDC with Authorization Code + PKCE. All \texttt{/api/**} endpoints require a
+  valid RS256 JWT; unauthenticated requests receive 401. \\[6pt]
+
+S-02 & Forged \texttt{patientId} parameter & \textbf{\textcolor{sevlow}{Mitigated}} &
+  RBAC via \texttt{@PreAuthorize} restricts which roles can create appointments.
+  \texttt{AppointmentRequestDTO} carries no patient field; the service resolves the
+  patient from a validated path/query parameter only. \\[6pt]
+
+T-01 & Unauthenticated PUT on appointments & \textbf{\textcolor{sevlow}{Mitigated}} &
+  JWT required; RECEPTIONIST and ADMIN roles only. Unauthenticated PUT returns 401. \\[6pt]
+
+T-02 & Unauthenticated PUT on patients & \textbf{\textcolor{sevlow}{Mitigated}} &
+  JWT required; ADMIN and DOCTOR roles only for patient updates. \\[6pt]
+
+T-03 & Direct entity binding / mass assignment & \textbf{\textcolor{sevlow}{Mitigated}} &
+  Request DTOs (\texttt{PatientRequestDTO}, \texttt{AppointmentRequestDTO}) expose only
+  permitted fields. \texttt{fail-on-unknown-properties=true} rejects extra fields. \\[6pt]
+
+T-04 & Unvalidated specialty and status strings & \textbf{\textcolor{sevmedium}{Partial}} &
+  No server-side enum validation added in Part 2. Accepted as residual risk for this
+  scope; bean validation (\texttt{@Pattern}) is future work. \\[6pt]
+
+T-05 & No email uniqueness constraint & \textbf{\textcolor{sevmedium}{Partial}} &
+  No unique constraint added in Part 2. Residual risk; a database-level constraint is
+  future work. \\[6pt]
+
+R-01 & No audit logging & \textbf{\textcolor{sevlow}{Mitigated}} &
+  \texttt{AuditLogService} writes every CREATE, UPDATE, DELETE with actor, resource,
+  resource ID, and timestamp. \texttt{AuditLogProtectionRunner} revokes UPDATE and
+  DELETE on \texttt{audit\_logs} at startup -- the trail is tamper-proof. \\[6pt]
+
+R-02 & No actor identity in logs & \textbf{\textcolor{sevlow}{Mitigated}} &
+  JWT authentication ensures every request carries a verifiable identity. The audit log
+  records the JWT \texttt{sub} claim as the actor on every write. \\[6pt]
+
+R-03 & Cascade delete with no recovery & \textbf{\textcolor{sevlow}{Mitigated}} &
+  Soft-delete replaces hard-delete: \texttt{deleted\_at} timestamp set instead of SQL
+  DELETE. \texttt{@SQLRestriction} filters soft-deleted records. Data is never
+  permanently destroyed by a single API call. \\[6pt]
+
+I-01 & Full PII in all GET responses & \textbf{\textcolor{sevlow}{Mitigated}} &
+  Response DTOs expose only the fields required per role. \texttt{PatientResponseDTO}
+  omits internal fields; \texttt{AppointmentResponseDTO} exposes only safe flat fields. \\[6pt]
+
+I-02 & No pagination on patient list & \textbf{\textcolor{sevmedium}{Partial}} &
+  No pagination added in Part 2. RBAC limits who can call the endpoint; rate limiting
+  constrains bulk harvesting. Full pagination is future work. \\[6pt]
+
+I-03 & Error responses leak implementation details & \textbf{\textcolor{sevlow}{Mitigated}} &
+  \texttt{server.error.include-stacktrace=never} and \texttt{include-message=never}
+  suppress internal detail from all error responses. \\[6pt]
+
+I-04 & Credentials in \texttt{.env} file & \textbf{\textcolor{sevlow}{Mitigated}} &
+  \texttt{.env} is listed in \texttt{.gitignore}. Secrets are injected via environment
+  variables in Docker Compose and GitHub Actions secrets. \\[6pt]
+
+I-05 & Dev server in production container & \textbf{\textcolor{sevlow}{Mitigated}} &
+  Multi-stage frontend Dockerfile: Node builds static assets; Nginx 1.28 serves them.
+  No Vite dev server is present in the production image. \\[6pt]
+
+I-06 & Backend port directly accessible & \textbf{\textcolor{sevlow}{Mitigated}} &
+  Backend container has no published host ports in production. All traffic must enter
+  through the WAF (\texttt{waf:8080}). \\[6pt]
+
+D-01 & No rate limiting & \textbf{\textcolor{sevlow}{Mitigated}} &
+  Dual-layer: Nginx \texttt{limit\_req\_zone} (30 req/s per IP) at the perimeter;
+  Spring \texttt{RateLimitFilter} (60 req/min per IP) at the application layer. \\[6pt]
+
+D-02 & Unbounded GET responses & \textbf{\textcolor{sevmedium}{Partial}} &
+  Rate limiting constrains bulk harvesting. Full pagination not yet implemented. \\[6pt]
+
+D-03 & Cascade delete of hundreds of records & \textbf{\textcolor{sevlow}{Mitigated}} &
+  Soft-delete: no SQL DELETE is issued. ADMIN role required for deletion. \\[6pt]
+
+E-01 & No RBAC & \textbf{\textcolor{sevlow}{Mitigated}} &
+  Role matrix in \texttt{PermissionsConfig} enforced via \texttt{@PreAuthorize} on
+  every controller method. Three roles (ADMIN, DOCTOR, RECEPTIONIST) with distinct
+  permissions per resource and action. \\[6pt]
+
+E-02 & Client-controlled nested objects & \textbf{\textcolor{sevlow}{Mitigated}} &
+  Request DTOs carry no nested entity fields. Jackson rejects unknown properties. \\[6pt]
+
+E-03 & Appointment rebinding via PUT & \textbf{\textcolor{sevlow}{Mitigated}} &
+  \texttt{AppointmentRequestDTO} has no patient field. The update service patient-rebind
+  branch is structurally unreachable. \\
+
+\end{longtable}
+
+\subsection{LINDDUN Re-Assessment}
+
+\begin{longtable}{S{2.8cm} S{2.0cm} p{8.6cm}}
+\caption{LINDDUN threats and Part 2 mitigations}\\
+\toprule
+\textbf{Category} & \textbf{Status} & \textbf{Part 2 Mitigation} \\
+\midrule
+\endfirsthead
+\multicolumn{3}{l}{\small\textit{(continued)}}\\
+\toprule
+\textbf{Category} & \textbf{Status} & \textbf{Part 2 Mitigation} \\
+\midrule
+\endhead
+\bottomrule
+\endfoot
+
+Identifiability & \textbf{\textcolor{sevlow}{Mitigated}} &
+  Authentication required to access patient records. UUID primary keys eliminate
+  sequential enumeration. Response DTOs limit which fields are exposed per role. \\[6pt]
+
+Linkability & \textbf{\textcolor{sevlow}{Mitigated}} &
+  Authentication and RBAC restrict which roles can cross-query patients and appointments.
+  The \texttt{patientName} filter on appointments requires RECEPTIONIST or ADMIN role. \\[6pt]
+
+Disclosure of Information & \textbf{\textcolor{sevlow}{Mitigated}} &
+  All \texttt{/api/**} endpoints require a valid JWT. Unauthenticated requests receive
+  401 before any data is accessed. Response DTOs prevent field leakage. \\[6pt]
+
+Detectability & \textbf{\textcolor{sevlow}{Mitigated}} &
+  Authentication required to probe endpoints. Rate limiting prevents bulk enumeration
+  even for authenticated users. \\[6pt]
+
+Non-repudiation & \textbf{\textcolor{sevlow}{Mitigated}} &
+  Tamper-proof audit log records every write with the authenticated actor (JWT \texttt{sub}),
+  resource, resource ID, and timestamp. UPDATE and DELETE are revoked on
+  \texttt{audit\_logs} at the database level. \\[6pt]
+
+Unawareness & \textbf{\textcolor{sevmedium}{Partial}} &
+  No consent flow or privacy notice added in Part 2. Residual risk; GDPR Articles
+  15--17 compliance is outside the project scope. \\[6pt]
+
+Non-compliance & \textbf{\textcolor{sevmedium}{Partial}} &
+  Structural violations addressed: authentication, audit log, soft-delete, and access
+  control are in place. Consent management, retention policy, and breach notification
+  remain future work. \\
+
+\end{longtable}
+
+% ─────────────────────────────────────────────────────────────────────────────
 \section{Authentication \& Identity Management}
 % ─────────────────────────────────────────────────────────────────────────────
 
