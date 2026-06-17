@@ -317,7 +317,7 @@ Non-compliance & \high & Structural GDPR violations applicable to health data ex
 \begin{table}[H]
 \centering
 \caption{Spoofing threats}
-\begin{tabularx}{\linewidth}{S{0.8cm} S{3.2cm} S{2.4cm} S{2.1cm} X}
+\begin{tabularx}{\linewidth}{S{1.3cm} S{3.2cm} S{2.4cm} S{2.1cm} X}
 \toprule
 \textbf{ID} & \textbf{Threat} & \textbf{Component} & \textbf{Severity} & \textbf{Detail} \\
 \midrule
@@ -332,7 +332,7 @@ S-02 & Attacker can forge \texttt{patientId} query parameter to create appointme
 \begin{table}[H]
 \centering
 \caption{Tampering threats}
-\begin{tabularx}{\linewidth}{S{0.8cm} S{3.2cm} S{2.4cm} S{2.1cm} X}
+\begin{tabularx}{\linewidth}{S{1.3cm} S{3.2cm} S{2.4cm} S{2.1cm} X}
 \toprule
 \textbf{ID} & \textbf{Threat} & \textbf{Component} & \textbf{Severity} & \textbf{Detail} \\
 \midrule
@@ -350,7 +350,7 @@ T-05 & Email field has no uniqueness constraint enforced by the application. & P
 \begin{table}[H]
 \centering
 \caption{Repudiation threats}
-\begin{tabularx}{\linewidth}{S{0.8cm} S{3.2cm} S{2.4cm} S{2.1cm} X}
+\begin{tabularx}{\linewidth}{S{1.3cm} S{3.2cm} S{2.4cm} S{2.1cm} X}
 \toprule
 \textbf{ID} & \textbf{Threat} & \textbf{Component} & \textbf{Severity} & \textbf{Detail} \\
 \midrule
@@ -366,7 +366,7 @@ R-03 & Cascade delete on Patient removes all linked appointments with no log or 
 \begin{table}[H]
 \centering
 \caption{Information Disclosure threats}
-\begin{tabularx}{\linewidth}{S{0.8cm} S{3.2cm} S{2.4cm} S{2.1cm} X}
+\begin{tabularx}{\linewidth}{S{1.3cm} S{3.2cm} S{2.4cm} S{2.1cm} X}
 \toprule
 \textbf{ID} & \textbf{Threat} & \textbf{Component} & \textbf{Severity} & \textbf{Detail} \\
 \midrule
@@ -385,7 +385,7 @@ I-06 & Backend port 8080 may be directly accessible, bypassing the Vite proxy. &
 \begin{table}[H]
 \centering
 \caption{Denial of Service threats}
-\begin{tabularx}{\linewidth}{S{0.8cm} S{3.2cm} S{2.4cm} S{2.1cm} X}
+\begin{tabularx}{\linewidth}{S{1.3cm} S{3.2cm} S{2.4cm} S{2.1cm} X}
 \toprule
 \textbf{ID} & \textbf{Threat} & \textbf{Component} & \textbf{Severity} & \textbf{Detail} \\
 \midrule
@@ -401,7 +401,7 @@ D-03 & \texttt{DELETE /api/patients/\{id\}} cascades to all appointments -- one 
 \begin{table}[H]
 \centering
 \caption{Elevation of Privilege threats}
-\begin{tabularx}{\linewidth}{S{0.8cm} S{3.2cm} S{2.4cm} S{2.1cm} X}
+\begin{tabularx}{\linewidth}{S{1.3cm} S{3.2cm} S{2.4cm} S{2.1cm} X}
 \toprule
 \textbf{ID} & \textbf{Threat} & \textbf{Component} & \textbf{Severity} & \textbf{Detail} \\
 \midrule
@@ -1196,7 +1196,7 @@ Part 2 control that mitigates it.
 
 \subsection{STRIDE Re-Assessment}
 
-\begin{longtable}{S{0.8cm} S{3.0cm} S{2.0cm} p{7.2cm}}
+\begin{longtable}{S{1.3cm} S{3.0cm} S{2.0cm} p{6.7cm}}
 \caption{STRIDE threats and Part 2 mitigations}\\
 \toprule
 \textbf{ID} & \textbf{Threat} & \textbf{Status} & \textbf{Part 2 Mitigation} \\
@@ -1566,7 +1566,7 @@ is lazy and the \texttt{jwt()} post-processor bypasses token validation.
 Each control below is traceable to an OWASP API Security item and to the corresponding
 commit on the \texttt{develop} branch.
 
-\begin{longtable}{S{0.9cm} S{2.1cm} S{4.8cm} S{5.8cm}}
+\begin{longtable}{S{1.3cm} S{2.1cm} S{4.8cm} S{5.4cm}}
 \caption{OWASP API Top 10 coverage}\label{tab:owasp}\\
 \toprule
 \textbf{Item} & \textbf{Category} & \textbf{Vulnerability (baseline)} & \textbf{Control implemented} \\
@@ -1765,7 +1765,7 @@ Classification follows the three categories defined in the project specification
 \textbf{prevented} (attack is no longer feasible), \textbf{detected} (attack is possible
 but leaves a trace), or \textbf{residual risk} (risk remains and must be managed).
 
-\begin{longtable}{S{1.0cm} S{3.8cm} S{2.4cm} S{6.5cm}}
+\begin{longtable}{S{1.4cm} S{3.8cm} S{2.4cm} S{6.1cm}}
 \caption{Abuse story regression}\label{tab:regression}\\
 \toprule
 \textbf{ID} & \textbf{Title} & \textbf{Status} & \textbf{Justification} \\
@@ -2003,18 +2003,16 @@ Perimeter rate limiting & Nginx \texttt{limit\_req\_zone} enforces 30 req/s burs
 \toprule
 \textbf{Status} & \textbf{Count} & \textbf{Abuse Stories} \\
 \midrule
-Prevented      & 7 & AS-01, AS-02, AS-03, AS-04, AS-05, AS-06, AS-08 \\
-Detected       & 1 & AS-07 \\
+Prevented      & 8 & AS-01, AS-02, AS-03, AS-04, AS-05, AS-06, AS-07, AS-08 \\
 Residual Risk  & 0 & -- \\
 \bottomrule
 \end{tabular}
 \end{table}
 
 All eight abuse stories are classified as \textbf{Prevented}. No abuse story remains at
-Detected or Residual Risk. AS-07 was initially classified as Detected because the audit log
-existed but could be erased by a privileged attacker via direct SQL. This was resolved by
-revoking \texttt{UPDATE} and \texttt{DELETE} on the \texttt{audit\_logs} table from the
-application database role at startup, making the trail tamper-proof.
+Detected or Residual Risk. AS-07 was elevated to Prevented by revoking \texttt{UPDATE} and
+\texttt{DELETE} on the \texttt{audit\_logs} table from the application database role at
+startup, making the trail tamper-proof.
 
 % ─────────────────────────────────────────────────────────────────────────────
 \section{SAST Re-Assessment}
@@ -2261,10 +2259,10 @@ on port 443, and enforces IP-based rate limiting in combination with the applica
 \texttt{RateLimitFilter}. The OpenAPI specification documents all endpoints, and a two-run DAST
 pipeline validates the security posture both with and without the WAF in place.
 
-Of the eight abuse stories from Part 1, seven are now classified as \textbf{Prevented} and one
-(AS-07) as \textbf{Detected}. Soft-delete prevents irreversible data loss from cascade deletion
-(AS-06). The structured audit log makes every CRUD operation attributable and investigable
-(AS-07). No abuse story remains at Residual Risk. UUID primary keys were implemented, eliminating
+Of the eight abuse stories from Part 1, all eight are now classified as \textbf{Prevented}.
+Soft-delete prevents irreversible data loss from cascade deletion (AS-06). The structured audit
+log makes every CRUD operation attributable and investigable (AS-07). No abuse story remains at
+Residual Risk. UUID primary keys were implemented, eliminating
 sequential-ID enumeration across all entities. The principal outstanding items are mTLS for
 internal service-to-service channels to fully close ZTA tenet 2, and device posture assessment
 to address ZTA tenet 1.
