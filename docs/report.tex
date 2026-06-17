@@ -32,7 +32,7 @@
 \geometry{top=2.5cm, bottom=2.5cm, left=2.8cm, right=2.8cm}
 
 % ── Image search path ─────────────────────────────────────────────────────────
-\graphicspath{{report_images/}{images/}}
+\graphicspath{{report_images/}{images/}{dfts/}}
 
 % ── Colours ───────────────────────────────────────────────────────────────────
 \definecolor{uagreen}{RGB}{0,150,57}
@@ -211,62 +211,48 @@ Orchestration & Docker Compose                                & Host only \\
 
 \subsection{DFD Notation}
 
-The diagrams use standard DFD-inspired notation:
+The diagrams use standard Gane--Sarson DFD notation:
 \begin{description}
-  \item[\textbf{Rectangle}] External entity (the Patient).
-  \item[\textbf{Circle}] Process -- Manage Patient Data, Manage Appointments, Search and View Information.
-  \item[\textbf{Cylinder}] Data store -- D1 Patient Records, D2 Appointment Records.
-  \item[\textbf{Arrow}] Data flow between entities, processes, and stores.
+  \item[\textbf{Rectangle}] External entity -- actors outside the system boundary: Doctor / Clinic Staff, Patient, Administrator, Keycloak (IdP), and Audit / Compliance.
+  \item[\textbf{Circle}] Process -- the ClinicWave system at Level 0; decomposed into numbered sub-processes at Level 1.
+  \item[\textbf{Cylinder}] Data store -- D1 Patient Records, D2 Appointment Records (Level 1 only).
+  \item[\textbf{Arrow}] Directed data flow between entities, processes, and stores.
 \end{description}
 
 \subsection{Level 0 -- Context Diagram}
 
-The Level 0 DFD presents the entire application as a single process. The external entity is the Patient, two trust boundaries are identified (TB-1 between Patient and the system, TB-3 between the system and the database).
+The Level 0 DFD presents the entire ClinicWave system as a single process (circle) surrounded by five external entities. \textbf{Doctor / Clinic Staff} submit patient records and appointments and receive clinical data and schedule information in return. The \textbf{Patient} views appointments and health records and receives appointment confirmations. The \textbf{Administrator} sends user management and system configuration requests and receives audit logs and reports. \textbf{Keycloak (IdP)} exchanges authentication requests and JWT tokens with the system using OIDC. The \textbf{Audit / Compliance} entity receives audit trail exports from the system.
 
 \begin{figure}[H]
   \centering
-  \includegraphics[width=0.75\linewidth]{DFD0.png}
+  \includegraphics[width=\linewidth]{dfd-level0.png}
   \caption{DFD Level 0 -- Context Diagram}
 \end{figure}
 
 \subsection{Level 1 -- System Decomposition}
 
-The Level 1 DFD decomposes the system into three internal sub-processes:
-\begin{itemize}
-  \item 1.0 Manage Patient Data
-  \item 2.0 Manage Appointments
-  \item 3.0 Search and View Information
-\end{itemize}
+The Level 1 DFD decomposes the ClinicWave system into its internal components, showing how requests flow through the full stack. Clinic Staff interact with the system through the perimeter. The WAF (Nginx + ModSecurity CRS) terminates TLS, rate-limits traffic, and inspects requests in blocking mode before forwarding clean traffic to the backend. Keycloak handles identity and token management using the OIDC Authorization Code + PKCE flow. Inside the backend, JWT validation verifies every token against the Keycloak JWKS endpoint, RBAC enforces the role and action matrix, and the business logic layer manages Patient Records and Appointment Records via the data stores. Every write operation produces an entry in the Audit Log. Attackers blocked at the perimeter or backend receive 403 or 401 responses.
 
 \begin{figure}[H]
   \centering
-  \includegraphics[width=\linewidth]{DFD1.png}
+  \includegraphics[width=\linewidth]{dfd-level1.png}
   \caption{DFD Level 1 -- System Decomposition}
 \end{figure}
 
-\subsection{Level 2 -- Detailed View of Appointment Creation}
+\subsection{Level 2 -- Authentication and API Request Sequence}
 
-The Level 2 view focuses on the Appointment Creation Flow, covering Patient, AppointmentController, AppointmentService, PatientRepository, AppointmentRepository, and Database.
+The Level 2 diagram is a sequence view across four participants -- Frontend, WAF, Keycloak, and Backend -- showing the three main flows that pass through the system.
 
-Main steps:
-\begin{enumerate}
-  \item The patient sends \texttt{POST /api/appointments?patientId=ID}.
-  \item The controller forwards the request to the service layer.
-  \item The service validates the patient by checking \texttt{patientId}.
-  \item If the patient exists, the appointment is saved and HTTP 201 is returned.
-  \item If the patient does not exist, HTTP 404 is returned.
-\end{enumerate}
+\textbf{Login flow.} The frontend redirects the user to Keycloak with an Authorization Code + PKCE challenge. Keycloak authenticates the user and returns an authorization code, which the frontend exchanges for a short-lived JWT access token and a refresh token.
+
+\textbf{Token refresh.} Before the access token expires, the frontend sends the refresh token to Keycloak. Keycloak issues a new access token and a new refresh token and immediately invalidates the old refresh token, preventing replay attacks.
+
+\textbf{API request flow.} Every API call carries a Bearer token and travels through the WAF first. ModSecurity inspects the request and blocks any match against a CRS rule with a 403. Clean requests reach the backend, which validates the JWT, checks the caller's role, executes the business logic, writes an audit log entry, and returns the response.
 
 \begin{figure}[H]
   \centering
-  \includegraphics[width=0.75\linewidth]{DFD2.png}
-  \caption{DFD Level 2 -- Appointment Creation (activity diagram)}
-\end{figure}
-
-\begin{figure}[H]
-  \centering
-  \includegraphics[width=\linewidth]{FLOW2.png}
-  \caption{DFD Level 2 -- Appointment Creation (sequence diagram)}
+  \includegraphics[width=\linewidth]{dfd-level2.png}
+  \caption{DFD Level 2 -- Authentication and API Request Sequence}
 \end{figure}
 
 % ─────────────────────────────────────────────────────────────────────────────
@@ -786,7 +772,7 @@ The pre-commit hook was executed successfully via \texttt{pre-commit run --all-f
 
 \begin{figure}[H]
   \centering
-  \includegraphics[width=0.80\linewidth]{precommit_config.png}
+  \includegraphics[width=0.55\linewidth]{precommit_config.png}
   \caption{Pre-commit hook configuration (\texttt{.pre-commit-config.yaml}) -- Gitleaks v8.30.1 and Semgrep v1.145.0}
 \end{figure}
 
@@ -819,24 +805,24 @@ SonarQube passed with no bugs, vulnerabilities, or security hotspots detected in
 
 \begin{figure}[H]
   \centering
-  \includegraphics[width=0.90\linewidth]{workflow_pr.png}
+  \includegraphics[width=0.60\linewidth]{workflow_pr.png}
   \caption{GitHub Actions PR workflow -- all jobs passed (Gitleaks 7s, Semgrep 22s, ESLint 11s, Trivy 1m1s, SonarQube 2m55s)}
 \end{figure}
 
 \begin{figure}[H]
   \centering
-  \includegraphics[width=0.85\linewidth]{sast_tools.png}
+  \includegraphics[width=0.60\linewidth]{sast_tools.png}
   \caption{SAST Security Summary PR comment -- advisory findings per tool}
 \end{figure}
 
 \begin{figure}[H]
   \centering
-  \begin{minipage}[t]{0.48\linewidth}
+  \begin{minipage}[t]{0.38\linewidth}
     \centering
     \includegraphics[width=\linewidth]{sq1.png}
     \caption{SonarQube Analysis Report -- Quality Gate: Passed (new code metrics)}
   \end{minipage}\hfill
-  \begin{minipage}[t]{0.48\linewidth}
+  \begin{minipage}[t]{0.38\linewidth}
     \centering
     \includegraphics[width=\linewidth]{sq2.png}
     \caption{SonarQube -- Overall Project metrics (2938 LoC, 89 code smells)}
@@ -845,7 +831,7 @@ SonarQube passed with no bugs, vulnerabilities, or security hotspots detected in
 
 \begin{figure}[H]
   \centering
-  \includegraphics[width=0.90\linewidth]{sq_artifacts.png}
+  \includegraphics[width=0.60\linewidth]{sq_artifacts.png}
   \caption{PR artifacts -- reports uploaded by the SAST pipeline per tool}
 \end{figure}
 
@@ -874,18 +860,18 @@ The nightly level confirms the value of deeper scheduled analysis: even though p
 
 \begin{figure}[H]
   \centering
-  \includegraphics[width=0.70\linewidth]{nightly.png}
+  \includegraphics[width=0.50\linewidth]{nightly.png}
   \caption{Nightly SAST workflow -- Semgrep (29s), Trivy Image Scan (3m16s), CodeQL Java-Kotlin (1m43s), CodeQL JavaScript (1m5s)}
 \end{figure}
 
 \begin{figure}[H]
   \centering
-  \begin{minipage}[t]{0.45\linewidth}
+  \begin{minipage}[t]{0.38\linewidth}
     \centering
     \includegraphics[width=\linewidth]{semgrep.png}
     \caption{Semgrep Nightly Summary -- Status: Passed, 0 findings}
   \end{minipage}\hfill
-  \begin{minipage}[t]{0.52\linewidth}
+  \begin{minipage}[t]{0.38\linewidth}
     \centering
     \includegraphics[width=\linewidth]{code_ql.png}
     \caption{CodeQL scanned files -- GitHub Actions 100\%, Java 91\%, JavaScript 100\%}
@@ -894,13 +880,13 @@ The nightly level confirms the value of deeper scheduled analysis: even though p
 
 \begin{figure}[H]
   \centering
-  \includegraphics[width=0.80\linewidth]{trivy.png}
+  \includegraphics[width=0.55\linewidth]{trivy.png}
   \caption{Trivy Image Scan Results -- Backend (HIGH: tomcat-embed-core CVE-2025-24734) and Frontend (CRITICAL: libcrypto3 CVE-2025-15467 and multiple HIGH CVEs)}
 \end{figure}
 
 \begin{figure}[H]
   \centering
-  \includegraphics[width=0.85\linewidth]{sq4.png}
+  \includegraphics[width=0.60\linewidth]{sq4.png}
   \caption{GitHub Security tab -- open alerts detected by Trivy (HIGH, pom.xml and Dockerfiles) and Semgrep (errors)}
 \end{figure}
 
@@ -1090,12 +1076,15 @@ The nightly results confirm the same top findings as the PR scan. No High severi
 \part{Part 2 -- Fixing Issues \& Future Development}
 % ══════════════════════════════════════════════════════════════════════════════
 
-Building on the Part 1 assessment, Part 2 fixes the vulnerabilities identified and introduces
-a structured security architecture. The baseline had no authentication, no authorisation, no
-input validation, and no perimeter controls. This chapter documents the changes made by
-Tomás Brás (N\textsuperscript{o} 112665) -- API hardening, role-based access control,
-authentication flow documentation, Zero Trust Architecture framing, and abuse story
-regression -- and references the Keycloak/OIDC integration carried out by Afonso Ferreira.
+Building on the security assessment carried out in Part 1, this chapter documents the
+hardening work performed on ClinicWave. The baseline had no authentication, no
+authorisation, no input validation, and no perimeter controls --- every endpoint was
+publicly accessible and every action left no trace. Part 2 introduces a structured security
+architecture to address each of these gaps: a Keycloak-backed identity layer with JWT
+RS256, role-based access control enforced at both route and object level, API hardening
+against the OWASP API Top 10, a perimeter WAF with Nginx and ModSecurity CRS, and a
+tamper-proof audit trail. The chapter closes with a full re-run of SAST and DAST scanners
+and a regression assessment of all eight abuse stories from Part 1.
 
 % ─────────────────────────────────────────────────────────────────────────────
 \section{Updated Data Flow Diagrams}
@@ -1196,7 +1185,7 @@ Part 2 control that mitigates it.
 
 \subsection{STRIDE Re-Assessment}
 
-\begin{longtable}{S{0.8cm} S{3.0cm} S{2.0cm} p{7.2cm}}
+\begin{longtable}{S{1.1cm} S{3.0cm} S{2.0cm} p{6.9cm}}
 \caption{STRIDE threats and Part 2 mitigations}\\
 \toprule
 \textbf{ID} & \textbf{Threat} & \textbf{Status} & \textbf{Part 2 Mitigation} \\
@@ -1765,7 +1754,7 @@ Classification follows the three categories defined in the project specification
 \textbf{prevented} (attack is no longer feasible), \textbf{detected} (attack is possible
 but leaves a trace), or \textbf{residual risk} (risk remains and must be managed).
 
-\begin{longtable}{S{1.0cm} S{3.8cm} S{2.4cm} S{6.5cm}}
+\begin{longtable}{S{1.3cm} S{3.5cm} S{2.4cm} S{6.5cm}}
 \caption{Abuse story regression}\label{tab:regression}\\
 \toprule
 \textbf{ID} & \textbf{Title} & \textbf{Status} & \textbf{Justification} \\
@@ -1859,7 +1848,7 @@ Stack traces suppressed  & \texttt{spring.web.error.include-message=never} \\
 \begin{figure}[H]
   \centering
   \includegraphics[width=0.95\linewidth]{02_regression.png}
-  \caption{AS-02 -- Link Patient Identity to Health Patterns: \textbf{Residual Risk}}
+  \caption{AS-02 -- Link Patient Identity to Appointment History: \textbf{Prevented}}
 \end{figure}
 
 \begin{table}[H]
@@ -1905,7 +1894,7 @@ Enumeration throttled    & Even authenticated bulk scans are throttled; bursts b
 \begin{figure}[H]
   \centering
   \includegraphics[width=0.95\linewidth]{04_regression.png}
-  \caption{AS-04 -- Modify or Reassign Appointment Records: \textbf{Prevented}}
+  \caption{AS-04 -- Infer Health Condition from Appointment Metadata: \textbf{Prevented}}
 \end{figure}
 
 \begin{table}[H]
@@ -1929,7 +1918,7 @@ Input validation            & \texttt{@NotBlank}, \texttt{@NotNull} on all DTO f
 \begin{figure}[H]
   \centering
   \includegraphics[width=0.95\linewidth]{05_regression.png}
-  \caption{AS-05 -- Destroy Patient Records via Cascade Deletion: \textbf{Prevented}}
+  \caption{AS-05 -- Modify or Reassign Appointment Records: \textbf{Prevented}}
 \end{figure}
 
 \begin{table}[H]
@@ -1951,7 +1940,7 @@ Rate limiting                 & \texttt{RateLimitFilter} -- 100 req/min per IP; 
 \begin{figure}[H]
   \centering
   \includegraphics[width=0.95\linewidth]{06_regression.png}
-  \caption{AS-06 -- Perform Undetectable Actions: \textbf{Residual Risk}}
+  \caption{AS-06 -- Destroy Patient Records via Cascade Deletion: \textbf{Prevented}}
 \end{figure}
 
 \begin{table}[H]
@@ -1975,7 +1964,7 @@ Unauthenticated actions blocked & Anonymous requests return 401 -- the anonymous
 \begin{figure}[H]
   \centering
   \includegraphics[width=0.95\linewidth]{07_regression.png}
-  \caption{AS-07 -- Overload API / Denial of Service: \textbf{Prevented}}
+  \caption{AS-07 -- Perform Undetectable Actions: \textbf{Prevented}}
 \end{figure}
 
 \begin{table}[H]
@@ -1985,11 +1974,33 @@ Unauthenticated actions blocked & Anonymous requests return 401 -- the anonymous
 \toprule
 \textbf{Control} & \textbf{Implementation detail} \\
 \midrule
-Rate limiting          & \texttt{RateLimitFilter} -- 100 req/min per IP enforced at application layer \\
-HTTP 429 + Retry-After & Clients receive proper backpressure signal with \texttt{Retry-After: 60} header \\
-POST flood blocked     & \texttt{POST /api/appointments} also requires JWT + RECEPTIONIST/ADMIN role -- anonymous flood returns 401 \\
-Request size limits    & \texttt{server.tomcat.max-http-form-post-size=1MB} -- oversized payloads rejected \\
+Structured audit log        & \texttt{audit\_logs} table persists every CREATE, UPDATE, DELETE with actor (\texttt{sub}), resource type, resource ID, and timestamp \\
+Tamper-proof trail          & \texttt{AuditLogProtectionRunner} issues \texttt{REVOKE UPDATE, DELETE ON TABLE audit\_logs} at startup -- even a compromised backend cannot erase entries \\
+Actor attribution           & JWT \texttt{sub} claim recorded on every log entry -- all actions are attributable to a verified Keycloak identity \\
+Admin query endpoint        & \texttt{GET /api/audit-logs} accessible to ADMIN role only -- full trail queryable for incident investigation \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+% ── AS-08 ────────────────────────────────────────────────────────────────────
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.95\linewidth]{08_regression.png}
+  \caption{AS-08 -- Overload the API with Repeated Requests: \textbf{Prevented}}
+\end{figure}
+
+\begin{table}[H]
+\centering
+\caption{AS-08 -- Controls applied in Part 2}
+\begin{tabularx}{\linewidth}{>{\bfseries}p{4.2cm} X}
+\toprule
+\textbf{Control} & \textbf{Implementation detail} \\
+\midrule
+Rate limiting           & \texttt{RateLimitFilter} -- 60 req/min per IP enforced at application layer; HTTP 429 + \texttt{Retry-After: 60} \\
+POST flood blocked      & \texttt{POST /api/appointments} requires JWT + RECEPTIONIST/ADMIN role -- anonymous flood returns 401 \\
+Request size limits     & \texttt{server.tomcat.max-http-form-post-size=1MB} -- oversized payloads rejected \\
 Perimeter rate limiting & Nginx \texttt{limit\_req\_zone} enforces 30 req/s burst / 10 req/s sustained per IP at the WAF perimeter \\
+ModSecurity CRS         & Request-body limits (1\,MB) enforced at perimeter; malformed request floods blocked by CRS rules \\
 \bottomrule
 \end{tabularx}
 \end{table}
@@ -2003,8 +2014,8 @@ Perimeter rate limiting & Nginx \texttt{limit\_req\_zone} enforces 30 req/s burs
 \toprule
 \textbf{Status} & \textbf{Count} & \textbf{Abuse Stories} \\
 \midrule
-Prevented      & 7 & AS-01, AS-02, AS-03, AS-04, AS-05, AS-06, AS-08 \\
-Detected       & 1 & AS-07 \\
+Prevented      & 8 & AS-01, AS-02, AS-03, AS-04, AS-05, AS-06, AS-07, AS-08 \\
+Detected       & 0 & -- \\
 Residual Risk  & 0 & -- \\
 \bottomrule
 \end{tabular}
@@ -2261,12 +2272,12 @@ on port 443, and enforces IP-based rate limiting in combination with the applica
 \texttt{RateLimitFilter}. The OpenAPI specification documents all endpoints, and a two-run DAST
 pipeline validates the security posture both with and without the WAF in place.
 
-Of the eight abuse stories from Part 1, seven are now classified as \textbf{Prevented} and one
-(AS-07) as \textbf{Detected}. Soft-delete prevents irreversible data loss from cascade deletion
-(AS-06). The structured audit log makes every CRUD operation attributable and investigable
-(AS-07). No abuse story remains at Residual Risk. UUID primary keys were implemented, eliminating
-sequential-ID enumeration across all entities. The principal outstanding items are mTLS for
-internal service-to-service channels to fully close ZTA tenet 2, and device posture assessment
-to address ZTA tenet 1.
+All eight abuse stories from Part 1 are now classified as \textbf{Prevented}. Soft-delete
+prevents irreversible data loss from cascade deletion (AS-06). The structured audit log with
+database-level tamper protection makes every CRUD operation attributable and uninvestigable
+actions structurally impossible (AS-07). No abuse story remains at Detected or Residual Risk.
+UUID primary keys were implemented, eliminating sequential-ID enumeration across all entities.
+The principal outstanding items are mTLS for internal service-to-service channels to fully
+close ZTA tenet 2, and device posture assessment to address ZTA tenet 1.
 
 \end{document}
