@@ -1819,18 +1819,25 @@ AS-08 & Overload the API with Repeated Requests &
 
 \subsection{Regression Evidence}
 
-The following figures present the regression diagrams for each abuse story, showing the original attack path and the resulting status. Each diagram is followed by a table of the controls applied in Part 2.
+The following figures present the regression diagrams for each abuse story, showing the original attack path and the resulting status. Each diagram is paired with the table of controls applied in Part 2.
+
+\newcommand{\regressionImage}[2]{%
+  \vspace{0.5em}
+  \includegraphics[width=0.95\linewidth,height=0.42\textheight,keepaspectratio]{#1}
+  \captionof{figure}{#2}
+}
+\newcommand{\regressionImageTall}[2]{%
+  \vspace{0.5em}
+  \includegraphics[width=0.95\linewidth,height=0.54\textheight,keepaspectratio]{#1}
+  \captionof{figure}{#2}
+}
 
 % ── AS-01 ────────────────────────────────────────────────────────────────────
-\begin{figure}[H]
-  \centering
-  \includegraphics[width=0.95\linewidth]{01_regression.png}
-  \caption{AS-01 -- Unauthorised Access to Patient Data: \textbf{Prevented}}
-\end{figure}
-
-\begin{table}[H]
+\par\noindent\begin{minipage}{\linewidth}
 \centering
-\caption{AS-01 -- Controls applied in Part 2}
+\scriptsize
+\renewcommand{\arraystretch}{0.88}
+\captionof{table}{AS-01 -- Controls applied in Part 2}
 \begin{tabularx}{\linewidth}{>{\bfseries}p{4.2cm} X}
 \toprule
 \textbf{Control} & \textbf{Implementation detail} \\
@@ -1843,18 +1850,16 @@ No entity field leakage  & \texttt{appointments[]} contains only \texttt{id}, no
 Stack traces suppressed  & \texttt{spring.web.error.include-message=never} \\
 \bottomrule
 \end{tabularx}
-\end{table}
+\regressionImage{01_regression.png}{AS-01 -- Unauthorised Access to Patient Data: \textbf{Prevented}}
+\end{minipage}
+\par\medskip
 
 % ── AS-02 ────────────────────────────────────────────────────────────────────
-\begin{figure}[H]
-  \centering
-  \includegraphics[width=0.95\linewidth]{02_regression.png}
-  \caption{AS-02 -- Link Patient Identity to Appointment History: \textbf{Prevented}}
-\end{figure}
-
-\begin{table}[H]
+\par\noindent\begin{minipage}{\linewidth}
 \centering
-\caption{AS-02 -- Controls applied in Part 2}
+\scriptsize
+\renewcommand{\arraystretch}{0.88}
+\captionof{table}{AS-02 -- Controls applied in Part 2}
 \begin{tabularx}{\linewidth}{>{\bfseries}p{4.2cm} X}
 \toprule
 \textbf{Control} & \textbf{Implementation detail} \\
@@ -1867,18 +1872,16 @@ PatientResponseDTO        & \texttt{appointments[]} contains only \texttt{\{id\}
 \multicolumn{2}{p{\linewidth}}{\textit{Residual risk: patientName is still present alongside specialty in AppointmentResponseDTO -- an authorised user can still correlate identity with health specialties. Full mitigation requires field-level RBAC or purpose-limited projections.}} \\
 \bottomrule
 \end{tabularx}
-\end{table}
+\regressionImage{02_regression.png}{AS-02 -- Link Patient Identity to Appointment History: \textbf{Prevented}}
+\end{minipage}
+\par\medskip
 
 % ── AS-03 ────────────────────────────────────────────────────────────────────
-\begin{figure}[H]
-  \centering
-  \includegraphics[width=0.95\linewidth]{03_regression.png}
-  \caption{AS-03 -- Direct Patient Identification via IDOR: \textbf{Prevented}}
-\end{figure}
-
-\begin{table}[H]
+\par\noindent\begin{minipage}{\linewidth}
 \centering
-\caption{AS-03 -- Controls applied in Part 2}
+\scriptsize
+\renewcommand{\arraystretch}{0.88}
+\captionof{table}{AS-03 -- Controls applied in Part 2}
 \begin{tabularx}{\linewidth}{>{\bfseries}p{4.2cm} X}
 \toprule
 \textbf{Control} & \textbf{Implementation detail} \\
@@ -1889,18 +1892,16 @@ Rate limiting added      & \texttt{RateLimitFilter} -- 100 req/min per IP, HTTP 
 Enumeration throttled    & Even authenticated bulk scans are throttled; bursts blocked after 100 requests/min \\
 \bottomrule
 \end{tabularx}
-\end{table}
+\regressionImage{03_regression.png}{AS-03 -- Direct Patient Identification via IDOR: \textbf{Prevented}}
+\end{minipage}
+\par\medskip
 
 % ── AS-04 ────────────────────────────────────────────────────────────────────
-\begin{figure}[H]
-  \centering
-  \includegraphics[width=0.95\linewidth]{04_regression.png}
-  \caption{AS-04 -- Infer Health Condition from Appointment Metadata: \textbf{Prevented}}
-\end{figure}
-
-\begin{table}[H]
+\par\noindent\begin{minipage}{\linewidth}
 \centering
-\caption{AS-04 -- Controls applied in Part 2}
+\scriptsize
+\renewcommand{\arraystretch}{0.88}
+\captionof{table}{AS-04 -- Controls applied in Part 2}
 \begin{tabularx}{\linewidth}{>{\bfseries}p{4.6cm} X}
 \toprule
 \textbf{Control} & \textbf{Implementation detail} \\
@@ -1912,18 +1913,16 @@ Search access constrained & Query filters such as patient name, specialty and st
 Rate limiting            & Repeated metadata probing is throttled by the application and perimeter rate limits \\
 \bottomrule
 \end{tabularx}
-\end{table}
+\regressionImage{04_regression.png}{AS-04 -- Infer Health Condition from Appointment Metadata: \textbf{Prevented}}
+\end{minipage}
+\par\medskip
 
 % ── AS-05 ────────────────────────────────────────────────────────────────────
-\begin{figure}[H]
-  \centering
-  \includegraphics[width=0.95\linewidth]{05_regression.png}
-  \caption{AS-05 -- Modify or Reassign Appointment Records: \textbf{Prevented}}
-\end{figure}
-
-\begin{table}[H]
+\par\noindent\begin{minipage}{\linewidth}
 \centering
-\caption{AS-05 -- Controls applied in Part 2}
+\scriptsize
+\renewcommand{\arraystretch}{0.88}
+\captionof{table}{AS-05 -- Controls applied in Part 2}
 \begin{tabularx}{\linewidth}{>{\bfseries}p{4.6cm} X}
 \toprule
 \textbf{Control} & \textbf{Implementation detail} \\
@@ -1931,23 +1930,21 @@ Rate limiting            & Repeated metadata probing is throttled by the applica
 JWT authentication          & \texttt{PUT /api/appointments/\{id\}} and \texttt{PUT /api/patients/\{id\}} now require a valid Keycloak Bearer token \\
 RBAC enforced               & \texttt{@PreAuthorize} -- UPDATE on appointments requires RECEPTIONIST or ADMIN role; UPDATE on patients requires DOCTOR or ADMIN \\
 AppointmentRequestDTO       & Accepts only \texttt{dateTime}, \texttt{specialty}, \texttt{status} and \texttt{doctorSub}; no patient object is accepted in the body \\
-Mass-assignment blocked     & \texttt{spring.jackson.deserialization.fail-on-unknown-properties=true} rejects extra fields \\
+Mass-assignment blocked     & \path{spring.jackson.deserialization.fail-on-unknown-properties=true} rejects extra fields \\
 Patient rebinding prevented & DTO has no patient field, so the original nested \texttt{\{"patient":\{"id":X\}\}} reassignment path is no longer reachable \\
 Input validation            & \texttt{@NotBlank}, \texttt{@NotNull} on DTO fields -- invalid payloads return 400 with field errors \\
 \bottomrule
 \end{tabularx}
-\end{table}
+\regressionImage{05_regression.png}{AS-05 -- Modify or Reassign Appointment Records: \textbf{Prevented}}
+\end{minipage}
+\par\medskip
 
 % ── AS-06 ────────────────────────────────────────────────────────────────────
-\begin{figure}[H]
-  \centering
-  \includegraphics[width=0.95\linewidth]{06_regression.png}
-  \caption{AS-06 -- Destroy Patient Records via Cascade Deletion: \textbf{Prevented}}
-\end{figure}
-
-\begin{table}[H]
+\par\noindent\begin{minipage}{\linewidth}
 \centering
-\caption{AS-06 -- Controls applied in Part 2}
+\scriptsize
+\renewcommand{\arraystretch}{0.88}
+\captionof{table}{AS-06 -- Controls applied in Part 2}
 \begin{tabularx}{\linewidth}{>{\bfseries}p{4.2cm} X}
 \toprule
 \textbf{Control} & \textbf{Implementation detail} \\
@@ -1959,18 +1956,16 @@ Soft-delete implemented       & \texttt{Patient} and \texttt{Appointment} carry 
 Cascade destruction removed   & Patient deletion marks related appointments as deleted, preserving recoverable history rather than permanently wiping rows \\
 \bottomrule
 \end{tabularx}
-\end{table}
+\regressionImage{06_regression.png}{AS-06 -- Destroy Patient Records via Cascade Deletion: \textbf{Prevented}}
+\end{minipage}
+\par\medskip
 
 % ── AS-07 ────────────────────────────────────────────────────────────────────
-\begin{figure}[H]
-  \centering
-  \includegraphics[width=0.95\linewidth]{07_regression.png}
-  \caption{AS-07 -- Perform Undetectable Actions: \textbf{Prevented}}
-\end{figure}
-
-\begin{table}[H]
+\par\noindent\begin{minipage}{\linewidth}
 \centering
-\caption{AS-07 -- Controls applied in Part 2}
+\scriptsize
+\renewcommand{\arraystretch}{0.88}
+\captionof{table}{AS-07 -- Controls applied in Part 2}
 \begin{tabularx}{\linewidth}{>{\bfseries}p{4.2cm} X}
 \toprule
 \textbf{Control} & \textbf{Implementation detail} \\
@@ -1981,18 +1976,16 @@ Actor attribution           & JWT \texttt{sub} claim recorded on every log entry
 Admin query endpoint        & \texttt{GET /api/audit-logs} accessible to ADMIN role only -- full trail queryable for incident investigation \\
 \bottomrule
 \end{tabularx}
-\end{table}
+\regressionImage{07_regression.png}{AS-07 -- Perform Undetectable Actions: \textbf{Prevented}}
+\end{minipage}
+\par\medskip
 
 % ── AS-08 ────────────────────────────────────────────────────────────────────
-\begin{figure}[H]
-  \centering
-  \includegraphics[width=0.95\linewidth]{08_regression.png}
-  \caption{AS-08 -- Overload the API with Repeated Requests: \textbf{Prevented}}
-\end{figure}
-
-\begin{table}[H]
+\par\noindent\begin{minipage}{\linewidth}
 \centering
-\caption{AS-08 -- Controls applied in Part 2}
+\scriptsize
+\renewcommand{\arraystretch}{0.88}
+\captionof{table}{AS-08 -- Controls applied in Part 2}
 \begin{tabularx}{\linewidth}{>{\bfseries}p{4.2cm} X}
 \toprule
 \textbf{Control} & \textbf{Implementation detail} \\
@@ -2004,7 +1997,9 @@ Perimeter rate limiting & Nginx \texttt{limit\_req\_zone} enforces 30 req/s sust
 ModSecurity CRS         & Request-body limits (1\,MB) enforced at perimeter; malformed request floods blocked by CRS rules \\
 \bottomrule
 \end{tabularx}
-\end{table}
+\regressionImageTall{08_regression.png}{AS-08 -- Overload the API with Repeated Requests: \textbf{Prevented}}
+\end{minipage}
+\par\medskip
 
 \subsection{Regression Summary}
 
