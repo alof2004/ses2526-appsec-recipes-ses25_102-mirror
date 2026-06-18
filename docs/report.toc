@@ -8,145 +8,85 @@
 \contentsline {subsection}{\numberline {1.4.1}DFD Notation}{7}{subsection.1.4.1}%
 \contentsline {subsection}{\numberline {1.4.2}Level 0 -- Context Diagram}{8}{subsection.1.4.2}%
 \contentsline {subsection}{\numberline {1.4.3}Level 1 -- System Decomposition}{8}{subsection.1.4.3}%
-\contentsline {subsection}{\numberline {1.4.4}Level 2 -- Detailed View of Appointment Creation}{8}{subsection.1.4.4}%
+\contentsline {subsection}{\numberline {1.4.4}Level 2 -- Authentication and API Request Sequence}{9}{subsection.1.4.4}%
 \contentsline {section}{\numberline {1.5}Approach}{10}{section.1.5}%
-\contentsline {section}{\numberline {1.6}LINDDUN Analysis}{10}{section.1.6}%
+\contentsline {section}{\numberline {1.6}LINDDUN Analysis}{11}{section.1.6}%
 \contentsline {section}{\numberline {1.7}STRIDE Threat Analysis}{11}{section.1.7}%
-\contentsline {subsection}{\numberline {1.7.1}Spoofing}{11}{subsection.1.7.1}%
-\contentsline {subsection}{\numberline {1.7.2}Tampering}{12}{subsection.1.7.2}%
-\contentsline {subsection}{\numberline {1.7.3}Repudiation}{13}{subsection.1.7.3}%
-\contentsline {subsection}{\numberline {1.7.4}Information Disclosure}{14}{subsection.1.7.4}%
-\contentsline {subsection}{\numberline {1.7.5}Denial of Service}{15}{subsection.1.7.5}%
-\contentsline {subsection}{\numberline {1.7.6}Elevation of Privilege}{16}{subsection.1.7.6}%
-\contentsline {section}{\numberline {1.8}Abuse Cases}{16}{section.1.8}%
-\contentsline {section}{\numberline {1.9}Attack Trees}{19}{section.1.9}%
-\contentsline {chapter}{\numberline {2}SAST -- Static Application Security Testing}{25}{chapter.2}%
-\contentsline {section}{\numberline {2.1}Objectives}{25}{section.2.1}%
-\contentsline {section}{\numberline {2.2}Scope}{25}{section.2.2}%
-\contentsline {section}{\numberline {2.3}Three-Level SAST Strategy}{26}{section.2.3}%
-\contentsline {subsection}{\numberline {2.3.1}Pre-Commit Level}{26}{subsection.2.3.1}%
-\contentsline {subsection}{\numberline {2.3.2}Pull Request Level}{26}{subsection.2.3.2}%
-\contentsline {subsection}{\numberline {2.3.3}Nightly Level}{26}{subsection.2.3.3}%
-\contentsline {section}{\numberline {2.4}Why the Three Levels Matter}{26}{section.2.4}%
-\contentsline {section}{\numberline {2.5}Strengths and Limitations}{27}{section.2.5}%
-\contentsline {section}{\numberline {2.6}Results}{27}{section.2.6}%
-\contentsline {subsection}{\numberline {2.6.1}Pre-Commit Results}{27}{subsection.2.6.1}%
-\contentsline {subsection}{\numberline {2.6.2}Pull Request Results}{28}{subsection.2.6.2}%
-<<<<<<< HEAD
+\contentsline {subsection}{\numberline {1.7.1}Spoofing}{12}{subsection.1.7.1}%
+\contentsline {subsection}{\numberline {1.7.2}Tampering}{13}{subsection.1.7.2}%
+\contentsline {subsection}{\numberline {1.7.3}Repudiation}{14}{subsection.1.7.3}%
+\contentsline {subsection}{\numberline {1.7.4}Information Disclosure}{15}{subsection.1.7.4}%
+\contentsline {subsection}{\numberline {1.7.5}Denial of Service}{16}{subsection.1.7.5}%
+\contentsline {subsection}{\numberline {1.7.6}Elevation of Privilege}{17}{subsection.1.7.6}%
+\contentsline {section}{\numberline {1.8}Abuse Cases}{17}{section.1.8}%
+\contentsline {section}{\numberline {1.9}Attack Trees}{20}{section.1.9}%
+\contentsline {chapter}{\numberline {2}SAST -- Static Application Security Testing}{26}{chapter.2}%
+\contentsline {section}{\numberline {2.1}Objectives}{26}{section.2.1}%
+\contentsline {section}{\numberline {2.2}Scope}{26}{section.2.2}%
+\contentsline {section}{\numberline {2.3}Three-Level SAST Strategy}{27}{section.2.3}%
+\contentsline {subsection}{\numberline {2.3.1}Pre-Commit Level}{27}{subsection.2.3.1}%
+\contentsline {subsection}{\numberline {2.3.2}Pull Request Level}{27}{subsection.2.3.2}%
+\contentsline {subsection}{\numberline {2.3.3}Nightly Level}{27}{subsection.2.3.3}%
+\contentsline {section}{\numberline {2.4}Why the Three Levels Matter}{27}{section.2.4}%
+\contentsline {section}{\numberline {2.5}Strengths and Limitations}{28}{section.2.5}%
+\contentsline {section}{\numberline {2.6}Results}{28}{section.2.6}%
+\contentsline {subsection}{\numberline {2.6.1}Pre-Commit Results}{28}{subsection.2.6.1}%
+\contentsline {subsection}{\numberline {2.6.2}Pull Request Results}{29}{subsection.2.6.2}%
 \contentsline {subsection}{\numberline {2.6.3}Nightly Results}{31}{subsection.2.6.3}%
-\contentsline {chapter}{\numberline {3}Dynamic Application Security Testing (DAST)}{36}{chapter.3}%
-\contentsline {section}{\numberline {3.1}Overview}{36}{section.3.1}%
-\contentsline {section}{\numberline {3.2}Objectives}{36}{section.3.2}%
-\contentsline {section}{\numberline {3.3}Scope}{36}{section.3.3}%
-\contentsline {section}{\numberline {3.4}Two-Level DAST Strategy}{36}{section.3.4}%
-\contentsline {subsection}{\numberline {3.4.1}Pull Request Level}{37}{subsection.3.4.1}%
-\contentsline {subsection}{\numberline {3.4.2}Nightly Level}{37}{subsection.3.4.2}%
-\contentsline {subsection}{\numberline {3.4.3}Why the Two Levels Matter}{37}{subsection.3.4.3}%
-\contentsline {section}{\numberline {3.5}Runtime Environment and Tooling}{37}{section.3.5}%
-\contentsline {section}{\numberline {3.6}Strengths and Limitations}{37}{section.3.6}%
-\contentsline {section}{\numberline {3.7}Results}{38}{section.3.7}%
-\contentsline {subsection}{\numberline {3.7.1}Pull Request Results}{38}{subsection.3.7.1}%
-\contentsline {subsection}{\numberline {3.7.2}Nightly Results}{40}{subsection.3.7.2}%
-\contentsline {part}{II\hspace {1em}Part 2 -- Fixing Issues \& Future Development}{42}{part.2}%
-\contentsline {section}{\numberline {3.8}Updated Data Flow Diagrams}{43}{section.3.8}%
-\contentsline {subsection}{\numberline {3.8.1}Level 0: System Context}{43}{subsection.3.8.1}%
+\contentsline {chapter}{\numberline {3}Dynamic Application Security Testing (DAST)}{35}{chapter.3}%
+\contentsline {section}{\numberline {3.1}Overview}{35}{section.3.1}%
+\contentsline {section}{\numberline {3.2}Objectives}{35}{section.3.2}%
+\contentsline {section}{\numberline {3.3}Scope}{35}{section.3.3}%
+\contentsline {section}{\numberline {3.4}Two-Level DAST Strategy}{35}{section.3.4}%
+\contentsline {subsection}{\numberline {3.4.1}Pull Request Level}{36}{subsection.3.4.1}%
+\contentsline {subsection}{\numberline {3.4.2}Nightly Level}{36}{subsection.3.4.2}%
+\contentsline {subsection}{\numberline {3.4.3}Why the Two Levels Matter}{36}{subsection.3.4.3}%
+\contentsline {section}{\numberline {3.5}Runtime Environment and Tooling}{36}{section.3.5}%
+\contentsline {section}{\numberline {3.6}Strengths and Limitations}{36}{section.3.6}%
+\contentsline {section}{\numberline {3.7}Results}{37}{section.3.7}%
+\contentsline {subsection}{\numberline {3.7.1}Pull Request Results}{37}{subsection.3.7.1}%
+\contentsline {subsection}{\numberline {3.7.2}Nightly Results}{39}{subsection.3.7.2}%
+\contentsline {part}{II\hspace {1em}Part 2 -- Fixing Issues \& Future Development}{41}{part.2}%
+\contentsline {section}{\numberline {3.8}Updated Data Flow Diagrams}{42}{section.3.8}%
+\contentsline {subsection}{\numberline {3.8.1}Level 0: System Context}{42}{subsection.3.8.1}%
 \contentsline {subsection}{\numberline {3.8.2}Level 1: Detailed Data Flows}{43}{subsection.3.8.2}%
-\contentsline {subsection}{\numberline {3.8.3}Level 2: Authentication and Authorization Sequence}{45}{subsection.3.8.3}%
-\contentsline {section}{\numberline {3.9}Threat Model Re-Assessment}{46}{section.3.9}%
-\contentsline {subsection}{\numberline {3.9.1}STRIDE Re-Assessment}{47}{subsection.3.9.1}%
-\contentsline {subsection}{\numberline {3.9.2}LINDDUN Re-Assessment}{49}{subsection.3.9.2}%
-\contentsline {section}{\numberline {3.10}Authentication \& Identity Management}{50}{section.3.10}%
-\contentsline {subsection}{\numberline {3.10.1}Overview}{50}{subsection.3.10.1}%
-\contentsline {subsection}{\numberline {3.10.2}Token-Based Authentication}{50}{subsection.3.10.2}%
-\contentsline {subsection}{\numberline {3.10.3}Authentication Flows}{50}{subsection.3.10.3}%
-\contentsline {subsubsection}{Login Flow}{50}{subsection.3.10.3}%
-\contentsline {subsubsection}{Logout Flow}{51}{Item.12}%
-\contentsline {subsubsection}{Token Refresh Flow}{51}{Item.16}%
-\contentsline {subsubsection}{Token Revocation}{51}{Item.19}%
-\contentsline {subsubsection}{Token Rotation and Lifespans}{51}{Item.19}%
-\contentsline {subsection}{\numberline {3.10.4}Roles and Realm Configuration}{52}{subsection.3.10.4}%
-\contentsline {section}{\numberline {3.11}Explicit Authorization Layer (RBAC)}{52}{section.3.11}%
-\contentsline {subsection}{\numberline {3.11.1}Design}{52}{subsection.3.11.1}%
-\contentsline {subsection}{\numberline {3.11.2}Permissions as Data}{52}{subsection.3.11.2}%
-\contentsline {subsection}{\numberline {3.11.3}Object-Level Authorization (BOLA)}{53}{subsection.3.11.3}%
-\contentsline {subsection}{\numberline {3.11.4}Role-Based UI}{53}{subsection.3.11.4}%
+\contentsline {subsection}{\numberline {3.8.3}Level 2: Authentication and Authorization Sequence}{44}{subsection.3.8.3}%
+\contentsline {section}{\numberline {3.9}Threat Model Re-Assessment}{45}{section.3.9}%
+\contentsline {subsection}{\numberline {3.9.1}STRIDE Re-Assessment}{46}{subsection.3.9.1}%
+\contentsline {subsection}{\numberline {3.9.2}LINDDUN Re-Assessment}{48}{subsection.3.9.2}%
+\contentsline {section}{\numberline {3.10}Authentication \& Identity Management}{49}{section.3.10}%
+\contentsline {subsection}{\numberline {3.10.1}Overview}{49}{subsection.3.10.1}%
+\contentsline {subsection}{\numberline {3.10.2}Token-Based Authentication}{49}{subsection.3.10.2}%
+\contentsline {subsection}{\numberline {3.10.3}Authentication Flows}{49}{subsection.3.10.3}%
+\contentsline {subsubsection}{Login Flow}{49}{subsection.3.10.3}%
+\contentsline {subsubsection}{Logout Flow}{50}{Item.7}%
+\contentsline {subsubsection}{Token Refresh Flow}{50}{Item.11}%
+\contentsline {subsubsection}{Token Revocation}{50}{Item.14}%
+\contentsline {subsubsection}{Token Rotation and Lifespans}{50}{Item.14}%
+\contentsline {subsection}{\numberline {3.10.4}Roles and Realm Configuration}{51}{subsection.3.10.4}%
+\contentsline {section}{\numberline {3.11}Explicit Authorization Layer (RBAC)}{51}{section.3.11}%
+\contentsline {subsection}{\numberline {3.11.1}Design}{51}{subsection.3.11.1}%
+\contentsline {subsection}{\numberline {3.11.2}Permissions as Data}{51}{subsection.3.11.2}%
+\contentsline {subsection}{\numberline {3.11.3}Object-Level Authorization (BOLA)}{52}{subsection.3.11.3}%
+\contentsline {subsection}{\numberline {3.11.4}Role-Based UI}{52}{subsection.3.11.4}%
 \contentsline {subsection}{\numberline {3.11.5}Unit Tests}{53}{subsection.3.11.5}%
-\contentsline {section}{\numberline {3.12}API Hardening -- OWASP API Top 10 (2023)}{54}{section.3.12}%
+\contentsline {section}{\numberline {3.12}API Hardening -- OWASP API Top 10 (2023)}{53}{section.3.12}%
 \contentsline {section}{\numberline {3.13}Perimeter Defense}{55}{section.3.13}%
 \contentsline {subsection}{\numberline {3.13.1}Nginx + ModSecurity CRS}{55}{subsection.3.13.1}%
-\contentsline {subsection}{\numberline {3.13.2}CRS Tuning and False Positives}{56}{subsection.3.13.2}%
+\contentsline {subsection}{\numberline {3.13.2}CRS Tuning and False Positives}{55}{subsection.3.13.2}%
 \contentsline {section}{\numberline {3.14}Zero Trust Architecture Framing}{56}{section.3.14}%
 \contentsline {subsection}{\numberline {3.14.1}NIST SP 800-207 Components}{56}{subsection.3.14.1}%
 \contentsline {subsection}{\numberline {3.14.2}NIST SP 800-207 \S 2.1 -- Seven Tenets Mapping}{57}{subsection.3.14.2}%
 \contentsline {section}{\numberline {3.15}Abuse Story Regression}{59}{section.3.15}%
 \contentsline {subsection}{\numberline {3.15.1}Regression Evidence}{61}{subsection.3.15.1}%
-\contentsline {subsection}{\numberline {3.15.2}Regression Summary}{67}{subsection.3.15.2}%
-\contentsline {section}{\numberline {3.16}SAST Re-Assessment}{68}{section.3.16}%
-\contentsline {subsection}{\numberline {3.16.1}Part 1 Baseline}{68}{subsection.3.16.1}%
-\contentsline {subsection}{\numberline {3.16.2}Part 2 Results}{68}{subsection.3.16.2}%
-\contentsline {section}{\numberline {3.17}DAST Re-Assessment}{69}{section.3.17}%
-\contentsline {subsection}{\numberline {3.17.1}Scan Configuration}{69}{subsection.3.17.1}%
-\contentsline {subsection}{\numberline {3.17.2}Part 1 Baseline}{70}{subsection.3.17.2}%
-\contentsline {subsection}{\numberline {3.17.3}Part 2 Results}{70}{subsection.3.17.3}%
-\contentsline {subsection}{\numberline {3.17.4}WAF vs No WAF (Nightly)}{71}{subsection.3.17.4}%
-\contentsline {section}{\numberline {3.18}Future Work}{73}{section.3.18}%
-=======
-\contentsline {subsection}{\numberline {2.6.3}Nightly Results}{30}{subsection.2.6.3}%
-\contentsline {chapter}{\numberline {3}Dynamic Application Security Testing (DAST)}{34}{chapter.3}%
-\contentsline {section}{\numberline {3.1}Overview}{34}{section.3.1}%
-\contentsline {section}{\numberline {3.2}Objectives}{34}{section.3.2}%
-\contentsline {section}{\numberline {3.3}Scope}{34}{section.3.3}%
-\contentsline {section}{\numberline {3.4}Two-Level DAST Strategy}{34}{section.3.4}%
-\contentsline {subsection}{\numberline {3.4.1}Pull Request Level}{35}{subsection.3.4.1}%
-\contentsline {subsection}{\numberline {3.4.2}Nightly Level}{35}{subsection.3.4.2}%
-\contentsline {subsection}{\numberline {3.4.3}Why the Two Levels Matter}{35}{subsection.3.4.3}%
-\contentsline {section}{\numberline {3.5}Runtime Environment and Tooling}{35}{section.3.5}%
-\contentsline {section}{\numberline {3.6}Strengths and Limitations}{35}{section.3.6}%
-\contentsline {section}{\numberline {3.7}Results}{36}{section.3.7}%
-\contentsline {subsection}{\numberline {3.7.1}Pull Request Results}{36}{subsection.3.7.1}%
-\contentsline {subsection}{\numberline {3.7.2}Nightly Results}{38}{subsection.3.7.2}%
-\contentsline {part}{II\hspace {1em}Part 2 -- Fixing Issues \& Future Development}{40}{part.2}%
-\contentsline {section}{\numberline {3.8}Updated Data Flow Diagrams}{41}{section.3.8}%
-\contentsline {subsection}{\numberline {3.8.1}Level 0: System Context}{41}{subsection.3.8.1}%
-\contentsline {subsection}{\numberline {3.8.2}Level 1: Detailed Data Flows}{42}{subsection.3.8.2}%
-\contentsline {subsection}{\numberline {3.8.3}Level 2: Authentication and Authorization Sequence}{43}{subsection.3.8.3}%
-\contentsline {section}{\numberline {3.9}Threat Model Re-Assessment}{44}{section.3.9}%
-\contentsline {subsection}{\numberline {3.9.1}STRIDE Re-Assessment}{45}{subsection.3.9.1}%
-\contentsline {subsection}{\numberline {3.9.2}LINDDUN Re-Assessment}{47}{subsection.3.9.2}%
-\contentsline {section}{\numberline {3.10}Authentication \& Identity Management}{48}{section.3.10}%
-\contentsline {subsection}{\numberline {3.10.1}Overview}{48}{subsection.3.10.1}%
-\contentsline {subsection}{\numberline {3.10.2}Token-Based Authentication}{48}{subsection.3.10.2}%
-\contentsline {subsection}{\numberline {3.10.3}Authentication Flows}{48}{subsection.3.10.3}%
-\contentsline {subsubsection}{Login Flow}{48}{subsection.3.10.3}%
-\contentsline {subsubsection}{Logout Flow}{49}{Item.12}%
-\contentsline {subsubsection}{Token Refresh Flow}{49}{Item.16}%
-\contentsline {subsubsection}{Token Revocation}{49}{Item.19}%
-\contentsline {subsubsection}{Token Rotation and Lifespans}{49}{Item.19}%
-\contentsline {subsection}{\numberline {3.10.4}Roles and Realm Configuration}{50}{subsection.3.10.4}%
-\contentsline {section}{\numberline {3.11}Explicit Authorization Layer (RBAC)}{50}{section.3.11}%
-\contentsline {subsection}{\numberline {3.11.1}Design}{50}{subsection.3.11.1}%
-\contentsline {subsection}{\numberline {3.11.2}Permissions as Data}{50}{subsection.3.11.2}%
-\contentsline {subsection}{\numberline {3.11.3}Object-Level Authorization (BOLA)}{51}{subsection.3.11.3}%
-\contentsline {subsection}{\numberline {3.11.4}Role-Based UI}{51}{subsection.3.11.4}%
-\contentsline {subsection}{\numberline {3.11.5}Unit Tests}{51}{subsection.3.11.5}%
-\contentsline {section}{\numberline {3.12}API Hardening -- OWASP API Top 10 (2023)}{52}{section.3.12}%
-\contentsline {section}{\numberline {3.13}Perimeter Defense}{53}{section.3.13}%
-\contentsline {subsection}{\numberline {3.13.1}Nginx + ModSecurity CRS}{53}{subsection.3.13.1}%
-\contentsline {subsection}{\numberline {3.13.2}CRS Tuning and False Positives}{54}{subsection.3.13.2}%
-\contentsline {section}{\numberline {3.14}Zero Trust Architecture Framing}{54}{section.3.14}%
-\contentsline {subsection}{\numberline {3.14.1}NIST SP 800-207 Components}{54}{subsection.3.14.1}%
-\contentsline {subsection}{\numberline {3.14.2}NIST SP 800-207 \S 2.1 -- Seven Tenets Mapping}{55}{subsection.3.14.2}%
-\contentsline {section}{\numberline {3.15}Abuse Story Regression}{57}{section.3.15}%
-\contentsline {subsection}{\numberline {3.15.1}Regression Evidence}{58}{subsection.3.15.1}%
-\contentsline {subsection}{\numberline {3.15.2}Regression Summary}{67}{subsection.3.15.2}%
-\contentsline {section}{\numberline {3.16}SAST Re-Assessment}{67}{section.3.16}%
-\contentsline {subsection}{\numberline {3.16.1}Part 1 Baseline}{67}{subsection.3.16.1}%
-\contentsline {subsection}{\numberline {3.16.2}Part 2 Results}{68}{subsection.3.16.2}%
-\contentsline {section}{\numberline {3.17}DAST Re-Assessment}{68}{section.3.17}%
-\contentsline {subsection}{\numberline {3.17.1}Scan Configuration}{69}{subsection.3.17.1}%
-\contentsline {subsection}{\numberline {3.17.2}Part 1 Baseline}{69}{subsection.3.17.2}%
-\contentsline {subsection}{\numberline {3.17.3}Part 2 Results}{70}{subsection.3.17.3}%
-\contentsline {subsection}{\numberline {3.17.4}WAF vs No WAF (Nightly)}{71}{subsection.3.17.4}%
-\contentsline {section}{\numberline {3.18}Future Work}{72}{section.3.18}%
->>>>>>> refs/remotes/origin/master
-\contentsline {section}{\numberline {3.19}Conclusion}{73}{section.3.19}%
+\contentsline {subsection}{\numberline {3.15.2}Regression Summary}{69}{subsection.3.15.2}%
+\contentsline {section}{\numberline {3.16}SAST Re-Assessment}{69}{section.3.16}%
+\contentsline {subsection}{\numberline {3.16.1}Part 1 Baseline}{69}{subsection.3.16.1}%
+\contentsline {subsection}{\numberline {3.16.2}Part 2 Results}{70}{subsection.3.16.2}%
+\contentsline {section}{\numberline {3.17}DAST Re-Assessment}{70}{section.3.17}%
+\contentsline {subsection}{\numberline {3.17.1}Scan Configuration}{71}{subsection.3.17.1}%
+\contentsline {subsection}{\numberline {3.17.2}Part 1 Baseline}{71}{subsection.3.17.2}%
+\contentsline {subsection}{\numberline {3.17.3}Part 2 Results}{72}{subsection.3.17.3}%
+\contentsline {subsection}{\numberline {3.17.4}WAF vs No WAF (Nightly)}{73}{subsection.3.17.4}%
+\contentsline {section}{\numberline {3.18}Future Work}{74}{section.3.18}%
+\contentsline {section}{\numberline {3.19}Conclusion}{75}{section.3.19}%
