@@ -1262,10 +1262,11 @@ I-05 & Dev server in production container & \textbf{\textcolor{sevlow}{Mitigated
 
 I-06 & Backend port directly accessible & \textbf{\textcolor{sevlow}{Mitigated}} &
   Backend container has no published host ports in production. All traffic must enter
-  through the WAF (\texttt{waf:8080}). \\[6pt]
+  through the WAF (\texttt{waf:8080}). PostgreSQL likewise has no host-published port;
+  the database is reachable only on the internal Docker network by the backend service. \\[6pt]
 
 D-01 & No rate limiting & \textbf{\textcolor{sevlow}{Mitigated}} &
-  Dual-layer: Nginx \texttt{limit\_req\_zone} (30 req/s sustained with burst 60 per IP)
+  Dual-layer: Nginx \texttt{limit\_req\_zone} (30 req/s sustained, burst 60 nodelay per IP)
   at the perimeter; Spring \texttt{RateLimitFilter} (100 req/min per IP) at the
   application layer. \\[6pt]
 
@@ -1510,14 +1511,13 @@ Object-level access control operates at two layers.
 \texttt{@PreAuthorize}. An unauthenticated or insufficiently privileged request is
 rejected with 401 or 403 before reaching the service.
 
-\textbf{Record-level:} the \texttt{Appointment} entity carries a \texttt{doctorSub}
-field -- the JWT \texttt{sub} of the assigned doctor. When the caller holds the
-\texttt{DOCTOR} role, the service layer applies an additional filter: only appointments
-where \texttt{doctorSub} equals the caller's own \texttt{sub} are returned or accepted
-for update. Patients are similarly restricted to those linked via at least one such
-appointment. A \texttt{DOCTOR} who requests a resource not assigned to them receives
-HTTP 404 (same as a non-existent resource), avoiding information leakage about other
-records. \texttt{ADMIN} and \texttt{RECEPTIONIST} roles are not subject to this filter.
+\textbf{Record-level:} three role-specific filters are enforced server-side in the service layer:
+
+\begin{itemize}
+  \item \textbf{ADMIN} -- unrestricted access to all records; every mutating operation (CREATE, UPDATE, DELETE) is written to the \texttt{audit\_logs} table with the actor's JWT \texttt{sub}, resource type, resource ID, and timestamp.
+  \item \textbf{DOCTOR} -- the \texttt{Appointment} entity carries a \texttt{doctorSub} field (the JWT \texttt{sub} of the assigned doctor). The filter \texttt{doctorSub == JWT sub} is applied server-side, never client-side; the caller cannot bypass it by omitting or spoofing the field. Only appointments matching the caller's own \texttt{sub} are returned or accepted for update, and patients are restricted to those linked via at least one such appointment. Accessing a record not assigned to the caller returns HTTP 404, indistinguishable from a non-existent resource.
+  \item \textbf{RECEPTIONIST} -- read access to all records. Write and delete operations on appointments are restricted to records where \texttt{createdBy} equals the caller's JWT \texttt{sub}, preventing modification of appointments created by other staff.
+\end{itemize}
 
 \subsection{Role-Based UI}
 
@@ -1572,21 +1572,19 @@ commit on the \texttt{develop} branch.
 
 API1 & BOLA & No per-object ownership check; any caller can read or modify any record by ID. &
 \texttt{@PreAuthorize} on every endpoint enforces route-level access. Object-level ownership
-is enforced in the service layer: a \texttt{DOCTOR} sees only appointments where
-\texttt{doctorSub} matches their JWT \texttt{sub}, and only patients linked through those
-appointments. Attempting to access another user's record returns 404. \\[6pt]
+is enforced server-side in the service layer per role: \texttt{DOCTOR} -- \texttt{doctorSub == JWT sub} filter is applied server-forced (not client-controlled), returning 404 for unowned records; \texttt{RECEPTIONIST} -- write/delete on appointments restricted to \texttt{createdBy == JWT sub}; \texttt{ADMIN} -- unrestricted access with full audit trail. \\[6pt]
 
 API3 & BOPLA & Controllers bound JPA entities directly; any JSON field was writable. &
 \texttt{PatientRequestDTO} and \texttt{AppointmentRequestDTO} constrain the accepted surface. \texttt{@Valid} with Bean Validation (\texttt{@NotBlank}, \texttt{@NotNull}, \texttt{@Past}, \texttt{@Email}, \texttt{@Pattern}) rejects malformed input before the service layer. \\[6pt]
 
 API4 & Resource Consumption & No rate limiting; no request-size limits; unbounded full-table scans possible. &
-\texttt{RateLimitFilter} (token-bucket, 60\,req/min per IP) on all \texttt{/api/**} routes. Request-size limits set to 1\,MB via Tomcat (\texttt{max-http-form-post-size}) and Spring multipart (\texttt{max-request-size}, \texttt{max-file-size}). \\[6pt]
+\texttt{RateLimitFilter} (token-bucket, 100\,req/min per IP) on all \texttt{/api/**} routes. Request-size limits set to 1\,MB via Tomcat (\texttt{max-http-form-post-size}) and Spring multipart (\texttt{max-request-size}, \texttt{max-file-size}). \\[6pt]
 
 API5 & Function-Level Auth & All endpoints accessible to any unauthenticated caller; no deny-by-default. &
 \texttt{SecurityConfig} uses \texttt{anyRequest().\allowbreak denyAll()} as the catch-all. All \texttt{/api/**} requires authentication. No route is reachable without a valid JWT. \\[6pt]
 
 API8 & Security Misconfiguration & No security headers; no CSRF/frame protection; stack traces in error responses. &
-\texttt{SecurityConfig} configures HSTS, \texttt{X-Frame-Options: DENY}, \texttt{X-Content-Type-Options}, and \texttt{Content-Security-Policy: default-src 'none'}. Form login and HTTP Basic are disabled. \\[6pt]
+\texttt{SecurityConfig} configures HSTS, \texttt{X-Frame-Options: DENY}, \texttt{X-Content-Type-Options}, and \texttt{Content-Security-Policy: default-src 'none'}. Form login and HTTP Basic are disabled. Secure cookie flags (\texttt{Secure}, \texttt{HttpOnly}, \texttt{SameSite}) are not applicable: the API is fully stateless and uses Bearer tokens only -- no session or authentication cookies are issued at any point. \\[6pt]
 
 API9 & Improper Inventory & No API documentation or endpoint inventory. &
 \texttt{springdoc-openapi} generates an OpenAPI\,3 spec at \texttt{/v3/api-docs}; Swagger UI at \texttt{/swagger-ui.html}. Both are \texttt{permitAll()}. All endpoints annotated with \texttt{@Operation} and \texttt{@Tag}. \\
@@ -1620,7 +1618,7 @@ Inbound threshold   & 5 (anomaly score to block a request) \\
 Outbound threshold  & 4 \\
 TLS termination     & Self-signed certificate via \texttt{mkcert}; HTTPS on port 443 \\
 Request body limit  & 1\,MB (\texttt{SecRequestBodyLimit 1048576}); excess is rejected \\
-IP rate limiting    & Nginx \texttt{limit\_req\_zone} -- 30 req/s sustained, burst 60 per IP \\
+IP rate limiting    & Nginx \texttt{limit\_req\_zone} -- 30 req/s sustained, burst 60 nodelay per IP \\
 Audit logging       & \texttt{SecAuditEngine RelevantOnly} -- logs 4xx/5xx events \\
 \bottomrule
 \end{tabularx}
@@ -1657,6 +1655,13 @@ attack surface widened by each exclusion.
 \subsection{NIST SP 800-207 Components}
 
 The resulting architecture is framed below using the Zero Trust terminology from NIST SP 800-207.
+
+\begin{figure}[H]
+  \centering
+  \makebox[\textwidth][c]{\includegraphics[width=1.25\textwidth]{arch.png}}
+  \caption{Zero Trust Architecture -- component and data-flow overview}
+  \label{fig:zta-arch}
+\end{figure}
 
 \begin{table}[H]
 \centering
@@ -1810,7 +1815,7 @@ AS-07 & Perform Undetectable Actions &
 AS-08 & Overload the API with Repeated Requests &
   \textbf{\textcolor{sevlow}{Prevented}} &
   Two independent rate-limiting layers are in place: (1) Nginx \texttt{limit\_req\_zone}
-  enforces 30 req/s sustained with burst 60 per IP at the perimeter; (2) Spring
+  enforces 30 req/s sustained, burst 60 nodelay per IP at the perimeter; (2) Spring
   \texttt{RateLimitFilter} enforces 100 req/min per IP inside the application. ModSecurity CRS
   request-body limits (1\,MB) further constrain large-payload abuse. A highly distributed
   multi-IP attack remains a theoretical residual risk but is significantly harder with dual
@@ -1993,7 +1998,7 @@ Admin query endpoint        & \texttt{GET /api/audit-logs} accessible to ADMIN r
 Rate limiting           & \texttt{RateLimitFilter} -- 100 req/min per IP enforced at application layer; HTTP 429 + \texttt{Retry-After: 60} \\
 POST flood blocked      & \texttt{POST /api/appointments} requires JWT + RECEPTIONIST/ADMIN role -- anonymous flood returns 401 \\
 Request size limits     & \texttt{server.tomcat.max-http-form-post-size=1MB} -- oversized payloads rejected \\
-Perimeter rate limiting & Nginx \texttt{limit\_req\_zone} enforces 30 req/s sustained with burst 60 per IP at the WAF perimeter \\
+Perimeter rate limiting & Nginx \texttt{limit\_req\_zone} enforces 30 req/s sustained, burst 60 nodelay per IP at the WAF perimeter \\
 ModSecurity CRS         & Request-body limits (1\,MB) enforced at perimeter; malformed request floods blocked by CRS rules \\
 \bottomrule
 \end{tabularx}

@@ -69,6 +69,7 @@
 \contentsline {subsection}{\numberline {3.11.2}Permissions as Data}{51}{subsection.3.11.2}%
 \contentsline {subsection}{\numberline {3.11.3}Object-Level Authorization (BOLA)}{52}{subsection.3.11.3}%
 \contentsline {subsection}{\numberline {3.11.4}Role-Based UI}{52}{subsection.3.11.4}%
+<<<<<<< HEAD
 \contentsline {subsection}{\numberline {3.11.5}Unit Tests}{52}{subsection.3.11.5}%
 \contentsline {section}{\numberline {3.12}API Hardening -- OWASP API Top 10 (2023)}{53}{section.3.12}%
 \contentsline {section}{\numberline {3.13}Perimeter Defense}{54}{section.3.13}%
@@ -90,3 +91,26 @@
 \contentsline {subsection}{\numberline {3.17.4}WAF vs No WAF (Nightly)}{72}{subsection.3.17.4}%
 \contentsline {section}{\numberline {3.18}Future Work}{74}{section.3.18}%
 \contentsline {section}{\numberline {3.19}Conclusion}{74}{section.3.19}%
+=======
+\contentsline {subsection}{\numberline {3.11.5}Unit Tests}{53}{subsection.3.11.5}%
+\contentsline {section}{\numberline {3.12}API Hardening -- OWASP API Top 10 (2023)}{53}{section.3.12}%
+\contentsline {section}{\numberline {3.13}Perimeter Defense}{55}{section.3.13}%
+\contentsline {subsection}{\numberline {3.13.1}Nginx + ModSecurity CRS}{55}{subsection.3.13.1}%
+\contentsline {subsection}{\numberline {3.13.2}CRS Tuning and False Positives}{55}{subsection.3.13.2}%
+\contentsline {section}{\numberline {3.14}Zero Trust Architecture Framing}{56}{section.3.14}%
+\contentsline {subsection}{\numberline {3.14.1}NIST SP 800-207 Components}{56}{subsection.3.14.1}%
+\contentsline {subsection}{\numberline {3.14.2}NIST SP 800-207 \S 2.1 -- Seven Tenets Mapping}{57}{subsection.3.14.2}%
+\contentsline {section}{\numberline {3.15}Abuse Story Regression}{59}{section.3.15}%
+\contentsline {subsection}{\numberline {3.15.1}Regression Evidence}{61}{subsection.3.15.1}%
+\contentsline {subsection}{\numberline {3.15.2}Regression Summary}{70}{subsection.3.15.2}%
+\contentsline {section}{\numberline {3.16}SAST Re-Assessment}{70}{section.3.16}%
+\contentsline {subsection}{\numberline {3.16.1}Part 1 Baseline}{70}{subsection.3.16.1}%
+\contentsline {subsection}{\numberline {3.16.2}Part 2 Results}{71}{subsection.3.16.2}%
+\contentsline {section}{\numberline {3.17}DAST Re-Assessment}{71}{section.3.17}%
+\contentsline {subsection}{\numberline {3.17.1}Scan Configuration}{72}{subsection.3.17.1}%
+\contentsline {subsection}{\numberline {3.17.2}Part 1 Baseline}{72}{subsection.3.17.2}%
+\contentsline {subsection}{\numberline {3.17.3}Part 2 Results}{73}{subsection.3.17.3}%
+\contentsline {subsection}{\numberline {3.17.4}WAF vs No WAF (Nightly)}{74}{subsection.3.17.4}%
+\contentsline {section}{\numberline {3.18}Future Work}{75}{section.3.18}%
+\contentsline {section}{\numberline {3.19}Conclusion}{76}{section.3.19}%
+>>>>>>> refs/remotes/origin/master
