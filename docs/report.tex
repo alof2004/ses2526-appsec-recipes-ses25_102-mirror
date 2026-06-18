@@ -1265,8 +1265,9 @@ I-06 & Backend port directly accessible & \textbf{\textcolor{sevlow}{Mitigated}}
   through the WAF (\texttt{waf:8080}). \\[6pt]
 
 D-01 & No rate limiting & \textbf{\textcolor{sevlow}{Mitigated}} &
-  Dual-layer: Nginx \texttt{limit\_req\_zone} (30 req/s per IP) at the perimeter;
-  Spring \texttt{RateLimitFilter} (60 req/min per IP) at the application layer. \\[6pt]
+  Dual-layer: Nginx \texttt{limit\_req\_zone} (30 req/s sustained with burst 60 per IP)
+  at the perimeter; Spring \texttt{RateLimitFilter} (100 req/min per IP) at the
+  application layer. \\[6pt]
 
 D-02 & Unbounded GET responses & \textbf{\textcolor{sevmedium}{Partial}} &
   Rate limiting constrains bulk harvesting. Full pagination not yet implemented. \\[6pt]
@@ -1619,7 +1620,7 @@ Inbound threshold   & 5 (anomaly score to block a request) \\
 Outbound threshold  & 4 \\
 TLS termination     & Self-signed certificate via \texttt{mkcert}; HTTPS on port 443 \\
 Request body limit  & 1\,MB (\texttt{SecRequestBodyLimit 1048576}); excess is rejected \\
-IP rate limiting    & Nginx \texttt{limit\_req\_zone} -- 30 req/s burst, 10 req/s sustained per IP \\
+IP rate limiting    & Nginx \texttt{limit\_req\_zone} -- 30 req/s sustained, burst 60 per IP \\
 Audit logging       & \texttt{SecAuditEngine RelevantOnly} -- logs 4xx/5xx events \\
 \bottomrule
 \end{tabularx}
@@ -1809,8 +1810,8 @@ AS-07 & Perform Undetectable Actions &
 AS-08 & Overload the API with Repeated Requests &
   \textbf{\textcolor{sevlow}{Prevented}} &
   Two independent rate-limiting layers are in place: (1) Nginx \texttt{limit\_req\_zone}
-  enforces 30 req/s burst / 10 req/s sustained per IP at the perimeter; (2) Spring
-  \texttt{RateLimitFilter} enforces 60 req/min per IP inside the application. ModSecurity CRS
+  enforces 30 req/s sustained with burst 60 per IP at the perimeter; (2) Spring
+  \texttt{RateLimitFilter} enforces 100 req/min per IP inside the application. ModSecurity CRS
   request-body limits (1\,MB) further constrain large-payload abuse. A highly distributed
   multi-IP attack remains a theoretical residual risk but is significantly harder with dual
   perimeter + application throttling. \\
@@ -1904,12 +1905,11 @@ Enumeration throttled    & Even authenticated bulk scans are throttled; bursts b
 \toprule
 \textbf{Control} & \textbf{Implementation detail} \\
 \midrule
-JWT authentication          & \texttt{PUT /api/appointments/\{id\}} and \texttt{PUT /api/patients/\{id\}} now require a valid Keycloak Bearer token \\
-RBAC enforced               & \texttt{@PreAuthorize} -- UPDATE on appointments requires RECEPTIONIST or ADMIN role; UPDATE on patients requires DOCTOR or ADMIN \\
-AppointmentRequestDTO       & Accepts only \texttt{dateTime}, \texttt{specialty}, \texttt{status} -- no patient field in body \\
-Mass-assignment blocked     & \texttt{spring.jackson.deserialization.fail-on-unknown-properties=true} rejects extra fields \\
-Patient rebinding prevented & DTO has no patient field -- the service \texttt{update()} patient branch is structurally unreachable \\
-Input validation            & \texttt{@NotBlank}, \texttt{@NotNull} on all DTO fields -- invalid payloads return 400 with field errors \\
+JWT authentication       & Appointment metadata queries now require a valid Keycloak Bearer token; anonymous inference attempts return 401 \\
+RBAC enforced            & \texttt{@PreAuthorize("@perms.canAnyRole(authentication, 'appointments', 'READ')")} limits access to authorised clinic roles \\
+Doctor scoping           & Doctors only receive appointments linked to their own \texttt{doctorSub}, preventing cross-patient metadata browsing \\
+Search access constrained & Query filters such as patient name, specialty and status are only available after authentication and role validation \\
+Rate limiting            & Repeated metadata probing is throttled by the application and perimeter rate limits \\
 \bottomrule
 \end{tabularx}
 \end{table}
@@ -1928,10 +1928,12 @@ Input validation            & \texttt{@NotBlank}, \texttt{@NotNull} on all DTO f
 \toprule
 \textbf{Control} & \textbf{Implementation detail} \\
 \midrule
-JWT authentication            & \texttt{DELETE /api/patients/\{id\}} now requires a valid Keycloak Bearer token; unauthenticated callers receive 401 \\
-RBAC -- ADMIN only            & \texttt{@PreAuthorize("@perms.canAnyRole(authentication, 'patients', 'DELETE')")} -- only ADMIN role has DELETE permission per \texttt{application.yml} \\
-DOCTOR / RECEPTIONIST blocked & Non-admin authenticated users receive 403 Forbidden on DELETE -- role matrix enforced \\
-Rate limiting                 & \texttt{RateLimitFilter} -- 100 req/min per IP; bulk delete loops are throttled even for ADMIN \\
+JWT authentication          & \texttt{PUT /api/appointments/\{id\}} and \texttt{PUT /api/patients/\{id\}} now require a valid Keycloak Bearer token \\
+RBAC enforced               & \texttt{@PreAuthorize} -- UPDATE on appointments requires RECEPTIONIST or ADMIN role; UPDATE on patients requires DOCTOR or ADMIN \\
+AppointmentRequestDTO       & Accepts only \texttt{dateTime}, \texttt{specialty}, \texttt{status} and \texttt{doctorSub}; no patient object is accepted in the body \\
+Mass-assignment blocked     & \texttt{spring.jackson.deserialization.fail-on-unknown-properties=true} rejects extra fields \\
+Patient rebinding prevented & DTO has no patient field, so the original nested \texttt{\{"patient":\{"id":X\}\}} reassignment path is no longer reachable \\
+Input validation            & \texttt{@NotBlank}, \texttt{@NotNull} on DTO fields -- invalid payloads return 400 with field errors \\
 \bottomrule
 \end{tabularx}
 \end{table}
@@ -1950,12 +1952,11 @@ Rate limiting                 & \texttt{RateLimitFilter} -- 100 req/min per IP; 
 \toprule
 \textbf{Control} & \textbf{Implementation detail} \\
 \midrule
-JWT authentication           & Every \texttt{/api/**} request now carries a verified Keycloak identity (\texttt{sub}, \texttt{preferred\_username}, roles) \\
-Identity extraction          & \texttt{JwtRoleConverter} maps \texttt{realm\_access.roles} to \texttt{ROLE\_*} authorities; \texttt{sub} claim identifies the actor \\
-Spring Security filter chain & All requests pass through the security layer -- the prerequisite for attribution is now in place \\
-Unauthenticated actions blocked & Anonymous requests return 401 -- the anonymous attacker profile from C1 is eliminated \\
-\midrule
-\multicolumn{2}{p{\linewidth}}{\textit{Residual risk: no structured audit log has been implemented. Authenticated actions are attributable to a JWT subject, but no interceptor writes a change record to a persistent store. Full resolution requires a structured access/audit log (Spring AOP interceptor or database trigger).}} \\
+JWT authentication            & \texttt{DELETE /api/patients/\{id\}} now requires a valid Keycloak Bearer token; unauthenticated callers receive 401 \\
+RBAC -- ADMIN only            & \texttt{@PreAuthorize("@perms.canAnyRole(authentication, 'patients', 'DELETE')")} -- only ADMIN role has DELETE permission per \texttt{application.yml} \\
+DOCTOR / RECEPTIONIST blocked & Non-admin authenticated users receive 403 Forbidden on patient deletion -- role matrix enforced \\
+Soft-delete implemented       & \texttt{Patient} and \texttt{Appointment} carry \texttt{deletedAt}; deletion marks records instead of issuing a physical SQL delete \\
+Cascade destruction removed   & Patient deletion marks related appointments as deleted, preserving recoverable history rather than permanently wiping rows \\
 \bottomrule
 \end{tabularx}
 \end{table}
@@ -1996,10 +1997,10 @@ Admin query endpoint        & \texttt{GET /api/audit-logs} accessible to ADMIN r
 \toprule
 \textbf{Control} & \textbf{Implementation detail} \\
 \midrule
-Rate limiting           & \texttt{RateLimitFilter} -- 60 req/min per IP enforced at application layer; HTTP 429 + \texttt{Retry-After: 60} \\
+Rate limiting           & \texttt{RateLimitFilter} -- 100 req/min per IP enforced at application layer; HTTP 429 + \texttt{Retry-After: 60} \\
 POST flood blocked      & \texttt{POST /api/appointments} requires JWT + RECEPTIONIST/ADMIN role -- anonymous flood returns 401 \\
 Request size limits     & \texttt{server.tomcat.max-http-form-post-size=1MB} -- oversized payloads rejected \\
-Perimeter rate limiting & Nginx \texttt{limit\_req\_zone} enforces 30 req/s burst / 10 req/s sustained per IP at the WAF perimeter \\
+Perimeter rate limiting & Nginx \texttt{limit\_req\_zone} enforces 30 req/s sustained with burst 60 per IP at the WAF perimeter \\
 ModSecurity CRS         & Request-body limits (1\,MB) enforced at perimeter; malformed request floods blocked by CRS rules \\
 \bottomrule
 \end{tabularx}
